@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>4a519fb7-904f-4858-89ad-b68a592a2e66</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>SnowConeTycoon.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\BackgroundRainy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\BackgroundPartlyCloudy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\BackgroundSunny.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\BackgroundCloudy.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Effects\Components\IBackgroundEffectComponent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Effects\Components\Raindrop.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Effects\IBackgroundEffect.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Effects\Rain.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\IBackground.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Enums.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Forms\Button.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Forms\Form.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Forms\IFormControl.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\ContentHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Handlers\KidHandler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kids\IKid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kids\Kid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScreenTransitions\FadeTransition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ScreenTransitions\IScreenTransition.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)SnowConeTycoonGame.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\Defaults.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\TimedEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utils\Utilities.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)audio.txt" />
+  </ItemGroup>
+</Project>

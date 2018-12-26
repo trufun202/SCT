@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.106
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowConeTycoon.Android", "SnowConeTycoon.Android\SnowConeTycoon.Android.csproj", "{1C9214E1-F93C-4D9C-BE90-BFDA9F5F0F4A}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SnowConeTycoon.Shared", "SnowConeTycoon.Shared\SnowConeTycoon.Shared.shproj", "{A0CDBD0E-3A41-42B7-9425-A838BC2C7383}"
+EndProject
+Global
+	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		SnowConeTycoon.Shared\SnowConeTycoon.Shared.projitems*{1c9214e1-f93c-4d9c-be90-bfda9f5f0f4a}*SharedItemsImports = 4
+		SnowConeTycoon.Shared\SnowConeTycoon.Shared.projitems*{a0cdbd0e-3a41-42b7-9425-a838bc2c7383}*SharedItemsImports = 13
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1C9214E1-F93C-4D9C-BE90-BFDA9F5F0F4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1C9214E1-F93C-4D9C-BE90-BFDA9F5F0F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1C9214E1-F93C-4D9C-BE90-BFDA9F5F0F4A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1C9214E1-F93C-4D9C-BE90-BFDA9F5F0F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1C9214E1-F93C-4D9C-BE90-BFDA9F5F0F4A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1C9214E1-F93C-4D9C-BE90-BFDA9F5F0F4A}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {89B48B94-E988-476E-BD20-6986531DD71A}
+	EndGlobalSection
+EndGlobal
