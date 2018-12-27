@@ -74,6 +74,7 @@ namespace SnowConeTycoon.Shared
         {
             ScreenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             ScreenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+
             graphics.PreferredBackBufferHeight = ScreenHeight;
             graphics.PreferredBackBufferWidth = ScreenWidth;
 
@@ -212,8 +213,8 @@ namespace SnowConeTycoon.Shared
             BackgroundEffects.Add("rain", new Rain(100));
             CurrentBackgroundEffect = BackgroundEffects["rain"];
 
-            MediaPlayer.Play(ContentHandler.Songs["Song1"]);
-            MediaPlayer.IsRepeating = true;
+           //MediaPlayer.Play(ContentHandler.Songs["Song1"]);
+           //MediaPlayer.IsRepeating = true;
         }
 
         /// <summar>(""));
