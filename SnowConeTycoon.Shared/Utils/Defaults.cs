@@ -1,5 +1,6 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace SnowConeTycoon.Shared.Utils
 {
@@ -8,6 +9,7 @@ namespace SnowConeTycoon.Shared.Utils
         public static bool DebugMode = false;
         public static int GraphicsWidth = 1536;
         public static int GraphicsHeight = 2732;
+        public static SpriteFont Font;
 
         public static Color SkyBlue
         {

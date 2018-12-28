@@ -32,6 +32,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\Defaults.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\TimedEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\Utilities.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\DaySetupScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Forms\NumberPicker.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\ScaledImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
@@ -42,5 +45,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="$(MSBuildThisFileDirectory)audio.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Screens\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Animations\" />
   </ItemGroup>
 </Project>

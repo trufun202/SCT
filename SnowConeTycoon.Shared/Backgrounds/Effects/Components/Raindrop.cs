@@ -29,7 +29,7 @@ namespace SnowConeTycoon.Shared.Backgrounds.Effects.Components
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(ContentHandler.Images["WhiteDot"], new Rectangle((int)Position.X, (int)Position.Y, 2, 8), Color.White);
+            spriteBatch.Draw(ContentHandler.Images["WhiteDot"], new Rectangle((int)Position.X, (int)Position.Y, 4, 32), Color.White);
         }
 
         public void Update(GameTime gameTime)

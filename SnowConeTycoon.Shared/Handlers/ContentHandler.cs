@@ -93,6 +93,25 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("Symbol_Female", content.Load<Texture2D>("Symbol_Female"));
 
             ///////////////////////////////////////////
+            //DAY SETUP
+            ///////////////////////////////////////////
+            Images.Add("DaySetup_DayLabel", content.Load<Texture2D>("DaySetup_DayLabel"));
+            Images.Add("DaySetup_ForecastLabel", content.Load<Texture2D>("DaySetup_ForecastLabel"));
+            Images.Add("DaySetup_IconFlavor", content.Load<Texture2D>("DaySetup_IconFlavor"));
+            Images.Add("DaySetup_IconFlyer", content.Load<Texture2D>("DaySetup_IconFlyer"));
+            Images.Add("DaySetup_IconPrice", content.Load<Texture2D>("DaySetup_IconPrice"));
+            Images.Add("DaySetup_InvCoins", content.Load<Texture2D>("DaySetup_InvCoins"));
+            Images.Add("DaySetup_InvCones", content.Load<Texture2D>("DaySetup_InvCones"));
+            Images.Add("DaySetup_Inventory", content.Load<Texture2D>("DaySetup_Inventory"));
+            Images.Add("DaySetup_InvIce", content.Load<Texture2D>("DaySetup_InvIce"));
+            Images.Add("DaySetup_InvSyrup", content.Load<Texture2D>("DaySetup_InvSyrup"));
+            Images.Add("DaySetup_LetsGo", content.Load<Texture2D>("DaySetup_LetsGo"));
+            Images.Add("DaySetup_NumControl", content.Load<Texture2D>("DaySetup_NumControl"));
+            Images.Add("DaySetup_Paper", content.Load<Texture2D>("DaySetup_Paper"));
+            Images.Add("DaySetup_Plus", content.Load<Texture2D>("DaySetup_Plus"));
+            Images.Add("DaySetup_WatchAd", content.Load<Texture2D>("DaySetup_WatchAd"));
+
+            ///////////////////////////////////////////
             //SOUNDS
             ///////////////////////////////////////////
             Sounds.Add("pop", content.Load<SoundEffect>("pop"));

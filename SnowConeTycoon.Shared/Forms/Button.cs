@@ -11,15 +11,17 @@ namespace SnowConeTycoon.Shared.Forms
     {
         public delegate bool OnTappedMethod();
 
-        private Rectangle Bounds;
+        public Rectangle Bounds { get; set; }
         private Rectangle TrueBounds;
         private OnTappedMethod Method;
         private string Sound;
         private Microsoft.Xna.Framework.Rectangle rectangle;
         private Color DebugColor = Utilities.GetRandomColor();
+        public bool Visible { get; set; }
 
         public Button(Rectangle bounds, OnTappedMethod method, string onTappedSound, double scaleX, double scaleY)
         {
+            Visible = true;
             TrueBounds = bounds;
             Bounds = new Rectangle((int)(bounds.X * scaleX), (int)(bounds.Y * scaleY), (int)(bounds.Width * scaleX), (int)(bounds.Height * scaleY));
             Method = method;
@@ -33,16 +35,19 @@ namespace SnowConeTycoon.Shared.Forms
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
         {
-            if (currentTouchCollection.Count > 0)
+            if (Visible)
             {
-                if ((currentTouchCollection[0].State == TouchLocationState.Moved || currentTouchCollection[0].State == TouchLocationState.Pressed)
-                    && (previousTouchCollection.Count == 0))
+                if (currentTouchCollection.Count > 0)
                 {
-                    if (Bounds.Contains((int)currentTouchCollection[0].Position.X, (int)currentTouchCollection[0].Position.Y))
+                    if ((currentTouchCollection[0].State == TouchLocationState.Moved || currentTouchCollection[0].State == TouchLocationState.Pressed)
+                        && (previousTouchCollection.Count == 0))
                     {
-                        if (Method.Invoke() && !string.IsNullOrWhiteSpace(Sound))
+                        if (Bounds.Contains((int)currentTouchCollection[0].Position.X, (int)currentTouchCollection[0].Position.Y))
                         {
-                            ContentHandler.Sounds[Sound].Play();
+                            if (Method.Invoke() && !string.IsNullOrWhiteSpace(Sound))
+                            {
+                                ContentHandler.Sounds[Sound].Play();
+                            }
                         }
                     }
                 }

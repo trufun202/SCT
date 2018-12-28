@@ -83,6 +83,11 @@
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <MonoGameContentReference Include="..\SnowConeTycoon.Shared\Content\Content_ios.mgcb">
+      <Link>Content\Content_ios.mgcb</Link>
+    </MonoGameContentReference>
+  </ItemGroup>
   <Import Project="..\SnowConeTycoon.Shared\SnowConeTycoon.Shared.projitems" Label="Shared" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />

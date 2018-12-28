@@ -9,6 +9,8 @@ namespace SnowConeTycoon.Shared.Forms
 {
     public interface IFormControl
     {
+        Rectangle Bounds { get; set; }
+        bool Visible { get; set; }
         void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection);
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);

@@ -7,7 +7,8 @@ namespace SnowConeTycoon.Shared.Enums
     public enum Screen
     {
         Title,
-        CharacterSelect
+        CharacterSelect,
+        DaySetup
     }
 
     public enum KidState
@@ -15,5 +16,14 @@ namespace SnowConeTycoon.Shared.Enums
         Happy,
         Mad,
         Sad
+    }
+
+    public enum Forecast
+    {
+        Sunny,
+        Cloudy,
+        PartlyCloudy,
+        Rain,
+        Snow
     }
 }
