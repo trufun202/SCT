@@ -49,7 +49,7 @@ namespace SnowConeTycoon.Shared.Kids
             }, true);
         }
 
-        public void Draw(SpriteBatch spriteBatch, int x, int y)
+        public void Draw(SpriteBatch spriteBatch, int x, int y, bool facingAway)
         {
             Color color = Color.White;
 
@@ -58,7 +58,15 @@ namespace SnowConeTycoon.Shared.Kids
                 color = Color.Black;
             }
 
-            spriteBatch.Draw(Image, new Rectangle(x, y, Size, Size), color);
+            var effect = SpriteEffects.None;
+
+            if (facingAway)
+            {
+                color = Color.Black;
+                effect = SpriteEffects.FlipHorizontally;
+            }
+
+            spriteBatch.Draw(Image, new Rectangle(x, y, Size, Size), null, color, 0f, Vector2.Zero, effect, 1f);
 
             if (!IsBlinking)
             {

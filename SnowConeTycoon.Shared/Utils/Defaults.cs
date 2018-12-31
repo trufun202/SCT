@@ -6,7 +6,7 @@ namespace SnowConeTycoon.Shared.Utils
 {
     public static class Defaults
     {
-        public static bool DebugMode = false;
+        public static bool DebugMode = true;
         public static int GraphicsWidth = 1536;
         public static int GraphicsHeight = 2732;
         public static SpriteFont Font;

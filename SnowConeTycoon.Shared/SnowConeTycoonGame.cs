@@ -37,8 +37,10 @@ namespace SnowConeTycoon.Shared
         Form FormTitle;
         Form FormCharacterSelect;
         Form FormDaySetup;
+        Form FormOpenForBusiness;
 
         DaySetupScreen DaySetupScreen;
+        OpenForBusinessScreen OpenForBusinessScreen;
                 
         Dictionary<string, IBackground> Backgrounds;
         Dictionary<string, IBackgroundEffect> BackgroundEffects;
@@ -99,6 +101,9 @@ namespace SnowConeTycoon.Shared
             Fade = new FadeTransition(Color.White, null);
 
             FormTitle = new Form(0,0);
+            /////////////////////////
+            //NEW GAME
+            /////////////////////////
             FormTitle.Controls.Add(new Button(new Rectangle(30, 1738, 1485, 205), () =>
             {
                 Fade.Reset(() =>
@@ -109,12 +114,33 @@ namespace SnowConeTycoon.Shared
 
                 return true;
             }, "pop", scaleX, scaleY));
+            /////////////////////////
+            //CHARACTER SELECT
+            /////////////////////////
             FormTitle.Controls.Add(new Button(new Rectangle(30, 1944, 1485, 205), () => 
             {
                 Fade.Reset(() => 
                 {
                     OriginalSelectedKidIndex = SelectedKidIndex;
                     OriginalSelectedKidType = SelectedKidType;
+                    KidHandler.SelectedKidIndex = SelectedKidIndex;
+                    KidHandler.SelectedKidType = SelectedKidType;
+                    CurrentScreen = Screen.CharacterSelect;
+                });
+
+                return true;
+            }, "pop", scaleX, scaleY));
+            /////////////////////////
+            //SETTINGS
+            /////////////////////////
+            FormTitle.Controls.Add(new Button(new Rectangle(1370, 30, 151, 152), () =>
+            {
+                Fade.Reset(() =>
+                {
+                    OriginalSelectedKidIndex = SelectedKidIndex;
+                    OriginalSelectedKidType = SelectedKidType;
+                    KidHandler.SelectedKidIndex = SelectedKidIndex;
+                    KidHandler.SelectedKidType = SelectedKidType;
                     CurrentScreen = Screen.CharacterSelect;
                 });
 
@@ -214,6 +240,18 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
+                    DaySetupScreen.Reset();
+                    CurrentScreen = Screen.OpenForBusiness;
+                });
+
+                return true;
+            }, "pop", scaleX, scaleY));
+
+            FormOpenForBusiness = new Form(0, 0);
+            FormOpenForBusiness.Controls.Add(new Button(new Rectangle(1370, 30, 151, 152), () =>
+            {
+                Fade.Reset(() =>
+                {
                     CurrentScreen = Screen.Title;
                 });
 
@@ -251,6 +289,7 @@ namespace SnowConeTycoon.Shared
             //CurrentBackgroundEffect = BackgroundEffects["rain"];
 
             DaySetupScreen = new DaySetupScreen(scaleX, scaleY);
+            OpenForBusinessScreen = new OpenForBusinessScreen(scaleX, scaleY);
 
             XnaMediaPlayer.Play(ContentHandler.Songs["Song1"]);
             XnaMediaPlayer.IsRepeating = true;
@@ -296,6 +335,11 @@ namespace SnowConeTycoon.Shared
                     DaySetupScreen.HandleInput(previousTouchCollection, currentTouchCollection);
                     FormDaySetup.HandleInput(previousTouchCollection, currentTouchCollection);
                 }
+                else if (CurrentScreen == Screen.OpenForBusiness)
+                {
+                    OpenForBusinessScreen.HandleInput(previousTouchCollection, currentTouchCollection);
+                    FormOpenForBusiness.HandleInput(previousTouchCollection, currentTouchCollection);
+                }
 
                 previousTouchCollection = currentTouchCollection;
 
@@ -316,6 +360,14 @@ namespace SnowConeTycoon.Shared
                     CurrentBackgroundEffect?.Update(gameTime);
                     DaySetupScreen.Update(gameTime);
                     FormDaySetup.Update(gameTime);
+                }
+                else if (CurrentScreen == Screen.OpenForBusiness)
+                {
+                    CurrentBackground.Update(gameTime);
+                    CurrentBackgroundEffect?.Update(gameTime);
+                    KidHandler.Update(gameTime);
+                    OpenForBusinessScreen.Update(gameTime);
+                    FormOpenForBusiness.Update(gameTime);
                 }
                 else if (CurrentScreen == Screen.CharacterSelect)
                 {
@@ -387,8 +439,8 @@ namespace SnowConeTycoon.Shared
                 CurrentBackground.Draw(spriteBatch);
                 KidHandler.Draw(spriteBatch, (int)Kid1Position.X, (int)Kid1Position.Y);
                 spriteBatch.Draw(ContentHandler.Images["TitleScreen_Foreground"], new Rectangle(0, 0, 1536, 2732), Color.White);
-
                 FormTitle.Draw(spriteBatch);
+                spriteBatch.Draw(ContentHandler.Images["IconGear"], new Vector2(1380, 40), Color.White);
                 CurrentBackgroundEffect?.Draw(spriteBatch);
             }
             else if (CurrentScreen == Screen.DaySetup)
@@ -421,7 +473,7 @@ namespace SnowConeTycoon.Shared
                     else if (nextKid > 40)
                         nextKid = 1;
 
-                    KidHandler.DrawKid(nextKid, spriteBatch, (int)Kid2Position.X, (int)Kid2Position.Y);
+                    KidHandler.DrawKid(SelectedKidType, nextKid, spriteBatch, (int)Kid2Position.X, (int)Kid2Position.Y);
                 }
 
                 spriteBatch.Draw(ContentHandler.Images["CharacterSelectScreen_Foreground"], new Rectangle(0, 0, 1536, 2732), Color.White);
@@ -432,6 +484,15 @@ namespace SnowConeTycoon.Shared
                 spriteBatch.DrawString(Defaults.Font, KidHandler.CurrentKid.Name, new Vector2(808, 1830), Color.White, 0f, Defaults.Font.MeasureString(KidHandler.CurrentKid.Name) / 2, 1f, SpriteEffects.None, 1f);
 
                 FormCharacterSelect.Draw(spriteBatch);
+                CurrentBackgroundEffect?.Draw(spriteBatch);
+            }
+            else if (CurrentScreen == Screen.OpenForBusiness)
+            {
+                CurrentBackground.Draw(spriteBatch);
+                KidHandler.Draw(spriteBatch, (int)Kid1Position.X, (int)Kid1Position.Y);
+                OpenForBusinessScreen.Draw(spriteBatch);
+                FormOpenForBusiness.Draw(spriteBatch);
+                spriteBatch.Draw(ContentHandler.Images["IconHome"], new Vector2(1380, 40), Color.White);
                 CurrentBackgroundEffect?.Draw(spriteBatch);
             }
 

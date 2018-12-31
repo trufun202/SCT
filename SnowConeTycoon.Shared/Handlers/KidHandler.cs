@@ -111,8 +111,9 @@ namespace SnowConeTycoon.Shared.Handlers
             Girls.Add("Girl40", new Kid("Kayley", "GirlAvatar_40", "Eyes_Open7"));
 
             SelectedKidType = KidType.Girl;
+            SelectKid(KidType.Girl, 1);
             //SelectKid(KidType.Boy, Utilities.GetRandomInt(1, 20));
-            SelectKid(KidType.Girl, Utilities.GetRandomInt(1, 40));
+            //SelectKid(KidType.Girl, Utilities.GetRandomInt(1, 40));
         }
 
         public static void SelectKid(KidType type, int index)
@@ -162,21 +163,23 @@ namespace SnowConeTycoon.Shared.Handlers
             }
         }
 
-        public static void Draw(SpriteBatch spriteBatch, int x, int y)
+        public static void Draw(SpriteBatch spriteBatch, int x, int y, bool facingAway = false)
         {
-            SelectedKids[SelectedKid].Draw(spriteBatch, x, y);
+            SelectedKids[SelectedKid].Draw(spriteBatch, x, y, facingAway);
         }
 
-        public static void DrawKid(int index, SpriteBatch spriteBatch, int x, int y)
+        public static void DrawKid(KidType type, int index, SpriteBatch spriteBatch, int x, int y, bool facingAway = false)
         {
             var kidType = "Boy";
+            var kids = Boys;
             
-            if (SelectedKidType == KidType.Girl)
+            if (type == KidType.Girl)
             {
                 kidType = "Girl";
+                kids = Girls;
             }
 
-            SelectedKids[$"{kidType}{index}"].Draw(spriteBatch, x, y);
+            kids[$"{kidType}{index}"].Draw(spriteBatch, x, y, facingAway);
         }
     }
 }
