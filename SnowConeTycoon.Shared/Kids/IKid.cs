@@ -14,6 +14,6 @@ namespace SnowConeTycoon.Shared.Kids
         void MakeHappy();
         void MakeMad();
         void MakeSad();
-        void Draw(SpriteBatch spriteBatch, int x, int y);        
+        void Draw(SpriteBatch spriteBatch, int x, int y, bool facingAway);        
     }
 }

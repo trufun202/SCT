@@ -8,7 +8,8 @@ namespace SnowConeTycoon.Shared.Enums
     {
         Title,
         CharacterSelect,
-        DaySetup
+        DaySetup,
+        OpenForBusiness
     }
 
     public enum KidState

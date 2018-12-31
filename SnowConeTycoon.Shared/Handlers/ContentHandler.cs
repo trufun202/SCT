@@ -88,9 +88,18 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("debugbox", content.Load<Texture2D>("debugbox"));
             Images.Add("WhiteDot", content.Load<Texture2D>("WhiteDot"));
             Images.Add("ArrowRight", content.Load<Texture2D>("ArrowRight"));
+            Images.Add("ArrowRight2", content.Load<Texture2D>("ArrowRight2"));
             Images.Add("ArrowLeft", content.Load<Texture2D>("ArrowLeft"));
             Images.Add("Symbol_Male", content.Load<Texture2D>("Symbol_Male"));
             Images.Add("Symbol_Female", content.Load<Texture2D>("Symbol_Female"));
+            Images.Add("IconGear", content.Load<Texture2D>("IconGear"));
+            Images.Add("IconHome", content.Load<Texture2D>("IconHome"));
+            Images.Add("IconSnowCone", content.Load<Texture2D>("IconSnowCone"));
+            Images.Add("nps_detractor", content.Load<Texture2D>("nps_detractor"));
+            Images.Add("nps_passive", content.Load<Texture2D>("nps_passive"));
+            Images.Add("nps_promoter", content.Load<Texture2D>("nps_promoter"));
+            Images.Add("ThoughtBubble", content.Load<Texture2D>("ThoughtBubble"));
+            Images.Add("ThoughtCloud", content.Load<Texture2D>("ThoughtCloud"));
 
             ///////////////////////////////////////////
             //DAY SETUP
