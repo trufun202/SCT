@@ -59,6 +59,7 @@ namespace SnowConeTycoon.Shared.Screens
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(ContentHandler.Images["OpenForBusiness_Foreground"], new Vector2(0, 0), Color.White);
             spriteBatch.Draw(ContentHandler.Images["ArrowRight"], new Vector2(100, 600), Color.White);
             spriteBatch.Draw(ContentHandler.Images["ArrowRight2"], new Vector2(1300, 600), Color.White);
             Customer.Draw(spriteBatch);

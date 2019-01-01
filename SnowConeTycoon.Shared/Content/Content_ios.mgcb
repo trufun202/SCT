@@ -1795,6 +1795,18 @@
 /processorParam:TextureFormat=Color
 /build:nps_promoter.png
 
+#begin OpenForBusiness_Foreground.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:OpenForBusiness_Foreground.png
+
 #begin pop.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor

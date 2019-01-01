@@ -100,6 +100,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("nps_promoter", content.Load<Texture2D>("nps_promoter"));
             Images.Add("ThoughtBubble", content.Load<Texture2D>("ThoughtBubble"));
             Images.Add("ThoughtCloud", content.Load<Texture2D>("ThoughtCloud"));
+            Images.Add("OpenForBusiness_Foreground", content.Load<Texture2D>("OpenForBusiness_Foreground"));
 
             ///////////////////////////////////////////
             //DAY SETUP
