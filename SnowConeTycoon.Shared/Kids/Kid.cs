@@ -28,7 +28,8 @@ namespace SnowConeTycoon.Shared.Kids
             Name = name;
             Image = ContentHandler.Images[avatar];
             Eyes = ContentHandler.Images[eyes];
-            MakeHappy();
+            //MakeHappy();
+            MakeMad();
 
             EyeClosingEvent = new TimedEvent(3000, () => { IsBlinking = true; EyeOpeningEvent.Reset(); }, true);
             EyeOpeningEvent = new TimedEvent(150, () => { IsBlinking = false; EyeClosingEvent.Reset(); }, true);
@@ -49,8 +50,13 @@ namespace SnowConeTycoon.Shared.Kids
             }, true);
         }
 
-        public void Draw(SpriteBatch spriteBatch, int x, int y, bool facingAway)
+        public void Draw(SpriteBatch spriteBatch, int x, int y, bool facingAway, int? size)
         {
+            if (!size.HasValue)
+            {
+                size = Size;
+            }
+
             Color color = Color.White;
 
             if (IsLocked)
@@ -66,34 +72,37 @@ namespace SnowConeTycoon.Shared.Kids
                 effect = SpriteEffects.FlipHorizontally;
             }
 
-            spriteBatch.Draw(Image, new Rectangle(x, y, Size, Size), null, color, 0f, Vector2.Zero, effect, 1f);
+            spriteBatch.Draw(Image, new Rectangle(x, y, size.Value, size.Value), null, color, 0f, Vector2.Zero, effect, 1f);
 
             if (!IsBlinking)
             {
-                spriteBatch.Draw(Eyes, new Rectangle(x, y, Size, Size), color);
+                spriteBatch.Draw(Eyes, new Rectangle(x, y, size.Value, size.Value), color);
             }
             else
             {
-                spriteBatch.Draw(ContentHandler.Images["Eyes_Closed1"], new Rectangle(x, y, Size, Size), color);
+                spriteBatch.Draw(ContentHandler.Images["Eyes_Closed1"], new Rectangle(x, y, size.Value, size.Value), color);
             }
 
-            spriteBatch.Draw(Mouth, new Rectangle(x, y, Size, Size), color);
+            spriteBatch.Draw(Mouth, new Rectangle(x, y, size.Value, size.Value), color);
         }
 
         public void MakeHappy()
         {
+            State = KidState.Happy;
             var mouthIndex = Utilities.GetRandomInt(1, 9);
             Mouth = ContentHandler.Images[$"mouth_happy{mouthIndex}"];
         }
 
         public void MakeMad()
         {
+            State = KidState.Mad;
             var mouthIndex = Utilities.GetRandomInt(1, 6);
             Mouth = ContentHandler.Images[$"mouth_mad{mouthIndex}"];
         }
 
         public void MakeSad()
         {
+            State = KidState.Sad;
             var mouthIndex = Utilities.GetRandomInt(1, 8);
             Mouth = ContentHandler.Images[$"mouth_sad{mouthIndex}"];
         }

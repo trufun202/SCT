@@ -30,7 +30,7 @@ namespace SnowConeTycoon.Shared.Handlers
 
             Boys.Add("Boy1", new Kid("Jay", "BoyAvatar_01", "Eyes_Open3"));
             Boys.Add("Boy2", new Kid("Chad", "BoyAvatar_02", "Eyes_Open1"));
-            Boys.Add("Boy3", new Kid("Sam", "BoyAvatar_03", "Eyes_Open2", true));
+            Boys.Add("Boy3", new Kid("Sam", "BoyAvatar_03", "Eyes_Open2", false));
             Boys.Add("Boy4", new Kid("Jake", "BoyAvatar_04", "Eyes_Open4"));
             Boys.Add("Boy5", new Kid("Lucas", "BoyAvatar_05", "Eyes_Open3"));
             Boys.Add("Boy6", new Kid("Chris", "BoyAvatar_06", "Eyes_Open7"));
@@ -165,10 +165,10 @@ namespace SnowConeTycoon.Shared.Handlers
 
         public static void Draw(SpriteBatch spriteBatch, int x, int y, bool facingAway = false)
         {
-            SelectedKids[SelectedKid].Draw(spriteBatch, x, y, facingAway);
+            SelectedKids[SelectedKid].Draw(spriteBatch, x, y, facingAway, null);
         }
 
-        public static void DrawKid(KidType type, int index, SpriteBatch spriteBatch, int x, int y, bool facingAway = false)
+        public static void DrawKid(KidType type, int index, SpriteBatch spriteBatch, int x, int y, int? size, bool facingAway = false)
         {
             var kidType = "Boy";
             var kids = Boys;
@@ -179,7 +179,49 @@ namespace SnowConeTycoon.Shared.Handlers
                 kids = Girls;
             }
 
-            kids[$"{kidType}{index}"].Draw(spriteBatch, x, y, facingAway);
+            kids[$"{kidType}{index}"].Draw(spriteBatch, x, y, facingAway, size);
+        }
+
+        public static void MakeKidHappy(KidType type, int index)
+        {
+            var kidType = "Boy";
+            var kids = Boys;
+
+            if (type == KidType.Girl)
+            {
+                kidType = "Girl";
+                kids = Girls;
+            }
+
+            kids[$"{kidType}{index}"].MakeHappy();
+        }
+
+        public static void MakeKidMad(KidType type, int index)
+        {
+            var kidType = "Boy";
+            var kids = Boys;
+
+            if (type == KidType.Girl)
+            {
+                kidType = "Girl";
+                kids = Girls;
+            }
+
+            kids[$"{kidType}{index}"].MakeMad();
+        }
+
+        public static void MakeKidSad(KidType type, int index)
+        {
+            var kidType = "Boy";
+            var kids = Boys;
+
+            if (type == KidType.Girl)
+            {
+                kidType = "Girl";
+                kids = Girls;
+            }
+
+            kids[$"{kidType}{index}"].MakeSad();
         }
     }
 }

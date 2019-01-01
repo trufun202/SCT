@@ -27,4 +27,11 @@ namespace SnowConeTycoon.Shared.Enums
         Rain,
         Snow
     }
+
+    public enum NPS
+    {
+        Detractor,
+        Passive,
+        Promoter
+    }
 }
