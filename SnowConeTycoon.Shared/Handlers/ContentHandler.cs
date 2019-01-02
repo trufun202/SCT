@@ -101,6 +101,8 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("ThoughtBubble", content.Load<Texture2D>("ThoughtBubble"));
             Images.Add("ThoughtCloud", content.Load<Texture2D>("ThoughtCloud"));
             Images.Add("OpenForBusiness_Foreground", content.Load<Texture2D>("OpenForBusiness_Foreground"));
+            Images.Add("ChrosGamesLogoNoCircle", content.Load<Texture2D>("ChrosGamesLogoNoCircle"));
+            Images.Add("ChrosGamesLogoCircle", content.Load<Texture2D>("ChrosGamesLogoCircle"));
 
             ///////////////////////////////////////////
             //DAY SETUP

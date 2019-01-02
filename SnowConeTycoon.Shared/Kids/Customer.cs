@@ -19,12 +19,14 @@ namespace SnowConeTycoon.Shared.Kids
         private int sinTime = 0;
         private float YSinRadiusStart = 30f;
         private float YSinRadius = 30f;
-        private float YSinPeriod = 35f;
+        private float YSinPeriod = 36f;
         private TimedEvent sinWalkEvent;
         private TimedEvent purchaseEvent;
         private TimedEvent thoughtEvent;
         private int ThoughtBubbleCount = 1;
         private NPS CurrentNPS = NPS.Promoter;
+        private int Step = 5;
+        private GameSpeed GameSpeed = GameSpeed.x1;
 
         public Customer()
         {
@@ -66,12 +68,39 @@ namespace SnowConeTycoon.Shared.Kids
             KidIndex = Utilities.GetRandomInt(1, 40);
         }
 
+        public bool SetSpeed1x()
+        {
+            if (GameSpeed == GameSpeed.x1)
+                return false;
+
+            YSinPeriod = 36f;
+            sinWalkEvent.TimeTotal = 500;
+            purchaseEvent.TimeTotal = 3000;
+            thoughtEvent.TimeTotal = 500;
+            Step = 5;
+            GameSpeed = GameSpeed.x1;
+            return true;
+        }
+
+        public bool SetSpeed2x()
+        {
+            if (GameSpeed == GameSpeed.x2)
+                return false;
+
+            sinWalkEvent.TimeTotal = 125;
+            purchaseEvent.TimeTotal = 750;
+            thoughtEvent.TimeTotal = 125;
+            Step = 20;
+            GameSpeed = GameSpeed.x2;
+            return true;
+        }
+
         public void Update(GameTime gameTime)
         {
             if (IsApproaching)
             {
                 sinTime += gameTime.ElapsedGameTime.Milliseconds;
-                Position.Y = (Position.Y - 5) + (float)Math.Sin(sinTime / YSinPeriod) * YSinRadius;
+                Position.Y = (Position.Y - Step) + (float)Math.Sin(sinTime / YSinPeriod) * YSinRadius;
                 sinWalkEvent.Update(gameTime);
 
                 if (Position.Y < (Defaults.GraphicsHeight / 2) + 100)
@@ -108,12 +137,18 @@ namespace SnowConeTycoon.Shared.Kids
             else if (IsLeaving)
             {
                 sinTime += gameTime.ElapsedGameTime.Milliseconds;
-                Position.Y = (Position.Y + 5) + (float)Math.Sin(sinTime / YSinPeriod) * YSinRadius;
+                Position.Y = (Position.Y + Step) + (float)Math.Sin(sinTime / YSinPeriod) * YSinRadius;
                 sinWalkEvent.Update(gameTime);
 
                 if (Position.Y > Defaults.GraphicsHeight - 700)
                 {
                     Reset();
+
+                    if (GameSpeed == GameSpeed.x2)
+                    {
+                        GameSpeed = GameSpeed.x1;
+                        SetSpeed2x();
+                    }
                 }
             }
         }

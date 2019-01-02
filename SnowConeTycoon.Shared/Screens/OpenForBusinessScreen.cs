@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using SnowConeTycoon.Shared.Forms;
 using SnowConeTycoon.Shared.Handlers;
 using SnowConeTycoon.Shared.Kids;
+using SnowConeTycoon.Shared.Utils;
 
 namespace SnowConeTycoon.Shared.Screens
 {
@@ -22,20 +23,18 @@ namespace SnowConeTycoon.Shared.Screens
             ScaleY = scaleY;
             Form = new Form(0, 0);
 
-            Form.Controls.Add(new Button(new Rectangle(100, 600, 136, 136),
+            Form.Controls.Add(new Button(new Rectangle(100, 1000, 136, 136),
                 () =>
                 {
-                    //TODO Set speed to 1x
-                    return true;
+                    return Customer.SetSpeed1x();
                 },
                 "", //TODO add slowdown sound
                 scaleX,
                 scaleY));
-            Form.Controls.Add(new Button(new Rectangle(1300, 600, 136, 136),
+            Form.Controls.Add(new Button(new Rectangle(1300, 1000, 136, 136),
                 () =>
                 {
-                    //TODO Set speed to 2x
-                    return true;
+                    return Customer.SetSpeed2x();
                 },
                 "", //TODO add speedup sound
                 scaleX,
@@ -60,8 +59,12 @@ namespace SnowConeTycoon.Shared.Screens
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(ContentHandler.Images["OpenForBusiness_Foreground"], new Vector2(0, 0), Color.White);
-            spriteBatch.Draw(ContentHandler.Images["ArrowRight"], new Vector2(100, 600), Color.White);
-            spriteBatch.Draw(ContentHandler.Images["ArrowRight2"], new Vector2(1300, 600), Color.White);
+
+            spriteBatch.DrawString(Defaults.Font, "1x", new Vector2(100, 850), Color.White);
+            spriteBatch.DrawString(Defaults.Font, "4x", new Vector2(1300, 850), Color.White);
+
+            spriteBatch.Draw(ContentHandler.Images["ArrowRight"], new Vector2(100, 1000), Color.White);
+            spriteBatch.Draw(ContentHandler.Images["ArrowRight2"], new Vector2(1300, 1000), Color.White);
             Customer.Draw(spriteBatch);
         }
     }

@@ -6,6 +6,7 @@ namespace SnowConeTycoon.Shared.Enums
 {
     public enum Screen
     {
+        Logo,
         Title,
         CharacterSelect,
         DaySetup,
@@ -33,5 +34,11 @@ namespace SnowConeTycoon.Shared.Enums
         Detractor,
         Passive,
         Promoter
+    }
+
+    public enum GameSpeed
+    {
+        x1,
+        x2
     }
 }

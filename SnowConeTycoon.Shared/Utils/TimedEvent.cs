@@ -10,7 +10,7 @@ namespace SnowConeTycoon.Shared
         public delegate void EventMethod();
 
         public int Time = 0;
-        private int TimeTotal = 0;
+        public int TimeTotal = 0;
         private bool IsLooping = false;
         private bool IsComplete = false;
         private EventMethod Method;
