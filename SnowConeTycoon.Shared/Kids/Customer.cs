@@ -1,6 +1,7 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SnowConeTycoon.Shared.Animations;
 using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Handlers;
 using SnowConeTycoon.Shared.Utils;
@@ -27,6 +28,17 @@ namespace SnowConeTycoon.Shared.Kids
         private NPS CurrentNPS = NPS.Promoter;
         private int Step = 5;
         private GameSpeed GameSpeed = GameSpeed.x1;
+        private BezierCurveImage coinImage;
+        private bool ShowingCoin = false;
+        private bool AnimatingCoin = false;
+        private TimedEvent ShowingCoinEvent;
+        private Vector2 CoinScaleStart = new Vector2(0, 1);
+        private Vector2 CoinScaleEnd = new Vector2(0, 3);
+        private int CoinScaleTime = 0;
+        private int CoinScaleTimeTotal = 250;
+        private int CoinScaleDirection = 1;
+        private Vector2 CoinScale = new Vector2(0, 1);
+        private bool CoinHasScaled = false;
 
         public Customer()
         {
@@ -66,46 +78,11 @@ namespace SnowConeTycoon.Shared.Kids
             IsLeaving = false;
             KidType = Utilities.GetRandomInt(1, 2) == 1 ? KidType.Boy : KidType.Girl;
             KidIndex = Utilities.GetRandomInt(1, 40);
-        }
-
-        public bool SetSpeed1x()
-        {
-            if (GameSpeed == GameSpeed.x1)
-                return false;
-
-            YSinPeriod = 36f;
-            sinWalkEvent.TimeTotal = 500;
-            purchaseEvent.TimeTotal = 3000;
-            thoughtEvent.TimeTotal = 500;
-            Step = 5;
-            GameSpeed = GameSpeed.x1;
-            return true;
-        }
-
-        public bool SetSpeed2x()
-        {
-            if (GameSpeed == GameSpeed.x2)
-                return false;
-
-            sinWalkEvent.TimeTotal = 125;
-            purchaseEvent.TimeTotal = 750;
-            thoughtEvent.TimeTotal = 125;
-            Step = 20;
-            GameSpeed = GameSpeed.x2;
-            return true;
-        }
-
-        public void Update(GameTime gameTime)
-        {
-            if (IsApproaching)
-            {
-                sinTime += gameTime.ElapsedGameTime.Milliseconds;
-                Position.Y = (Position.Y - Step) + (float)Math.Sin(sinTime / YSinPeriod) * YSinRadius;
-                sinWalkEvent.Update(gameTime);
-
-                if (Position.Y < (Defaults.GraphicsHeight / 2) + 100)
+            coinImage = new BezierCurveImage("DaySetup_IconPrice", 0, 0);
+            ShowingCoinEvent = new TimedEvent(1000,
+            () =>
                 {
-                    IsApproaching = false;
+                    AnimatingCoin = true;
                     IsPurchasing = true;
                     purchaseEvent.Reset();
                     ThoughtBubbleCount = 1;
@@ -127,6 +104,57 @@ namespace SnowConeTycoon.Shared.Kids
                         CurrentNPS = NPS.Promoter;
                         KidHandler.MakeKidHappy(KidType, KidIndex);
                     }
+                },
+            false);
+            CoinScale = new Vector2(0, 1);
+            CoinScaleTime = 0;
+            CoinScaleDirection = 1;
+            CoinHasScaled = false;
+        }
+
+        public bool SetSpeed1x()
+        {
+            if (GameSpeed == GameSpeed.x1)
+                return false;
+
+            YSinPeriod = 36f;
+            sinWalkEvent.TimeTotal = 500;
+            purchaseEvent.TimeTotal = 3000;
+            thoughtEvent.TimeTotal = 500;
+            Step = 5;
+            GameSpeed = GameSpeed.x1;
+            return true;
+        }
+
+        public bool SetSpeed2x()
+        {
+            if (GameSpeed == GameSpeed.x2)
+                return false;
+
+            sinWalkEvent.TimeTotal = 50;
+            purchaseEvent.TimeTotal = 300;
+            thoughtEvent.TimeTotal = 50;
+            ShowingCoinEvent.TimeTotal = 100;
+            Step = 48;
+            GameSpeed = GameSpeed.x2;
+            return true;
+        }
+
+        public void Update(GameTime gameTime)
+        {
+            if (IsApproaching)
+            {
+                sinTime += gameTime.ElapsedGameTime.Milliseconds;
+                Position.Y = (Position.Y - Step) + (float)Math.Sin(sinTime / YSinPeriod) * YSinRadius;
+                sinWalkEvent.Update(gameTime);
+
+                if (Position.Y < (Defaults.GraphicsHeight / 2) + 100)
+                {
+                    IsApproaching = false;
+                    ShowingCoin = true;
+                    AnimatingCoin = false;
+                    coinImage = new BezierCurveImage("DaySetup_IconPrice", (int)Position.X + 600, (int)Position.Y);
+                    ShowingCoinEvent.Reset();
                 }
             }
             else if (IsPurchasing)
@@ -151,13 +179,61 @@ namespace SnowConeTycoon.Shared.Kids
                     }
                 }
             }
+
+            if (ShowingCoin)
+            {
+                ShowingCoinEvent.Update(gameTime);
+
+                if (!CoinHasScaled)
+                {
+                    CoinScaleTime += gameTime.ElapsedGameTime.Milliseconds;
+
+                    var amt = CoinScaleTime / (float)CoinScaleTimeTotal;
+
+                    if (CoinScaleDirection == 1)
+                    {
+                        CoinScale = Vector2.SmoothStep(CoinScaleStart, CoinScaleEnd, amt);
+                    }
+                    else
+                    {
+                        CoinScale = Vector2.SmoothStep(CoinScaleEnd, CoinScaleStart, amt);
+                    }
+
+                    if (CoinScaleTime >= CoinScaleTimeTotal)
+                    {
+                        CoinScaleDirection *= -1;
+                        CoinScaleTime = 0;
+
+                        if (CoinScaleDirection == 1)
+                        {
+                            CoinHasScaled = true;
+                        }
+                    }
+                }
+            }
+
+            if (AnimatingCoin)
+            {
+                coinImage.Update(gameTime);
+
+                if (coinImage.IsDoneAnimating())
+                {
+                    ShowingCoin = false;
+                    AnimatingCoin = false;
+                }
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (IsApproaching || IsPurchasing)
+            if (IsApproaching || IsPurchasing || ShowingCoin || AnimatingCoin)
             {
                 KidHandler.DrawKid(KidType, KidIndex, spriteBatch, (int)Position.X, (int)Position.Y, 1300, true);
+
+                if (ShowingCoin || AnimatingCoin)
+                {
+                    coinImage.Draw(spriteBatch, CoinScale.Y);
+                }
 
                 if (IsPurchasing)
                 {

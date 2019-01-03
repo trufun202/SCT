@@ -38,6 +38,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Screens\OpenForBusinessScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kids\Customer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\LogoScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\BezierCurveImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

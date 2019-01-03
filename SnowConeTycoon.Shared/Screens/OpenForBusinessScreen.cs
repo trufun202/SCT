@@ -23,7 +23,7 @@ namespace SnowConeTycoon.Shared.Screens
             ScaleY = scaleY;
             Form = new Form(0, 0);
 
-            Form.Controls.Add(new Button(new Rectangle(100, 1000, 136, 136),
+            Form.Controls.Add(new Button(new Rectangle(120, 1000, 136, 136),
                 () =>
                 {
                     return Customer.SetSpeed1x();
@@ -31,7 +31,7 @@ namespace SnowConeTycoon.Shared.Screens
                 "", //TODO add slowdown sound
                 scaleX,
                 scaleY));
-            Form.Controls.Add(new Button(new Rectangle(1300, 1000, 136, 136),
+            Form.Controls.Add(new Button(new Rectangle(1320, 1000, 136, 136),
                 () =>
                 {
                     return Customer.SetSpeed2x();
@@ -60,11 +60,21 @@ namespace SnowConeTycoon.Shared.Screens
         {
             spriteBatch.Draw(ContentHandler.Images["OpenForBusiness_Foreground"], new Vector2(0, 0), Color.White);
 
-            spriteBatch.DrawString(Defaults.Font, "1x", new Vector2(100, 850), Color.White);
-            spriteBatch.DrawString(Defaults.Font, "4x", new Vector2(1300, 850), Color.White);
+            spriteBatch.Draw(ContentHandler.Images["DaySetup_InvCones"], new Vector2(210, 1820), Color.White);
+            spriteBatch.Draw(ContentHandler.Images["DaySetup_InvIce"], new Vector2(185, 2020), Color.White);
+            spriteBatch.Draw(ContentHandler.Images["DaySetup_InvSyrup"], new Vector2(200, 2220), Color.White);
 
-            spriteBatch.Draw(ContentHandler.Images["ArrowRight"], new Vector2(100, 1000), Color.White);
-            spriteBatch.Draw(ContentHandler.Images["ArrowRight2"], new Vector2(1300, 1000), Color.White);
+            spriteBatch.DrawString(Defaults.Font, "24", new Vector2(400, 1790), Color.White);
+            spriteBatch.DrawString(Defaults.Font, "4", new Vector2(400, 1990), Color.White);
+            spriteBatch.DrawString(Defaults.Font, "16", new Vector2(400, 2210), Color.White);
+
+            spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Vector2(40, -15), Color.White);
+
+            spriteBatch.DrawString(Defaults.Font, "1x", new Vector2(100, 850), Color.White);
+            spriteBatch.DrawString(Defaults.Font, "10x", new Vector2(1275, 850), Color.White);
+
+            spriteBatch.Draw(ContentHandler.Images["ArrowRight"], new Vector2(120, 1000), Color.White);
+            spriteBatch.Draw(ContentHandler.Images["ArrowRight2"], new Vector2(1320, 1000), Color.White);
             Customer.Draw(spriteBatch);
         }
     }
