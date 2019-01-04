@@ -39,6 +39,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Kids\Customer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\LogoScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Animations\BezierCurveImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Particles\IParticle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Particles\FallingStar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Particles\ParticleEmitter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Particles\Particle.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
@@ -51,5 +55,6 @@
   <ItemGroup>
     <Folder Include="$(MSBuildThisFileDirectory)Screens\" />
     <Folder Include="$(MSBuildThisFileDirectory)Animations\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Particles\" />
   </ItemGroup>
 </Project>

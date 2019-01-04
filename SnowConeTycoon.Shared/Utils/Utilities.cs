@@ -5,7 +5,7 @@ namespace SnowConeTycoon.Shared
 {
     public static class Utilities
     {
-        private static Random rand = new Random(DateTime.Now.Millisecond);
+        public static Random rand = new Random(DateTime.Now.Millisecond);
 
         public static int GetRandomInt(int max)
         {

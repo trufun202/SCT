@@ -9,7 +9,7 @@ namespace SnowConeTycoon.Shared.Animations
     {
         float Time = 0f;
         float TimeTotal = 1.0f;
-        Vector2 Position;
+        public Vector2 Position;
         string ImageName = string.Empty;
         Vector2 P0;
         Vector2 P1;

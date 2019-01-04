@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SnowConeTycoon.Shared.Animations;
 using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Handlers;
+using SnowConeTycoon.Shared.Particles;
 using SnowConeTycoon.Shared.Utils;
 using static SnowConeTycoon.Shared.Handlers.KidHandler;
 
@@ -39,9 +40,14 @@ namespace SnowConeTycoon.Shared.Kids
         private int CoinScaleDirection = 1;
         private Vector2 CoinScale = new Vector2(0, 1);
         private bool CoinHasScaled = false;
+        private ParticleEmitter ParticleEmitter;
+        private ParticleEmitter ParticleCircleEmitter;
 
         public Customer()
         {
+            ParticleEmitter = new ParticleEmitter(100, 0, 0, 30, 3000);
+            ParticleCircleEmitter = new ParticleEmitter(5000, 0, 0, 40, 700);
+            ParticleCircleEmitter.Velocity = new Vector2(350, 350);
             Reset();
         }
 
@@ -83,6 +89,7 @@ namespace SnowConeTycoon.Shared.Kids
             () =>
                 {
                     AnimatingCoin = true;
+                    ParticleCircleEmitter.FlowOn = false;
                     IsPurchasing = true;
                     purchaseEvent.Reset();
                     ThoughtBubbleCount = 1;
@@ -155,6 +162,8 @@ namespace SnowConeTycoon.Shared.Kids
                     AnimatingCoin = false;
                     coinImage = new BezierCurveImage("DaySetup_IconPrice", (int)Position.X + 600, (int)Position.Y);
                     ShowingCoinEvent.Reset();
+                    ParticleCircleEmitter.FlowOn = true;
+                    ParticleCircleEmitter.Position = new Vector2((int)Position.X + 600, (int)Position.Y);
                 }
             }
             else if (IsPurchasing)
@@ -179,6 +188,9 @@ namespace SnowConeTycoon.Shared.Kids
                     }
                 }
             }
+
+            ParticleEmitter.Update(gameTime);
+            ParticleCircleEmitter.Update(gameTime);
 
             if (ShowingCoin)
             {
@@ -215,17 +227,23 @@ namespace SnowConeTycoon.Shared.Kids
             if (AnimatingCoin)
             {
                 coinImage.Update(gameTime);
+                ParticleEmitter.FlowOn = true;
+                ParticleEmitter.Position = coinImage.Position;
 
                 if (coinImage.IsDoneAnimating())
                 {
                     ShowingCoin = false;
                     AnimatingCoin = false;
+                    ParticleEmitter.FlowOn = false;
                 }
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            ParticleEmitter.Draw(spriteBatch);
+            ParticleCircleEmitter.Draw(spriteBatch);
+
             if (IsApproaching || IsPurchasing || ShowingCoin || AnimatingCoin)
             {
                 KidHandler.DrawKid(KidType, KidIndex, spriteBatch, (int)Position.X, (int)Position.Y, 1300, true);
