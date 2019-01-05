@@ -160,10 +160,10 @@ namespace SnowConeTycoon.Shared.Kids
                     IsApproaching = false;
                     ShowingCoin = true;
                     AnimatingCoin = false;
-                    coinImage = new BezierCurveImage("DaySetup_IconPrice", (int)Position.X + 600, (int)Position.Y);
+                    coinImage = new BezierCurveImage("DaySetup_IconPrice", (int)Position.X + 660, (int)Position.Y);
                     ShowingCoinEvent.Reset();
                     ParticleCircleEmitter.FlowOn = true;
-                    ParticleCircleEmitter.Position = new Vector2((int)Position.X + 600, (int)Position.Y);
+                    ParticleCircleEmitter.Position = new Vector2((int)Position.X + 660, (int)Position.Y);
                 }
             }
             else if (IsPurchasing)

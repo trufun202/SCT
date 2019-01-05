@@ -43,6 +43,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Particles\FallingStar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Particles\ParticleEmitter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Particles\Particle.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Player.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

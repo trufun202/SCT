@@ -70,6 +70,12 @@ namespace SnowConeTycoon.Shared.Screens
 
             spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Vector2(40, -15), Color.White);
 
+            spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(218, 33), Color.Black);
+            spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(218, 37), Color.Black);
+            spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(222, 33), Color.Black);
+            spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(222, 37), Color.Black);
+            spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(220, 35), Color.White);
+
             spriteBatch.DrawString(Defaults.Font, "1x", new Vector2(100, 850), Color.White);
             spriteBatch.DrawString(Defaults.Font, "10x", new Vector2(1275, 850), Color.White);
 

@@ -97,6 +97,7 @@ namespace SnowConeTycoon.Shared
                 GraphicsDevice.PresentationParameters.BackBufferFormat,
                 DepthFormat.Depth24);
 
+            Player.Reset();
             var scaleX = (double)ScreenWidth / (double)Defaults.GraphicsWidth;
             var scaleY = (double)ScreenHeight / (double)Defaults.GraphicsHeight;
 
