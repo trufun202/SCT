@@ -44,6 +44,9 @@
     <Compile Include="$(MSBuildThisFileDirectory)Particles\ParticleEmitter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Particles\Particle.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Effects\Snow.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Effects\Components\SnowFlake.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\BackgroundSnowing.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

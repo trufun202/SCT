@@ -38,9 +38,9 @@ namespace SnowConeTycoon.Shared.Screens
         {
             ScaleX = scaleX;
             ScaleY = scaleY;
-            DayImage = new ScaledImage("DaySetup_DayLabel", new Vector2(350, 200));
-            ForecastImage = new ScaledImage("DaySetup_ForecastLabel", new Vector2(800, 200));
-            LetsGoButton = new ScaledImage("DaySetup_LetsGo", new Vector2(1200, 2500), 1000);
+            DayImage = new ScaledImage("DaySetup_DayLabel", new Vector2(350, 200), 250);
+            ForecastImage = new ScaledImage("DaySetup_ForecastLabel", new Vector2(800, 200), 250);
+            LetsGoButton = new ScaledImage("DaySetup_LetsGo", new Vector2(1200, 2500), 500);
         }
 
         public void Reset()

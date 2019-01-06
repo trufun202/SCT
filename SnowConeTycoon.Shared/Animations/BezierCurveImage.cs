@@ -7,8 +7,9 @@ namespace SnowConeTycoon.Shared.Animations
 {
     public class BezierCurveImage
     {
-        float Time = 0f;
+        public float Time = 0f;
         float TimeTotal = 1.0f;
+        public float TimeStep = 0.01f;
         public Vector2 Position;
         string ImageName = string.Empty;
         Vector2 P0;
@@ -44,7 +45,7 @@ namespace SnowConeTycoon.Shared.Animations
 
         public void Update(GameTime gameTime)
         {       
-            Time += 0.01f;
+            Time += TimeStep;
 
             if (Time >= TimeTotal)
             {
