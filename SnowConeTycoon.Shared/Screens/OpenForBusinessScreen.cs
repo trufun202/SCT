@@ -23,7 +23,7 @@ namespace SnowConeTycoon.Shared.Screens
             ScaleY = scaleY;
             Form = new Form(0, 0);
 
-            Form.Controls.Add(new Button(new Rectangle(120, 1000, 136, 136),
+            /* Form.Controls.Add(new Button(new Rectangle(120, 1000, 136, 136),
                 () =>
                 {
                     return Customer.SetSpeed1x();
@@ -38,7 +38,7 @@ namespace SnowConeTycoon.Shared.Screens
                 },
                 "", //TODO add speedup sound
                 scaleX,
-                scaleY));
+                scaleY)); */               
         }
 
         public void Reset()
@@ -75,12 +75,6 @@ namespace SnowConeTycoon.Shared.Screens
             spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(222, 33), Color.Black);
             spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(222, 37), Color.Black);
             spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(220, 35), Color.White);
-
-            spriteBatch.DrawString(Defaults.Font, "1x", new Vector2(100, 850), Color.White);
-            spriteBatch.DrawString(Defaults.Font, "10x", new Vector2(1275, 850), Color.White);
-
-            spriteBatch.Draw(ContentHandler.Images["ArrowRight"], new Vector2(120, 1000), Color.White);
-            spriteBatch.Draw(ContentHandler.Images["ArrowRight2"], new Vector2(1320, 1000), Color.White);
             Customer.Draw(spriteBatch);
         }
     }

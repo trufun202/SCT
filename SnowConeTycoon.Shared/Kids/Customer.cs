@@ -27,7 +27,7 @@ namespace SnowConeTycoon.Shared.Kids
         private TimedEvent thoughtEvent;
         private int ThoughtBubbleCount = 1;
         private NPS CurrentNPS = NPS.Promoter;
-        private int Step = 5;
+        private int Step = 15;
         private GameSpeed GameSpeed = GameSpeed.x1;
         private BezierCurveImage coinImage;
         private bool ShowingCoin = false;
@@ -59,7 +59,7 @@ namespace SnowConeTycoon.Shared.Kids
                     YSinRadius += IsApproaching ? -5 : 5;
                 },
                 true);
-            purchaseEvent = new TimedEvent(3000,
+            purchaseEvent = new TimedEvent(2000,
             () =>
             {
                 IsPurchasing = false;
@@ -84,11 +84,18 @@ namespace SnowConeTycoon.Shared.Kids
             IsLeaving = false;
             KidType = Utilities.GetRandomInt(1, 2) == 1 ? KidType.Boy : KidType.Girl;
             KidIndex = Utilities.GetRandomInt(1, 40);
-            coinImage = new BezierCurveImage("DaySetup_IconPrice", 0, 0);
+            if (GameSpeed == GameSpeed.x1)
+            {
+                coinImage = new BezierCurveImage("DaySetup_IconPrice", 0, 0);
+            }
             ShowingCoinEvent = new TimedEvent(1000,
             () =>
                 {
-                    AnimatingCoin = true;
+                    if (GameSpeed == GameSpeed.x1)
+                    {
+                        AnimatingCoin = true;
+                    }
+
                     ParticleCircleEmitter.FlowOn = false;
                     IsPurchasing = true;
                     purchaseEvent.Reset();
@@ -126,10 +133,15 @@ namespace SnowConeTycoon.Shared.Kids
 
             YSinPeriod = 36f;
             sinWalkEvent.TimeTotal = 500;
-            purchaseEvent.TimeTotal = 3000;
+            purchaseEvent.TimeTotal = 2000;
             thoughtEvent.TimeTotal = 500;
-            Step = 5;
+            Step = 15;
             GameSpeed = GameSpeed.x1;
+            CoinScaleTimeTotal = 250;
+            AnimatingCoin = false;
+            ParticleCircleEmitter.Reset();
+            ParticleEmitter.Reset();
+            Reset();
             return true;
         }
 
@@ -144,6 +156,9 @@ namespace SnowConeTycoon.Shared.Kids
             ShowingCoinEvent.TimeTotal = 100;
             Step = 48;
             GameSpeed = GameSpeed.x2;
+            CoinScaleTimeTotal = 25;
+            AnimatingCoin = false;
+            Reset();
             return true;
         }
 
@@ -189,8 +204,11 @@ namespace SnowConeTycoon.Shared.Kids
                 }
             }
 
-            ParticleEmitter.Update(gameTime);
-            ParticleCircleEmitter.Update(gameTime);
+            if (GameSpeed == GameSpeed.x1)
+            {
+                ParticleEmitter.Update(gameTime);
+                ParticleCircleEmitter.Update(gameTime);
+            }
 
             if (ShowingCoin)
             {
@@ -218,6 +236,11 @@ namespace SnowConeTycoon.Shared.Kids
 
                         if (CoinScaleDirection == 1)
                         {
+                            if (GameSpeed == GameSpeed.x2)
+                            {
+                                Player.AddCoins(1);
+                            }
+
                             CoinHasScaled = true;
                         }
                     }
@@ -227,22 +250,30 @@ namespace SnowConeTycoon.Shared.Kids
             if (AnimatingCoin)
             {
                 coinImage.Update(gameTime);
-                ParticleEmitter.FlowOn = true;
-                ParticleEmitter.Position = coinImage.Position;
 
-                if (coinImage.IsDoneAnimating())
+                if (GameSpeed == GameSpeed.x1)
                 {
-                    ShowingCoin = false;
-                    AnimatingCoin = false;
-                    ParticleEmitter.FlowOn = false;
+                    ParticleEmitter.FlowOn = true;
+                    ParticleEmitter.Position = coinImage.Position;
+
+                    if (coinImage.IsDoneAnimating())
+                    {
+                        ShowingCoin = false;
+                        AnimatingCoin = false;
+                        ParticleEmitter.FlowOn = false;
+                        Player.AddCoins(1);
+                    }
                 }
             }
         }
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            ParticleEmitter.Draw(spriteBatch);
-            ParticleCircleEmitter.Draw(spriteBatch);
+            if (GameSpeed == GameSpeed.x1)
+            {
+                ParticleEmitter.Draw(spriteBatch);
+                ParticleCircleEmitter.Draw(spriteBatch);
+            }
 
             if (IsApproaching || IsPurchasing || ShowingCoin || AnimatingCoin)
             {

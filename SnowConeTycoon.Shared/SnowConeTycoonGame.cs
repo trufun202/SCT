@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
 using SnowConeTycoon.Shared.Backgrounds;
 using SnowConeTycoon.Shared.Backgrounds.Effects;
+using SnowConeTycoon.Shared.Backgrounds.Effects.Components;
 using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Forms;
 using SnowConeTycoon.Shared.Handlers;
@@ -297,11 +298,13 @@ namespace SnowConeTycoon.Shared
             Backgrounds.Add("sunny", new BackgroundSunny());
             Backgrounds.Add("partylycloudy", new BackgroundPartlyCloudy());
             Backgrounds.Add("rainy", new BackgroundRainy());
-            CurrentBackground = Backgrounds["sunny"];
+            Backgrounds.Add("snowing", new BackgroundSnowing());
+            CurrentBackground = Backgrounds["snowing"];
 
             BackgroundEffects = new Dictionary<string, IBackgroundEffect>();
             BackgroundEffects.Add("rain", new Rain(100));
-            //CurrentBackgroundEffect = BackgroundEffects["rain"];
+            BackgroundEffects.Add("snow", new Snow(100));
+            CurrentBackgroundEffect = BackgroundEffects["snow"];
 
             LogoScreen = new LogoScreen();
             DaySetupScreen = new DaySetupScreen(scaleX, scaleY);
