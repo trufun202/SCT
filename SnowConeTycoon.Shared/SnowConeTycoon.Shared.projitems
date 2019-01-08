@@ -47,6 +47,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Effects\Snow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Effects\Components\SnowFlake.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\BackgroundSnowing.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\ResultsScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

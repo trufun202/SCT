@@ -94,6 +94,7 @@ namespace SnowConeTycoon.Shared.Kids
                     if (GameSpeed == GameSpeed.x1)
                     {
                         AnimatingCoin = true;
+                        ContentHandler.Sounds["Magic Wand 1"].Play();
                     }
 
                     ParticleCircleEmitter.FlowOn = false;
@@ -179,6 +180,7 @@ namespace SnowConeTycoon.Shared.Kids
                     ShowingCoinEvent.Reset();
                     ParticleCircleEmitter.FlowOn = true;
                     ParticleCircleEmitter.Position = new Vector2((int)Position.X + 660, (int)Position.Y);
+                    ContentHandler.Sounds["Game Coin"].Play();
                 }
             }
             else if (IsPurchasing)
@@ -239,6 +241,7 @@ namespace SnowConeTycoon.Shared.Kids
                             if (GameSpeed == GameSpeed.x2)
                             {
                                 Player.AddCoins(1);
+                                ContentHandler.Sounds["Cash Register Fast"].Play();
                             }
 
                             CoinHasScaled = true;
@@ -262,6 +265,7 @@ namespace SnowConeTycoon.Shared.Kids
                         AnimatingCoin = false;
                         ParticleEmitter.FlowOn = false;
                         Player.AddCoins(1);
+                        ContentHandler.Sounds["Cash Register Fast"].Play();
                     }
                 }
             }

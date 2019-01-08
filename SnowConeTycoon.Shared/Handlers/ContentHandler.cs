@@ -98,6 +98,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("nps_detractor", content.Load<Texture2D>("nps_detractor"));
             Images.Add("nps_passive", content.Load<Texture2D>("nps_passive"));
             Images.Add("nps_promoter", content.Load<Texture2D>("nps_promoter"));
+            Images.Add("nps_background", content.Load<Texture2D>("nps_background"));
             Images.Add("ThoughtBubble", content.Load<Texture2D>("ThoughtBubble"));
             Images.Add("ThoughtCloud", content.Load<Texture2D>("ThoughtCloud"));
             Images.Add("OpenForBusiness_Foreground", content.Load<Texture2D>("OpenForBusiness_Foreground"));
@@ -123,12 +124,17 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("DaySetup_Paper", content.Load<Texture2D>("DaySetup_Paper"));
             Images.Add("DaySetup_Plus", content.Load<Texture2D>("DaySetup_Plus"));
             Images.Add("DaySetup_WatchAd", content.Load<Texture2D>("DaySetup_WatchAd"));
+            Images.Add("Results_Rank", content.Load<Texture2D>("Results_Rank"));
+            Images.Add("Results_Next", content.Load<Texture2D>("Results_Next"));
 
             ///////////////////////////////////////////
             //SOUNDS
             ///////////////////////////////////////////
             Sounds.Add("pop", content.Load<SoundEffect>("pop"));
             Sounds.Add("Swoosh", content.Load<SoundEffect>("Swoosh"));
+            Sounds.Add("Game Coin", content.Load<SoundEffect>("Game Coin"));
+            Sounds.Add("Cash Register Fast", content.Load<SoundEffect>("Cash Register Fast"));
+            Sounds.Add("Magic Wand 1", content.Load<SoundEffect>("Magic Wand 1"));
 
             ///////////////////////////////////////////
             //SONGS
