@@ -31,6 +31,7 @@ namespace SnowConeTycoon.Shared.Screens
         ScaledImage DayImage;
         ScaledImage ForecastImage;
         ScaledImage NextButton;
+        BlindOpenImage NPSBackground;
         public bool DoneAnimating = false;
 
         public ResultsScreen(double scaleX, double scaleY)
@@ -40,6 +41,7 @@ namespace SnowConeTycoon.Shared.Screens
             DayImage = new ScaledImage("DaySetup_DayLabel", new Vector2(350, 200), 250);
             ForecastImage = new ScaledImage("DaySetup_ForecastLabel", new Vector2(800, 200), 250);
             NextButton = new ScaledImage("Results_Next", new Vector2(1200, 2500), 500);
+            NPSBackground = new BlindOpenImage("nps_background", new Vector2(Defaults.GraphicsWidth / 2, ContentHandler.Images["DaySetup_Paper"].Height - 400), 250);
         }
 
         public void Reset()
@@ -57,6 +59,7 @@ namespace SnowConeTycoon.Shared.Screens
             DayImage.Reset();
             ForecastImage.Reset();
             NextButton.Reset();
+            NPSBackground.Reset();
         }
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
@@ -79,6 +82,8 @@ namespace SnowConeTycoon.Shared.Screens
             }
             else if (!ShowingInventory)
             {
+                NPSBackground.Update(gameTime);
+
                 TimeInv += gameTime.ElapsedGameTime.Milliseconds;
                 var amt = TimeInv / (float)TimeInvTotal;
 
@@ -136,6 +141,11 @@ namespace SnowConeTycoon.Shared.Screens
             }
 
             spriteBatch.Draw(ContentHandler.Images["DaySetup_Paper"], PositionPaper, Color.White);
+
+            if (!AnimatingPaper)
+            {
+                NPSBackground.Draw(spriteBatch);
+            }
 
             if (ShowingInventory)
             {

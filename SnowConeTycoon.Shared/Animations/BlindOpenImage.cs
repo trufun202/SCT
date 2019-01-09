@@ -5,19 +5,19 @@ using SnowConeTycoon.Shared.Handlers;
 
 namespace SnowConeTycoon.Shared.Animations
 {
-    public class BlindOpenImage
+    public class ScaledImage
     {
         string ImageName = string.Empty;
         public Vector2 Position;
         int ImageWidth;
         int ImageHeight;
         int ScaleTime = 0;
-        int ScaleTimeTotal = 250;
-        float Scale = 0.01f;
-        Vector2 ScaleStart = new Vector2(0.01f, 1);
+        int ScaleTimeTotal = 500;
+        float Scale = 20f;
+        Vector2 ScaleStart = new Vector2(20, 1);
         Vector2 ScaleEnd = new Vector2(1, 1);
         
-        public BlindOpenImage(string imageName, Vector2 position, int scaleTimeTotal = 250)
+        public ScaledImage(string imageName, Vector2 position, int scaleTimeTotal = 500)
         {
             ImageName = imageName;
             ScaleTimeTotal = scaleTimeTotal;
@@ -29,7 +29,7 @@ namespace SnowConeTycoon.Shared.Animations
         public void Reset()
         {
             ScaleTime = 0;
-            Scale = 0.01f;
+            Scale = 20;
         }
 
         public void Update(GameTime gameTime)
