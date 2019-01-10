@@ -34,7 +34,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Utils\Utilities.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\DaySetupScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Forms\NumberPicker.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Animations\ScaledImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\BlindOpenImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\OpenForBusinessScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kids\Customer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\LogoScreen.cs" />
@@ -48,7 +48,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Effects\Components\SnowFlake.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\BackgroundSnowing.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\ResultsScreen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Animations\BlindOpenImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Animations\ScaledImage.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
