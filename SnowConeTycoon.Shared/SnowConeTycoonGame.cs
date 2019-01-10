@@ -39,10 +39,12 @@ namespace SnowConeTycoon.Shared
         Form FormCharacterSelect;
         Form FormDaySetup;
         Form FormOpenForBusiness;
+        Form FormResults;
 
         LogoScreen LogoScreen;
         DaySetupScreen DaySetupScreen;
         OpenForBusinessScreen OpenForBusinessScreen;
+        ResultsScreen ResultsScreen;
                 
         Dictionary<string, IBackground> Backgrounds;
         Dictionary<string, IBackgroundEffect> BackgroundEffects;
@@ -142,6 +144,19 @@ namespace SnowConeTycoon.Shared
                     KidHandler.SelectedKidIndex = SelectedKidIndex;
                     KidHandler.SelectedKidType = SelectedKidType;
                     CurrentScreen = Screen.CharacterSelect;
+                });
+
+                return true;
+            }, "pop", scaleX, scaleY));
+            /////////////////////////
+            //TELL A FRIEND
+            /////////////////////////
+            FormTitle.Controls.Add(new Button(new Rectangle(30, 2144, 1485, 205), () =>
+            {
+                Fade.Reset(() =>
+                {
+                    ResultsScreen.Reset();
+                    CurrentScreen = Screen.Results;
                 });
 
                 return true;
@@ -274,6 +289,18 @@ namespace SnowConeTycoon.Shared
                 return true;
             }, "pop", scaleX, scaleY));
 
+            FormResults = new Form(0, 0);
+            FormResults.Controls.Add(new Button(new Rectangle(925, 2375, 592, 250), () =>
+            {
+                Fade.Reset(() =>
+                {
+                    DaySetupScreen.Reset();
+                    CurrentScreen = Screen.DaySetup;
+                });
+
+                return true;
+            }, "pop", scaleX, scaleY));
+
             previousTouchCollection = TouchPanel.GetState();
             base.Initialize();
         }
@@ -309,6 +336,7 @@ namespace SnowConeTycoon.Shared
             LogoScreen = new LogoScreen();
             DaySetupScreen = new DaySetupScreen(scaleX, scaleY);
             OpenForBusinessScreen = new OpenForBusinessScreen(scaleX, scaleY);
+            ResultsScreen = new ResultsScreen(scaleX, scaleY);
         }
 
         /// <summar>(""));
@@ -360,6 +388,11 @@ namespace SnowConeTycoon.Shared
                     OpenForBusinessScreen.HandleInput(previousTouchCollection, currentTouchCollection);
                     FormOpenForBusiness.HandleInput(previousTouchCollection, currentTouchCollection);
                 }
+                else if (CurrentScreen == Screen.Results)
+                {
+                    ResultsScreen.HandleInput(previousTouchCollection, currentTouchCollection);
+                    FormResults.HandleInput(previousTouchCollection, currentTouchCollection);
+                }
 
                 previousTouchCollection = currentTouchCollection;
 
@@ -393,6 +426,13 @@ namespace SnowConeTycoon.Shared
                     KidHandler.Update(gameTime);
                     OpenForBusinessScreen.Update(gameTime);
                     FormOpenForBusiness.Update(gameTime);
+                }
+                else if (CurrentScreen == Screen.Results)
+                {
+                    CurrentBackground.Update(gameTime);
+                    CurrentBackgroundEffect?.Update(gameTime);
+                    ResultsScreen.Update(gameTime);
+                    FormResults.Update(gameTime);
                 }
                 else if (CurrentScreen == Screen.CharacterSelect)
                 {
@@ -478,6 +518,13 @@ namespace SnowConeTycoon.Shared
                 CurrentBackgroundEffect?.Draw(spriteBatch);
                 DaySetupScreen.Draw(spriteBatch);
                 FormDaySetup.Draw(spriteBatch);
+            }
+            else if (CurrentScreen == Screen.Results)
+            {
+                CurrentBackground.Draw(spriteBatch);
+                CurrentBackgroundEffect?.Draw(spriteBatch);
+                ResultsScreen.Draw(spriteBatch);
+                FormResults.Draw(spriteBatch);
             }
             else if (CurrentScreen == Screen.CharacterSelect)
             {
