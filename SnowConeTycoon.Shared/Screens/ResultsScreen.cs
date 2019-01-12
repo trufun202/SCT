@@ -50,6 +50,7 @@ namespace SnowConeTycoon.Shared.Screens
         int TickTime = 0;
         int TickTimeTotal = 25;
         bool NPSTickerDone = false;
+        bool RankDone = false;
         public int PotentialCustomerCount = 30;
         public int SnowConesSold = 20;
         public int SnowConeRate = 1;
@@ -90,6 +91,7 @@ namespace SnowConeTycoon.Shared.Screens
             ShowingPassives = false;
             ShowingPromoters = false;
             ShowingRank = false;
+            RankDone = false;
             DetractorImage.Reset();
             PassiveImage.Reset();
             PromoterImage.Reset();
@@ -158,11 +160,6 @@ namespace SnowConeTycoon.Shared.Screens
                     ShowingPromoters = true;
                     PromoterImage.Update(gameTime);
                 }
-                else if (!RankImage.IsDoneAnimating())
-                {
-                    ShowingRank = true;
-                    RankImage.Update(gameTime);
-                }
                 else if (!NPSTickerDone)
                 {
                     TickTime += gameTime.ElapsedGameTime.Milliseconds;
@@ -182,7 +179,12 @@ namespace SnowConeTycoon.Shared.Screens
                         }
                     }
                 }
-                else if (!NextButton.IsDoneAnimating())
+                else if (!RankImage.IsDoneAnimating())
+                {
+                    ShowingRank = true;
+                    RankImage.Update(gameTime);
+                }
+                else if (RankDone)
                 {
                     NextButton.Update(gameTime);
                 }
@@ -274,6 +276,7 @@ namespace SnowConeTycoon.Shared.Screens
                         if (RankImage.IsDoneAnimating())
                         {
                             spriteBatch.DrawString(Defaults.Font, "novice", new Vector2(PositionInv.X + 800, PositionInv.Y + 680), Color.White, 0f, Vector2.Zero, 1.25f, SpriteEffects.None, 1f);
+                            RankDone = true;
                         }
                     }
 
@@ -284,7 +287,7 @@ namespace SnowConeTycoon.Shared.Screens
                         spriteBatch.DrawString(Defaults.Font, PromoterCount.ToString(), new Vector2((Defaults.GraphicsWidth / 2) + 350, ContentHandler.Images["DaySetup_Paper"].Height - 270), Color.White, 0f, Defaults.Font.MeasureString(PromoterCount.ToString()) / 2, 1f, SpriteEffects.None, 1f);
                     }
 
-                    if (NPSTickerDone)
+                    if (NPSTickerDone && RankDone)
                     {
                         NextButton.Draw(spriteBatch);
                     }
