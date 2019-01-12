@@ -36,9 +36,11 @@ namespace SnowConeTycoon.Shared.Screens
         PulseImage DetractorImage;
         PulseImage PassiveImage;
         PulseImage PromoterImage;
+        PulseImage RankImage;
         bool ShowingDetractors = false;
         bool ShowingPassives = false;
         bool ShowingPromoters = false;
+        bool ShowingRank = false;
         int DetractorCount = 0;
         public int DetractorTotal = 2;
         int PassiveCount = 0;
@@ -65,6 +67,7 @@ namespace SnowConeTycoon.Shared.Screens
             DetractorImage = new PulseImage("nps_detractor", new Vector2((Defaults.GraphicsWidth / 2) - 310, ContentHandler.Images["DaySetup_Paper"].Height - 450), 1, 2.75f, 2.25f, 250);
             PassiveImage = new PulseImage("nps_passive", new Vector2((Defaults.GraphicsWidth / 2) + 20, ContentHandler.Images["DaySetup_Paper"].Height - 460), 1, 2.5f, 2f, 250);
             PromoterImage = new PulseImage("nps_promoter", new Vector2((Defaults.GraphicsWidth / 2) + 350, ContentHandler.Images["DaySetup_Paper"].Height - 460), 1, 2.5f, 2f, 250);
+            RankImage = new PulseImage("Results_Rank", new Vector2((Defaults.GraphicsWidth / 2) + 275, ContentHandler.Images["DaySetup_Paper"].Height + 610), 0.5f, 1.25f, 1f, 250);
         }
 
         public void Reset()
@@ -86,9 +89,11 @@ namespace SnowConeTycoon.Shared.Screens
             ShowingDetractors = false;
             ShowingPassives = false;
             ShowingPromoters = false;
+            ShowingRank = false;
             DetractorImage.Reset();
             PassiveImage.Reset();
             PromoterImage.Reset();
+            RankImage.Reset();
             DetractorCount = 0;
             PassiveCount = 0;
             PromoterCount = 0;
@@ -153,6 +158,11 @@ namespace SnowConeTycoon.Shared.Screens
                     ShowingPromoters = true;
                     PromoterImage.Update(gameTime);
                 }
+                else if (!RankImage.IsDoneAnimating())
+                {
+                    ShowingRank = true;
+                    RankImage.Update(gameTime);
+                }
                 else if (!NPSTickerDone)
                 {
                     TickTime += gameTime.ElapsedGameTime.Milliseconds;
@@ -195,10 +205,12 @@ namespace SnowConeTycoon.Shared.Screens
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Rectangle((int)PositionInv.X + 1125, (int)PositionInv.Y + 310, (int)(ContentHandler.Images["DaySetup_IconPrice"].Width * 0.75), (int)(ContentHandler.Images["DaySetup_IconPrice"].Height * 0.75)), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, "earned", new Vector2((int)PositionInv.X + 400, (int)PositionInv.Y + 350), Color.White, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, CoinsEarned.ToString(), new Vector2((int)PositionInv.X + 1000, (int)PositionInv.Y + 350), Color.White, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
-                spriteBatch.DrawString(Defaults.Font, "-------------------------------------", new Vector2((int)PositionInv.X + 400, (int)PositionInv.Y + 500), Color.White, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Rectangle((int)PositionInv.X + 1125, (int)PositionInv.Y + 560, (int)(ContentHandler.Images["DaySetup_IconPrice"].Width * 0.75), (int)(ContentHandler.Images["DaySetup_IconPrice"].Height * 0.75)), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
-                spriteBatch.DrawString(Defaults.Font, "total", new Vector2((int)PositionInv.X + 400, (int)PositionInv.Y + 600), Color.White, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
-                spriteBatch.DrawString(Defaults.Font, (CoinsPrevious + CoinsEarned).ToString(), new Vector2((int)PositionInv.X + 1000, (int)PositionInv.Y + 600), Color.White, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, "-------------------------------------", new Vector2((int)PositionInv.X + 400, (int)PositionInv.Y + 450), Color.White, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Rectangle((int)PositionInv.X + 1125, (int)PositionInv.Y + 510, (int)(ContentHandler.Images["DaySetup_IconPrice"].Width * 0.75), (int)(ContentHandler.Images["DaySetup_IconPrice"].Height * 0.75)), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, "total", new Vector2((int)PositionInv.X + 400, (int)PositionInv.Y + 550), Color.White, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, (CoinsPrevious + CoinsEarned).ToString(), new Vector2((int)PositionInv.X + 1000, (int)PositionInv.Y + 550), Color.White, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, "rank:", new Vector2(PositionInv.X + 400, PositionInv.Y + 700), Color.White, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
+                //spriteBatch.Draw(ContentHandler.Images["Results_Rank"], new Vector2(PositionInv.X + 750, PositionInv.Y + 670), Color.White);
             }
 
             spriteBatch.Draw(ContentHandler.Images["DaySetup_Paper"], PositionPaper, Color.White);
@@ -208,7 +220,7 @@ namespace SnowConeTycoon.Shared.Screens
             spriteBatch.DrawString(Defaults.Font, "snow cones sold:", new Vector2(PositionPaper.X + 260, PositionPaper.Y + 700), Color.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(Defaults.Font, SnowConesSold.ToString() + " @ " + SnowConeRate, new Vector2(PositionPaper.X + 990, PositionPaper.Y + 700), Color.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
             spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Rectangle((int)PositionPaper.X + 930 + (int)Defaults.Font.MeasureString(SnowConesSold.ToString() + " @ " + SnowConeRate).X, (int)PositionPaper.Y + 655, (int)(ContentHandler.Images["DaySetup_IconPrice"].Width * 0.75), (int)(ContentHandler.Images["DaySetup_IconPrice"].Height * 0.75)), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
-            
+
             if (!AnimatingPaper)
             {
                 NPSBackground.Draw(spriteBatch);
@@ -253,6 +265,16 @@ namespace SnowConeTycoon.Shared.Screens
                     if (ShowingPromoters)
                     {
                         PromoterImage.Draw(spriteBatch);
+                    }
+
+                    if (ShowingRank)
+                    {
+                        RankImage.Draw(spriteBatch);
+
+                        if (RankImage.IsDoneAnimating())
+                        {
+                            spriteBatch.DrawString(Defaults.Font, "novice", new Vector2(PositionInv.X + 800, PositionInv.Y + 680), Color.White, 0f, Vector2.Zero, 1.25f, SpriteEffects.None, 1f);
+                        }
                     }
 
                     if (ShowingDetractors && ShowingPassives && ShowingPromoters && PromoterImage.IsDoneAnimating())
