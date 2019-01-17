@@ -10,6 +10,7 @@ namespace SnowConeTycoon.Shared.Enums
         Title,
         CharacterSelect,
         DaySetup,
+        SupplyShop,
         OpenForBusiness,
         Results
     }

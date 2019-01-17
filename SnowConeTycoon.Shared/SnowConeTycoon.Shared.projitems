@@ -50,6 +50,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Screens\ResultsScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Animations\ScaledImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Animations\PulseImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\SupplyShopScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

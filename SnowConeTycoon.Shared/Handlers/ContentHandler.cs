@@ -117,6 +117,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("DaySetup_InvCoins", content.Load<Texture2D>("DaySetup_InvCoins"));
             Images.Add("DaySetup_InvCones", content.Load<Texture2D>("DaySetup_InvCones"));
             Images.Add("DaySetup_Inventory", content.Load<Texture2D>("DaySetup_Inventory"));
+            Images.Add("DaySetup_InvFlyers", content.Load<Texture2D>("DaySetup_InvFlyers"));
             Images.Add("DaySetup_InvIce", content.Load<Texture2D>("DaySetup_InvIce"));
             Images.Add("DaySetup_InvSyrup", content.Load<Texture2D>("DaySetup_InvSyrup"));
             Images.Add("DaySetup_LetsGo", content.Load<Texture2D>("DaySetup_LetsGo"));
@@ -126,6 +127,15 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("DaySetup_WatchAd", content.Load<Texture2D>("DaySetup_WatchAd"));
             Images.Add("Results_Rank", content.Load<Texture2D>("Results_Rank"));
             Images.Add("Results_Next", content.Load<Texture2D>("Results_Next"));
+
+            ///////////////////////////////////////////
+            //SUPPLY SHOP
+            ///////////////////////////////////////////
+            Images.Add("SupplyShop_Banner", content.Load<Texture2D>("SupplyShop_Banner"));
+            Images.Add("SupplyShop_Checkout", content.Load<Texture2D>("SupplyShop_Checkout"));
+            Images.Add("SupplyShop_Minus", content.Load<Texture2D>("SupplyShop_Minus"));
+            Images.Add("SupplyShop_Paper", content.Load<Texture2D>("SupplyShop_Paper"));
+            Images.Add("SupplyShop_Plus", content.Load<Texture2D>("SupplyShop_Plus"));
 
             ///////////////////////////////////////////
             //SOUNDS

@@ -40,11 +40,13 @@ namespace SnowConeTycoon.Shared
         Form FormDaySetup;
         Form FormOpenForBusiness;
         Form FormResults;
+        Form FormSupplyShop;
 
         LogoScreen LogoScreen;
         DaySetupScreen DaySetupScreen;
         OpenForBusinessScreen OpenForBusinessScreen;
         ResultsScreen ResultsScreen;
+        SupplyShopScreen SupplyShopScreen;
                 
         Dictionary<string, IBackground> Backgrounds;
         Dictionary<string, IBackgroundEffect> BackgroundEffects;
@@ -156,7 +158,8 @@ namespace SnowConeTycoon.Shared
                 Fade.Reset(() =>
                 {
                     ResultsScreen.Reset();
-                    CurrentScreen = Screen.Results;
+                    //CurrentScreen = Screen.Results;
+                    CurrentScreen = Screen.SupplyShop;
                 });
 
                 return true;
@@ -301,6 +304,8 @@ namespace SnowConeTycoon.Shared
                 return true;
             }, "pop", scaleX, scaleY));
 
+            FormSupplyShop = new Form(0, 0);
+
             previousTouchCollection = TouchPanel.GetState();
             base.Initialize();
         }
@@ -337,6 +342,7 @@ namespace SnowConeTycoon.Shared
             DaySetupScreen = new DaySetupScreen(scaleX, scaleY);
             OpenForBusinessScreen = new OpenForBusinessScreen(scaleX, scaleY);
             ResultsScreen = new ResultsScreen(scaleX, scaleY);
+            SupplyShopScreen = new SupplyShopScreen(scaleX, scaleY);
         }
 
         /// <summar>(""));
@@ -393,6 +399,11 @@ namespace SnowConeTycoon.Shared
                     ResultsScreen.HandleInput(previousTouchCollection, currentTouchCollection);
                     FormResults.HandleInput(previousTouchCollection, currentTouchCollection);
                 }
+                else if (CurrentScreen == Screen.SupplyShop)
+                {
+                    SupplyShopScreen.HandleInput(previousTouchCollection, currentTouchCollection);
+                    FormSupplyShop.HandleInput(previousTouchCollection, currentTouchCollection);
+                }
 
                 previousTouchCollection = currentTouchCollection;
 
@@ -433,6 +444,13 @@ namespace SnowConeTycoon.Shared
                     CurrentBackgroundEffect?.Update(gameTime);
                     ResultsScreen.Update(gameTime);
                     FormResults.Update(gameTime);
+                }
+                else if (CurrentScreen == Screen.SupplyShop)
+                {
+                    CurrentBackground.Update(gameTime);
+                    CurrentBackgroundEffect?.Update(gameTime);
+                    SupplyShopScreen.Update(gameTime);
+                    FormSupplyShop.Update(gameTime);
                 }
                 else if (CurrentScreen == Screen.CharacterSelect)
                 {
@@ -525,6 +543,13 @@ namespace SnowConeTycoon.Shared
                 CurrentBackgroundEffect?.Draw(spriteBatch);
                 ResultsScreen.Draw(spriteBatch);
                 FormResults.Draw(spriteBatch);
+            }
+            else if (CurrentScreen == Screen.SupplyShop)
+            {
+                CurrentBackground.Draw(spriteBatch);
+                CurrentBackgroundEffect?.Draw(spriteBatch);
+                SupplyShopScreen.Draw(spriteBatch);
+                FormSupplyShop.Draw(spriteBatch);
             }
             else if (CurrentScreen == Screen.CharacterSelect)
             {
