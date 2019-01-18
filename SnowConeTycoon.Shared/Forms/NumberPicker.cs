@@ -20,7 +20,12 @@ namespace SnowConeTycoon.Shared.Forms
         public Rectangle Bounds { get; set; }
         Button LessButton;
         Button MoreButton;
+        bool ScalingIconUp = false;
+        bool ScalingIconDown = false;
+        int TimeScaleIcon = 0;
+        int TimeScaleIconTotal = 250;
         public bool Visible { get;set;}
+        float IconScale = 1.0f;
 
         public NumberPicker(string icon, string label, Vector2 position, int min, int max, double scaleX, double scaleY, bool visible)
         {
@@ -66,22 +71,34 @@ namespace SnowConeTycoon.Shared.Forms
         {
             if (Visible)
             {
-                spriteBatch.Draw(ContentHandler.Images[Icon], Position, Color.White);
-                spriteBatch.DrawString(Defaults.Font, Label, new Vector2(Position.X + IconWidth, Position.Y), Color.Brown);
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_NumControl"], new Vector2(Position.X + IconWidth + LabelWidth, Position.Y), Color.White);
-                spriteBatch.DrawString(Defaults.Font, Value.ToString(), new Vector2(Position.X + IconWidth + LabelWidth + (Bounds.Width / 2), Position.Y + (Bounds.Height / 2)), Color.White, 0f, Defaults.Font.MeasureString(Value.ToString()) / 2, 1f, SpriteEffects.None, 1f);
+                spriteBatch.Draw(ContentHandler.Images[Icon], new Rectangle((int)Position.X + 70, (int)Position.Y + 40, (int)(ContentHandler.Images[Icon].Width * IconScale), (int)(ContentHandler.Images[Icon].Height * IconScale)), null, Color.White, 0f, new Vector2(ContentHandler.Images[Icon].Width / 2, ContentHandler.Images[Icon].Height / 2), SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Label, new Vector2(Position.X + IconWidth, Position.Y), Defaults.Brown);
+                spriteBatch.Draw(ContentHandler.Images["SupplyShop_Minus"], new Vector2(Position.X + IconWidth + LabelWidth + 20, Position.Y + 20), Color.White);
+                spriteBatch.Draw(ContentHandler.Images["SupplyShop_Plus"], new Vector2(Position.X + IconWidth + LabelWidth + Bounds.Width - Bounds.Height + 10, Position.Y + 10), Color.White);
+                spriteBatch.DrawString(Defaults.Font, Value.ToString(), new Vector2(Position.X + IconWidth + LabelWidth + (Bounds.Width / 2), Position.Y + (Bounds.Height / 2)), Defaults.Brown, 0f, Defaults.Font.MeasureString(Value.ToString()) / 2, IconScale, SpriteEffects.None, 1f);
                 LessButton.Draw(spriteBatch);
                 MoreButton.Draw(spriteBatch);
             }
         }
 
-        public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
+        public bool HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
         {
             if (Visible)
             {
-                LessButton.HandleInput(previousTouchCollection, currentTouchCollection);
-                MoreButton.HandleInput(previousTouchCollection, currentTouchCollection);
+                if (LessButton.HandleInput(previousTouchCollection, currentTouchCollection))
+                {
+                    ScalingIconUp = true;
+                    return true;
+                }
+
+                if (MoreButton.HandleInput(previousTouchCollection, currentTouchCollection))
+                {
+                    ScalingIconUp = true;
+                    return true;
+                }
             }
+
+            return false;
         }
 
         public void Update(GameTime gameTime)
@@ -90,6 +107,35 @@ namespace SnowConeTycoon.Shared.Forms
             {
                 LessButton.Update(gameTime);
                 MoreButton.Update(gameTime);
+
+                if (ScalingIconUp)
+                {
+                    TimeScaleIcon += gameTime.ElapsedGameTime.Milliseconds;
+
+                    var amt = TimeScaleIcon / (float)TimeScaleIconTotal;
+
+                    IconScale = Vector2.SmoothStep(Vector2.One, new Vector2(1.5f), amt).X;
+
+                    if (TimeScaleIcon >= TimeScaleIconTotal)
+                    {
+                        ScalingIconUp = false;
+                        ScalingIconDown = true;
+                        TimeScaleIcon = 0;
+                    }
+                }
+                else if (ScalingIconDown)
+                {
+                    TimeScaleIcon += gameTime.ElapsedGameTime.Milliseconds;
+
+                    var amt = TimeScaleIcon / (float)TimeScaleIconTotal;
+
+                    IconScale = Vector2.SmoothStep(new Vector2(1.5f), Vector2.One, amt).X;
+
+                    if (TimeScaleIcon >= TimeScaleIconTotal)
+                    {
+                        ScalingIconDown = false;
+                    }
+                }
             }
         }
     }
