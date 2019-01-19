@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -35,6 +36,7 @@ namespace SnowConeTycoon.Shared.Screens
         Form form;
         ScaledImage CheckoutButton;
         public bool DoneAnimating = false;
+        int CheckoutTotal = 0;
 
         public SupplyShopScreen(double scaleX, double scaleY)
         {
@@ -49,10 +51,12 @@ namespace SnowConeTycoon.Shared.Screens
             DoneAnimating = false;
             form = new Form(0, 0);
             form.Spacing = 10;
-            form.Controls.Add(new NumberPicker("DaySetup_IconPrice", "cones", new Vector2(250, 450), 1, 8, ScaleX, ScaleY, false));
-            form.Controls.Add(new NumberPicker("DaySetup_IconFlavor", "syrup", new Vector2(250, 725), 1, 8, ScaleX, ScaleY, false));
-            form.Controls.Add(new NumberPicker("DaySetup_IconFlyer", "flyers", new Vector2(250, 1000), 1, 8, ScaleX, ScaleY, false));
+            form.Controls.Add(new NumberPicker("DaySetup_IconPrice", "cones", new Vector2(250, 450), 0, 8, ScaleX, ScaleY, false));
+            form.Controls.Add(new NumberPicker("DaySetup_IconFlavor", "syrup", new Vector2(250, 725), 0, 8, ScaleX, ScaleY, false));
+            form.Controls.Add(new NumberPicker("DaySetup_IconFlyer", "flyers", new Vector2(250, 1000), 0, 8, ScaleX, ScaleY, false));
             form.Controls.Add(new Label("------------------------------------", new Vector2(250, 1175), Defaults.Brown));
+            form.Controls.Add(new Label("total", new Vector2(450, 1290), Defaults.Brown));
+            form.Controls.Add(new LabelWithImage(CheckoutTotal.ToString(), new Vector2(1120, 1350), Defaults.Brown, "DaySetup_IconPrice", Align.Right, 50, -120));
             AnimatingBanner = false;
             AnimatingPaper = true;
             ShowingInventory = false;
@@ -73,6 +77,29 @@ namespace SnowConeTycoon.Shared.Screens
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
         {
             form.HandleInput(previousTouchCollection, currentTouchCollection);
+            UpdateCheckoutTotal();
+        }
+
+        private void UpdateCheckoutTotal()
+        {
+            var total = 0;
+
+            foreach (var control in form.Controls)
+            {
+                if (control is NumberPicker)
+                {
+                    total += ((NumberPicker)control).Value;
+                }
+            }
+
+            if (total != CheckoutTotal)
+            {
+                CheckoutTotal = total;
+
+                var totalLabel = form.Controls.Where(c => c is LabelWithImage).ToList()[0] as LabelWithImage;
+
+                totalLabel.SetText(CheckoutTotal.ToString(), true);
+            }
         }
 
         public void Update(GameTime gameTime)
@@ -136,23 +163,29 @@ namespace SnowConeTycoon.Shared.Screens
             {
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_Inventory"], PositionInv, Color.White);
 
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvCoins"], new Vector2(PositionInv.X + 280, PositionInv.Y + 200), Color.White);
-                spriteBatch.DrawString(Defaults.Font, "coins", new Vector2(PositionInv.X + 500, PositionInv.Y + 200), Defaults.Cream);
-                spriteBatch.DrawString(Defaults.Font, "345", new Vector2(PositionInv.X + 1100, PositionInv.Y + 200), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("345").X, 0), 1f, SpriteEffects.None, 1f);
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_WatchAd"], new Vector2(PositionInv.X + 1135, PositionInv.Y + 215), Color.White);
+                spriteBatch.DrawString(Defaults.Font, "my supplies", new Vector2(PositionInv.X + 500, PositionInv.Y + 100), Defaults.Brown, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
 
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvCones"], new Vector2(PositionInv.X + 325, PositionInv.Y + 415), Color.White);
-                spriteBatch.DrawString(Defaults.Font, "cones", new Vector2(PositionInv.X + 500, PositionInv.Y + 400), Defaults.Cream);
-                spriteBatch.DrawString(Defaults.Font, "23", new Vector2(PositionInv.X + 1100, PositionInv.Y + 400), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("23").X, 0), 1f, SpriteEffects.None, 1f);
+                var fontScale = 0.70f;
 
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvIce"], new Vector2(PositionInv.X + 300, PositionInv.Y + 600), Color.White);
-                spriteBatch.DrawString(Defaults.Font, "ice", new Vector2(PositionInv.X + 500, PositionInv.Y + 600), Defaults.Cream);
-                spriteBatch.DrawString(Defaults.Font, "35", new Vector2(PositionInv.X + 1100, PositionInv.Y + 600), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("35").X, 0), 1f, SpriteEffects.None, 1f);
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_Plus"], new Vector2(PositionInv.X + 1150, PositionInv.Y + 600), Color.White);
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvCoins"], new Vector2(PositionInv.X + 290, PositionInv.Y + 250), Color.White);
+                spriteBatch.DrawString(Defaults.Font, "coins", new Vector2(PositionInv.X + 500, PositionInv.Y + 250), Defaults.Cream, 0f, Vector2.Zero, fontScale, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, "345", new Vector2(PositionInv.X + 1250, PositionInv.Y + 250), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("345").X, 0), fontScale, SpriteEffects.None, 1f);
 
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvSyrup"], new Vector2(PositionInv.X + 300, PositionInv.Y + 800), Color.White);
-                spriteBatch.DrawString(Defaults.Font, "syrup", new Vector2(PositionInv.X + 500, PositionInv.Y + 800), Defaults.Cream);
-                spriteBatch.DrawString(Defaults.Font, "12", new Vector2(PositionInv.X + 1100, PositionInv.Y + 800), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("12").X, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvCones"], new Vector2(PositionInv.X + 335, PositionInv.Y + 400), Color.White);
+                spriteBatch.DrawString(Defaults.Font, "cones", new Vector2(PositionInv.X + 500, PositionInv.Y + 400), Defaults.Cream, 0f, Vector2.Zero, fontScale, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, "23", new Vector2(PositionInv.X + 1250, PositionInv.Y + 400), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("23").X, 0), fontScale, SpriteEffects.None, 1f);
+
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvSyrup"], new Vector2(PositionInv.X + 320, PositionInv.Y + 530), Color.White);
+                spriteBatch.DrawString(Defaults.Font, "syrup", new Vector2(PositionInv.X + 500, PositionInv.Y + 550), Defaults.Cream, 0f, Vector2.Zero, fontScale, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, "35", new Vector2(PositionInv.X + 1250, PositionInv.Y + 550), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("35").X, 0), fontScale, SpriteEffects.None, 1f);
+
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvFlyers"], new Vector2(PositionInv.X + 320, PositionInv.Y + 700), Color.White);
+                spriteBatch.DrawString(Defaults.Font, "flyers", new Vector2(PositionInv.X + 500, PositionInv.Y + 700), Defaults.Cream, 0f, Vector2.Zero, fontScale, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, "12", new Vector2(PositionInv.X + 1250, PositionInv.Y + 700), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("12").X, 0), fontScale, SpriteEffects.None, 1f);
+
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvIce"], new Vector2(PositionInv.X + 300, PositionInv.Y + 850), Color.White);
+                spriteBatch.DrawString(Defaults.Font, "ice", new Vector2(PositionInv.X + 500, PositionInv.Y + 850), Defaults.Cream, 0f, Vector2.Zero, fontScale, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, "6", new Vector2(PositionInv.X + 1250, PositionInv.Y + 850), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("6").X, 0), fontScale, SpriteEffects.None, 1f);
             }
 
             spriteBatch.Draw(ContentHandler.Images["SupplyShop_Paper"], PositionPaper, Color.White);

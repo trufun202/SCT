@@ -305,6 +305,17 @@ namespace SnowConeTycoon.Shared
             }, "pop", scaleX, scaleY));
 
             FormSupplyShop = new Form(0, 0);
+            FormSupplyShop = new Form(0, 0);
+            FormSupplyShop.Controls.Add(new Button(new Rectangle(925, 2375, 592, 250), () =>
+            {
+                Fade.Reset(() =>
+                {
+                    DaySetupScreen.Reset();
+                    CurrentScreen = Screen.DaySetup;
+                });
+
+                return true;
+            }, "pop", scaleX, scaleY));
 
             previousTouchCollection = TouchPanel.GetState();
             base.Initialize();

@@ -16,7 +16,7 @@ namespace SnowConeTycoon.Shared.Forms
         private Vector2 Position;
         private int Min;
         private int Max;
-        private int Value;
+        public int Value;
         public Rectangle Bounds { get; set; }
         Button LessButton;
         Button MoreButton;
