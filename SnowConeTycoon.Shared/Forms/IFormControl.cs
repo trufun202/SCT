@@ -11,7 +11,7 @@ namespace SnowConeTycoon.Shared.Forms
     {
         Rectangle Bounds { get; set; }
         bool Visible { get; set; }
-        void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection);
+        bool HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection);
         void Update(GameTime gameTime);
         void Draw(SpriteBatch spriteBatch);
     }

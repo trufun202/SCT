@@ -26,5 +26,21 @@ namespace SnowConeTycoon.Shared.Utils
                 return Color.FromNonPremultiplied(3, 38, 119, 255);
             }
         }
+
+        public static Color Cream
+        {
+            get
+            {
+                return Color.FromNonPremultiplied(255, 243, 221, 255);
+            }
+        }
+
+        public static Color Brown
+        {
+            get
+            {
+                return Color.FromNonPremultiplied(78, 38, 35, 255);
+            }
+        }
     }
 }

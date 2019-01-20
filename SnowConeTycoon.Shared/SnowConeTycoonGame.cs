@@ -305,6 +305,17 @@ namespace SnowConeTycoon.Shared
             }, "pop", scaleX, scaleY));
 
             FormSupplyShop = new Form(0, 0);
+            FormSupplyShop = new Form(0, 0);
+            FormSupplyShop.Controls.Add(new Button(new Rectangle(925, 2375, 592, 250), () =>
+            {
+                Fade.Reset(() =>
+                {
+                    DaySetupScreen.Reset();
+                    CurrentScreen = Screen.DaySetup;
+                });
+
+                return true;
+            }, "pop", scaleX, scaleY));
 
             previousTouchCollection = TouchPanel.GetState();
             base.Initialize();
@@ -582,7 +593,7 @@ namespace SnowConeTycoon.Shared
                 spriteBatch.Draw(ContentHandler.Images["Symbol_Male"], new Rectangle(1280, 700, 191, 171), Color.White);
                 spriteBatch.Draw(ContentHandler.Images["ArrowLeft"], new Rectangle(140, 1145, 136, 136), Color.White);
                 spriteBatch.Draw(ContentHandler.Images["ArrowRight"], new Rectangle(1330, 1145, 136, 136), Color.White);
-                spriteBatch.DrawString(Defaults.Font, KidHandler.CurrentKid.Name, new Vector2(808, 1830), Color.White, 0f, Defaults.Font.MeasureString(KidHandler.CurrentKid.Name) / 2, 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, KidHandler.CurrentKid.Name, new Vector2(808, 1830), Defaults.Cream, 0f, Defaults.Font.MeasureString(KidHandler.CurrentKid.Name) / 2, 1f, SpriteEffects.None, 1f);
 
                 FormCharacterSelect.Draw(spriteBatch);
                 CurrentBackgroundEffect?.Draw(spriteBatch);

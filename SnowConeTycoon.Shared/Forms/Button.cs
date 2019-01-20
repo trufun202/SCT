@@ -33,7 +33,7 @@ namespace SnowConeTycoon.Shared.Forms
             this.rectangle = rectangle;
         }
 
-        public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
+        public bool HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
         {
             if (Visible)
             {
@@ -44,14 +44,21 @@ namespace SnowConeTycoon.Shared.Forms
                     {
                         if (Bounds.Contains((int)currentTouchCollection[0].Position.X, (int)currentTouchCollection[0].Position.Y))
                         {
-                            if (Method.Invoke() && !string.IsNullOrWhiteSpace(Sound))
+                            if (Method.Invoke())
                             {
-                                ContentHandler.Sounds[Sound].Play();
+                                if (!string.IsNullOrWhiteSpace(Sound))
+                                {
+                                    ContentHandler.Sounds[Sound].Play();
+                                }
+
+                                return true;
                             }
                         }
                     }
                 }
             }
+
+            return false;
         }
 
         public void Update(GameTime gameTime)

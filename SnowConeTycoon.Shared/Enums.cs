@@ -43,4 +43,12 @@ namespace SnowConeTycoon.Shared.Enums
         x1,
         x2
     }
+
+    public enum Align
+    {
+        Top,
+        Bottom,
+        Left,
+        Right
+    }
 }
