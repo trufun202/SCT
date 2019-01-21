@@ -14,9 +14,27 @@ namespace SnowConeTycoon.Shared.Handlers
         public static Dictionary<string, SoundEffect> Sounds;
         public static Dictionary<string, Song> Songs;
 
-        public static void Init(ContentManager content)
+        public static void PreInit(ContentManager content)
         {
             Images = new Dictionary<string, Texture2D>();
+
+            ///////////////////////////////////////////
+            //LOADING SCREEN
+            ///////////////////////////////////////////
+            Images.Add("Loading_Frame", content.Load<Texture2D>("Loading_Frame"));
+            Images.Add("Loading_Bar01", content.Load<Texture2D>("Loading_Bar01"));
+            Images.Add("Loading_Bar02", content.Load<Texture2D>("Loading_Bar02"));
+            Images.Add("Loading_Bar03", content.Load<Texture2D>("Loading_Bar03"));
+            Images.Add("Loading_Bar04", content.Load<Texture2D>("Loading_Bar04"));
+            Images.Add("Loading_Bar05", content.Load<Texture2D>("Loading_Bar05"));
+            Images.Add("Loading_Bar06", content.Load<Texture2D>("Loading_Bar06"));
+            Images.Add("Loading_Bar07", content.Load<Texture2D>("Loading_Bar07"));
+            Images.Add("Loading_Bar08", content.Load<Texture2D>("Loading_Bar08"));
+            Images.Add("SupplyShop_Background", content.Load<Texture2D>("SupplyShop_Background"));
+        }
+
+        public static void Init(ContentManager content)
+        {
             Sounds = new Dictionary<string, SoundEffect>();
             Songs = new Dictionary<string, Song>();
 
@@ -114,6 +132,8 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("DaySetup_IconFlavor", content.Load<Texture2D>("DaySetup_IconFlavor"));
             Images.Add("DaySetup_IconFlyer", content.Load<Texture2D>("DaySetup_IconFlyer"));
             Images.Add("DaySetup_IconPrice", content.Load<Texture2D>("DaySetup_IconPrice"));
+            Images.Add("DaySetup_IconCone", content.Load<Texture2D>("DaySetup_IconCone"));
+            Images.Add("DaySetup_IconShop", content.Load<Texture2D>("DaySetup_IconShop"));
             Images.Add("DaySetup_InvCoins", content.Load<Texture2D>("DaySetup_InvCoins"));
             Images.Add("DaySetup_InvCones", content.Load<Texture2D>("DaySetup_InvCones"));
             Images.Add("DaySetup_Inventory", content.Load<Texture2D>("DaySetup_Inventory"));
@@ -121,6 +141,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("DaySetup_InvIce", content.Load<Texture2D>("DaySetup_InvIce"));
             Images.Add("DaySetup_InvSyrup", content.Load<Texture2D>("DaySetup_InvSyrup"));
             Images.Add("DaySetup_LetsGo", content.Load<Texture2D>("DaySetup_LetsGo"));
+            Images.Add("DaySetup_Back", content.Load<Texture2D>("DaySetup_Back"));
             Images.Add("DaySetup_NumControl", content.Load<Texture2D>("DaySetup_NumControl"));
             Images.Add("DaySetup_Paper", content.Load<Texture2D>("DaySetup_Paper"));
             Images.Add("DaySetup_Plus", content.Load<Texture2D>("DaySetup_Plus"));

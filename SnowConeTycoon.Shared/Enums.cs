@@ -6,6 +6,7 @@ namespace SnowConeTycoon.Shared.Enums
 {
     public enum Screen
     {
+        Loading,
         Logo,
         Title,
         CharacterSelect,

@@ -35,6 +35,7 @@ namespace SnowConeTycoon.Shared.Screens
         double ScaleY;
         Form form;
         ScaledImage CheckoutButton;
+        ScaledImage BackButton;
         public bool DoneAnimating = false;
         int CheckoutTotal = 0;
 
@@ -43,6 +44,7 @@ namespace SnowConeTycoon.Shared.Screens
             ScaleX = scaleX;
             ScaleY = scaleY;
             CheckoutButton = new ScaledImage("SupplyShop_Checkout", new Vector2(1200, 2500), 500);
+            BackButton = new ScaledImage("DaySetup_Back", new Vector2(350, 2470), 500);
             Reset();
         }
 
@@ -51,7 +53,7 @@ namespace SnowConeTycoon.Shared.Screens
             DoneAnimating = false;
             form = new Form(0, 0);
             form.Spacing = 10;
-            form.Controls.Add(new NumberPicker("DaySetup_IconPrice", "cones", new Vector2(250, 450), 0, 8, ScaleX, ScaleY, false));
+            form.Controls.Add(new NumberPicker("DaySetup_IconCone", "cones", new Vector2(250, 450), 0, 8, ScaleX, ScaleY, false));
             form.Controls.Add(new NumberPicker("DaySetup_IconFlavor", "syrup", new Vector2(250, 725), 0, 8, ScaleX, ScaleY, false));
             form.Controls.Add(new NumberPicker("DaySetup_IconFlyer", "flyers", new Vector2(250, 1000), 0, 8, ScaleX, ScaleY, false));
             form.Controls.Add(new Label("------------------------------------", new Vector2(250, 1175), Defaults.Brown));
@@ -72,6 +74,7 @@ namespace SnowConeTycoon.Shared.Screens
             PositionInv = PositionInvStart;
             PositionInvEnd = new Vector2(0, Defaults.GraphicsHeight - ContentHandler.Images["DaySetup_Inventory"].Height - 200);
             CheckoutButton.Reset();
+            BackButton.Reset();
         }
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
@@ -149,6 +152,7 @@ namespace SnowConeTycoon.Shared.Screens
                 if (!CheckoutButton.IsDoneAnimating())
                 {
                     CheckoutButton.Update(gameTime);
+                    BackButton.Update(gameTime);
                 }
                 else if (CheckoutButton.IsDoneAnimating())
                 {
@@ -159,6 +163,8 @@ namespace SnowConeTycoon.Shared.Screens
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            spriteBatch.Draw(ContentHandler.Images["SupplyShop_Background"], Vector2.Zero, Color.White);
+
             if (!AnimatingBanner && !AnimatingPaper)
             {
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_Inventory"], PositionInv, Color.White);
@@ -195,6 +201,7 @@ namespace SnowConeTycoon.Shared.Screens
             if (ShowingInventory)
             {
                 CheckoutButton.Draw(spriteBatch);
+                BackButton.Draw(spriteBatch);
             }
         }
     }

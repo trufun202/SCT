@@ -53,6 +53,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Screens\SupplyShopScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Forms\Label.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Forms\LabelWithImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\LoadingScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

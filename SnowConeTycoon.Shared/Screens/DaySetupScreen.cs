@@ -32,6 +32,7 @@ namespace SnowConeTycoon.Shared.Screens
         ScaledImage DayImage;
         ScaledImage ForecastImage;
         ScaledImage LetsGoButton;
+        ScaledImage BackButton;
         public bool DoneAnimating = false;
 
         public DaySetupScreen(double scaleX, double scaleY)
@@ -41,15 +42,18 @@ namespace SnowConeTycoon.Shared.Screens
             DayImage = new ScaledImage("DaySetup_DayLabel", new Vector2(350, 200), 250);
             ForecastImage = new ScaledImage("DaySetup_ForecastLabel", new Vector2(800, 200), 250);
             LetsGoButton = new ScaledImage("DaySetup_LetsGo", new Vector2(1200, 2500), 500);
+            BackButton = new ScaledImage("DaySetup_Back", new Vector2(350, 2470), 500);
         }
 
         public void Reset()
         {
             DoneAnimating = false;
             form = new Form(0, 0);
-            form.Controls.Add(new NumberPicker("DaySetup_IconPrice", "price", new Vector2(250, 500), 1, 8, ScaleX, ScaleY, false));
-            form.Controls.Add(new NumberPicker("DaySetup_IconFlavor", "flavor", new Vector2(250, 800), 1, 8, ScaleX, ScaleY, false));
-            form.Controls.Add(new NumberPicker("DaySetup_IconFlyer", "flyers", new Vector2(250, 1100), 1, 8, ScaleX, ScaleY, false));
+            form.Controls.Add(new NumberPicker("DaySetup_IconFlavor", "syrup", new Vector2(250, 550), 0, 10, ScaleX, ScaleY, false));
+            form.Controls.Add(new NumberPicker("DaySetup_IconFlyer", "flyers", new Vector2(250, 800), 0, 10, ScaleX, ScaleY, false));
+            form.Controls.Add(new Label("---------------------------------", new Vector2(250, 1000), Defaults.Brown));
+            form.Controls.Add(new NumberPicker("DaySetup_IconPrice", "price", new Vector2(250, 1200), 1, 10, ScaleX, ScaleY, false));
+
             AnimatingPaper = true;
             ShowingInventory = false;
             TimePaper = 0;
@@ -62,6 +66,7 @@ namespace SnowConeTycoon.Shared.Screens
             DayImage.Reset();
             ForecastImage.Reset();
             LetsGoButton.Reset();
+            BackButton.Reset();
         }
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
@@ -111,6 +116,7 @@ namespace SnowConeTycoon.Shared.Screens
                 else if (!LetsGoButton.IsDoneAnimating())
                 {
                     LetsGoButton.Update(gameTime);
+                    BackButton.Update(gameTime);
                 }
                 else if (LetsGoButton.IsDoneAnimating())
                 {
@@ -124,27 +130,34 @@ namespace SnowConeTycoon.Shared.Screens
             if (!AnimatingPaper)
             {
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_Inventory"], PositionInv, Color.White);
+                spriteBatch.DrawString(Defaults.Font, "my supplies", new Vector2(PositionInv.X + 500, PositionInv.Y + 100), Defaults.Brown, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
 
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvCoins"], new Vector2(PositionInv.X + 280, PositionInv.Y + 200), Color.White);
-                spriteBatch.DrawString(Defaults.Font, "coins", new Vector2(PositionInv.X + 500, PositionInv.Y + 200), Defaults.Cream);
-                spriteBatch.DrawString(Defaults.Font, "345", new Vector2(PositionInv.X + 1100, PositionInv.Y + 200), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("345").X, 0), 1f, SpriteEffects.None, 1f);
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_WatchAd"], new Vector2(PositionInv.X + 1135, PositionInv.Y + 215), Color.White);
+                var fontScale = 0.70f;
 
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvCones"], new Vector2(PositionInv.X + 325, PositionInv.Y + 415), Color.White);
-                spriteBatch.DrawString(Defaults.Font, "cones", new Vector2(PositionInv.X + 500, PositionInv.Y + 400), Defaults.Cream);
-                spriteBatch.DrawString(Defaults.Font, "23", new Vector2(PositionInv.X + 1100, PositionInv.Y + 400), Color.White, 0f, new Vector2(Defaults.Font.MeasureString("23").X, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvIce"], new Vector2(PositionInv.X + 300, PositionInv.Y + 250), Color.White);
+                spriteBatch.DrawString(Defaults.Font, "ice", new Vector2(PositionInv.X + 500, PositionInv.Y + 250), Defaults.Cream, 0f, Vector2.Zero, fontScale, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, "6", new Vector2(PositionInv.X + 1100, PositionInv.Y + 250), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("6").X, 0), fontScale, SpriteEffects.None, 1f);
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_WatchAd"], new Vector2(PositionInv.X + 1135, PositionInv.Y + 250), Color.White);
 
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvIce"], new Vector2(PositionInv.X + 300, PositionInv.Y + 600), Color.White);
-                spriteBatch.DrawString(Defaults.Font, "ice", new Vector2(PositionInv.X + 500, PositionInv.Y + 600), Defaults.Cream);
-                spriteBatch.DrawString(Defaults.Font, "35", new Vector2(PositionInv.X + 1100, PositionInv.Y + 600), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("35").X, 0), 1f, SpriteEffects.None, 1f);
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_Plus"], new Vector2(PositionInv.X + 1150, PositionInv.Y + 600), Color.White);
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvCoins"], new Vector2(PositionInv.X + 290, PositionInv.Y + 400), Color.White);
+                spriteBatch.DrawString(Defaults.Font, "coins", new Vector2(PositionInv.X + 500, PositionInv.Y + 400), Defaults.Cream, 0f, Vector2.Zero, fontScale, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, "345", new Vector2(PositionInv.X + 1100, PositionInv.Y + 400), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("345").X, 0), fontScale, SpriteEffects.None, 1f);
 
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvSyrup"], new Vector2(PositionInv.X + 300, PositionInv.Y + 800), Color.White);
-                spriteBatch.DrawString(Defaults.Font, "syrup", new Vector2(PositionInv.X + 500, PositionInv.Y + 800), Defaults.Cream);
-                spriteBatch.DrawString(Defaults.Font, "12", new Vector2(PositionInv.X + 1100, PositionInv.Y + 800), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("12").X, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvCones"], new Vector2(PositionInv.X + 335, PositionInv.Y + 550), Color.White);
+                spriteBatch.DrawString(Defaults.Font, "cones", new Vector2(PositionInv.X + 500, PositionInv.Y + 550), Defaults.Cream, 0f, Vector2.Zero, fontScale, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, "23", new Vector2(PositionInv.X + 1100, PositionInv.Y + 550), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("23").X, 0), fontScale, SpriteEffects.None, 1f);
+
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvSyrup"], new Vector2(PositionInv.X + 320, PositionInv.Y + 700), Color.White);
+                spriteBatch.DrawString(Defaults.Font, "syrup", new Vector2(PositionInv.X + 500, PositionInv.Y + 700), Defaults.Cream, 0f, Vector2.Zero, fontScale, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, "35", new Vector2(PositionInv.X + 1100, PositionInv.Y + 700), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("35").X, 0), fontScale, SpriteEffects.None, 1f);
+
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvFlyers"], new Vector2(PositionInv.X + 320, PositionInv.Y + 850), Color.White);
+                spriteBatch.DrawString(Defaults.Font, "flyers", new Vector2(PositionInv.X + 500, PositionInv.Y + 850), Defaults.Cream, 0f, Vector2.Zero, fontScale, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, "12", new Vector2(PositionInv.X + 1100, PositionInv.Y + 850), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("12").X, 0), fontScale, SpriteEffects.None, 1f);
             }
 
             spriteBatch.Draw(ContentHandler.Images["DaySetup_Paper"], PositionPaper, Color.White);
+            spriteBatch.DrawString(Defaults.Font, "snow cone setup", new Vector2(PositionPaper.X + 350, PositionPaper.Y + 325), Defaults.Brown);
             form.Draw(spriteBatch);
 
             if (ShowingInventory)
@@ -173,6 +186,7 @@ namespace SnowConeTycoon.Shared.Screens
 
                     spriteBatch.DrawString(Defaults.Font, forecast, ForecastImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString(forecast) / 2, 0.6f, SpriteEffects.None, 1f);
                     LetsGoButton.Draw(spriteBatch);
+                    BackButton.Draw(spriteBatch);
                 }
             }
         }

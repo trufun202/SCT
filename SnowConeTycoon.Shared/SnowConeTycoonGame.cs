@@ -27,7 +27,7 @@ namespace SnowConeTycoon.Shared
     /// </summary>
     public class SnowConeTycoonGame : Game
     {
-        Screen CurrentScreen = Screen.Logo;
+        Screen CurrentScreen = Screen.Loading;
         GraphicsDeviceManager graphics;
         RenderTarget2D renderTarget;
         SpriteBatch spriteBatch;
@@ -42,18 +42,19 @@ namespace SnowConeTycoon.Shared
         Form FormResults;
         Form FormSupplyShop;
 
+        LoadingScreen LoadingScreen;
         LogoScreen LogoScreen;
         DaySetupScreen DaySetupScreen;
         OpenForBusinessScreen OpenForBusinessScreen;
         ResultsScreen ResultsScreen;
         SupplyShopScreen SupplyShopScreen;
-                
+
         Dictionary<string, IBackground> Backgrounds;
         Dictionary<string, IBackgroundEffect> BackgroundEffects;
         IBackground CurrentBackground;
         IBackgroundEffect CurrentBackgroundEffect;
         FadeTransition Fade;
-        
+
         int KidSwapTime = 0;
         int KidSwapTimeTotal = 500;
         bool SwappingKids = false;
@@ -68,7 +69,9 @@ namespace SnowConeTycoon.Shared
         KidHandler.KidType SelectedKidType = KidHandler.KidType.Girl;
         int OriginalSelectedKidIndex = 1;
         KidHandler.KidType OriginalSelectedKidType = KidHandler.KidType.Girl;
+        TimedEvent LoadingScreenEvent;
         TimedEvent LogoScreenEvent;
+        bool ContentLoaded = false;
 
         public SnowConeTycoonGame()
         {
@@ -106,6 +109,19 @@ namespace SnowConeTycoon.Shared
             var scaleX = (double)ScreenWidth / (double)Defaults.GraphicsWidth;
             var scaleY = (double)ScreenHeight / (double)Defaults.GraphicsHeight;
 
+            LoadingScreenEvent = new TimedEvent(3000,
+            () =>
+            {
+                Fade.Reset(() =>
+                {
+                    if (ContentLoaded)
+                    {
+                        CurrentScreen = Screen.Logo;
+                    }
+                });
+            },
+            true);
+
             LogoScreenEvent = new TimedEvent(5500,
             () =>
             {
@@ -120,7 +136,7 @@ namespace SnowConeTycoon.Shared
 
             Fade = new FadeTransition(Color.White, null);
 
-            FormTitle = new Form(0,0);
+            FormTitle = new Form(0, 0);
             /////////////////////////
             //NEW GAME
             /////////////////////////
@@ -137,9 +153,9 @@ namespace SnowConeTycoon.Shared
             /////////////////////////
             //CHARACTER SELECT
             /////////////////////////
-            FormTitle.Controls.Add(new Button(new Rectangle(30, 1944, 1485, 205), () => 
+            FormTitle.Controls.Add(new Button(new Rectangle(30, 1944, 1485, 205), () =>
             {
-                Fade.Reset(() => 
+                Fade.Reset(() =>
                 {
                     OriginalSelectedKidIndex = SelectedKidIndex;
                     OriginalSelectedKidType = SelectedKidType;
@@ -181,7 +197,7 @@ namespace SnowConeTycoon.Shared
                 return true;
             }, "pop", scaleX, scaleY));
 
-            FormCharacterSelect = new Form(0,0);
+            FormCharacterSelect = new Form(0, 0);
             ///////////////////
             ///FEMALE BUTTON
             ///////////////////
@@ -246,9 +262,9 @@ namespace SnowConeTycoon.Shared
             ///////////////////
             ///CANCEL BUTTON
             ///////////////////
-            FormCharacterSelect.Controls.Add(new Button(new Rectangle(30, 2160, 1485, 205), () => 
+            FormCharacterSelect.Controls.Add(new Button(new Rectangle(30, 2160, 1485, 205), () =>
             {
-                Fade.Reset(() => 
+                Fade.Reset(() =>
                 {
                     //switch back to their originally selected character
                     SelectedKidIndex = OriginalSelectedKidIndex;
@@ -261,10 +277,22 @@ namespace SnowConeTycoon.Shared
             }, "pop", scaleX, scaleY));
 
             FormDaySetup = new Form(0, 0);
-            FormDaySetup.Controls.Add(new Button(new Rectangle(50, 2550, 150, 150), () =>
+            FormDaySetup.Controls.Add(new Button(new Rectangle(1370, 30, 151, 152), () =>
             {
                 Fade.Reset(() =>
                 {
+                    SupplyShopScreen.Reset();
+                    CurrentScreen = Screen.SupplyShop;
+                });
+
+                return true;
+            }, "pop", scaleX, scaleY));
+
+            FormDaySetup.Controls.Add(new Button(new Rectangle(50, 2335, 592, 250), () =>
+            {
+                Fade.Reset(() =>
+                {
+                    DaySetupScreen.Reset();
                     CurrentScreen = Screen.Title;
                 });
 
@@ -274,7 +302,7 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    DaySetupScreen.Reset();
+                    OpenForBusinessScreen.Reset();
                     CurrentScreen = Screen.OpenForBusiness;
                 });
 
@@ -305,11 +333,21 @@ namespace SnowConeTycoon.Shared
             }, "pop", scaleX, scaleY));
 
             FormSupplyShop = new Form(0, 0);
-            FormSupplyShop = new Form(0, 0);
+            FormSupplyShop.Controls.Add(new Button(new Rectangle(50, 2335, 592, 250), () =>
+            {
+                Fade.Reset(() =>
+                {
+                    DaySetupScreen.Reset();
+                    CurrentScreen = Screen.DaySetup;
+                });
+
+                return true;
+            }, "pop", scaleX, scaleY));
             FormSupplyShop.Controls.Add(new Button(new Rectangle(925, 2375, 592, 250), () =>
             {
                 Fade.Reset(() =>
                 {
+                    //TODO checkout items purchased on supply screen
                     DaySetupScreen.Reset();
                     CurrentScreen = Screen.DaySetup;
                 });
@@ -327,11 +365,16 @@ namespace SnowConeTycoon.Shared
         /// </summary>
         protected override void LoadContent()
         {
-            var scaleX = (double)ScreenWidth / (double)Defaults.GraphicsWidth;
-            var scaleY = (double)ScreenHeight / (double)Defaults.GraphicsHeight;
-
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Defaults.Font = Content.Load<SpriteFont>("cooper-black-80");
+            ContentHandler.PreInit(Content);
+            LoadingScreen = new LoadingScreen();
+        }
+
+        private void LoadStuff()
+        {
+            var scaleX = (double)ScreenWidth / (double)Defaults.GraphicsWidth;
+            var scaleY = (double)ScreenHeight / (double)Defaults.GraphicsHeight;
 
             ContentHandler.Init(Content);
             KidHandler.Init();
@@ -339,15 +382,15 @@ namespace SnowConeTycoon.Shared
             Backgrounds = new Dictionary<string, IBackground>();
             Backgrounds.Add("cloudy", new BackgroundCloudy());
             Backgrounds.Add("sunny", new BackgroundSunny());
-            Backgrounds.Add("partylycloudy", new BackgroundPartlyCloudy());
+            Backgrounds.Add("partlycloudy", new BackgroundPartlyCloudy());
             Backgrounds.Add("rainy", new BackgroundRainy());
             Backgrounds.Add("snowing", new BackgroundSnowing());
-            CurrentBackground = Backgrounds["snowing"];
+            CurrentBackground = Backgrounds["partlycloudy"];
 
             BackgroundEffects = new Dictionary<string, IBackgroundEffect>();
             BackgroundEffects.Add("rain", new Rain(100));
             BackgroundEffects.Add("snow", new Snow(100));
-            CurrentBackgroundEffect = BackgroundEffects["snow"];
+            //CurrentBackgroundEffect = BackgroundEffects["snow"];
 
             LogoScreen = new LogoScreen();
             DaySetupScreen = new DaySetupScreen(scaleX, scaleY);
@@ -383,7 +426,11 @@ namespace SnowConeTycoon.Shared
                 ////////////////////////////////////////////////
                 //HANDLE INPUT
                 ////////////////////////////////////////////////
-                if (CurrentScreen == Screen.Logo)
+                if (CurrentScreen == Screen.Loading)
+                {
+                    LoadingScreen.HandleInput(previousTouchCollection, currentTouchCollection);
+                }
+                else if (CurrentScreen == Screen.Logo)
                 {
                     LogoScreen.HandleInput(previousTouchCollection, currentTouchCollection);
                 }
@@ -422,7 +469,18 @@ namespace SnowConeTycoon.Shared
                 //UPDATES
                 ////////////////////////////////////////////////
 
-                if (CurrentScreen == Screen.Logo)
+                if (CurrentScreen == Screen.Loading)
+                {
+                    if (!ContentLoaded)
+                    {
+                        LoadStuff();
+                        ContentLoaded = true;
+                    }
+
+                    LoadingScreenEvent.Update(gameTime);
+                    LoadingScreen.Update(gameTime);
+                }
+                else if (CurrentScreen == Screen.Logo)
                 {
                     LogoScreenEvent.Update(gameTime);
                     LogoScreen.Update(gameTime);
@@ -458,8 +516,8 @@ namespace SnowConeTycoon.Shared
                 }
                 else if (CurrentScreen == Screen.SupplyShop)
                 {
-                    CurrentBackground.Update(gameTime);
-                    CurrentBackgroundEffect?.Update(gameTime);
+                    //CurrentBackground.Update(gameTime);
+                    //CurrentBackgroundEffect?.Update(gameTime);
                     SupplyShopScreen.Update(gameTime);
                     FormSupplyShop.Update(gameTime);
                 }
@@ -528,7 +586,11 @@ namespace SnowConeTycoon.Shared
             GraphicsDevice.SetRenderTarget(renderTarget);
             spriteBatch.Begin();
 
-            if (CurrentScreen == Screen.Logo)
+            if (CurrentScreen == Screen.Loading)
+            {
+                LoadingScreen.Draw(spriteBatch);
+            }
+            else if (CurrentScreen == Screen.Logo)
             {
                 LogoScreen.Draw(spriteBatch);
             }
@@ -547,6 +609,7 @@ namespace SnowConeTycoon.Shared
                 CurrentBackgroundEffect?.Draw(spriteBatch);
                 DaySetupScreen.Draw(spriteBatch);
                 FormDaySetup.Draw(spriteBatch);
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_IconShop"], new Vector2(1380, 40), Color.White);
             }
             else if (CurrentScreen == Screen.Results)
             {
@@ -557,8 +620,8 @@ namespace SnowConeTycoon.Shared
             }
             else if (CurrentScreen == Screen.SupplyShop)
             {
-                CurrentBackground.Draw(spriteBatch);
-                CurrentBackgroundEffect?.Draw(spriteBatch);
+                //CurrentBackground.Draw(spriteBatch);
+                //CurrentBackgroundEffect?.Draw(spriteBatch);
                 SupplyShopScreen.Draw(spriteBatch);
                 FormSupplyShop.Draw(spriteBatch);
             }
