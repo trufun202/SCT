@@ -64,10 +64,10 @@ namespace SnowConeTycoon.Shared.Screens
             DayImage = new ScaledImage("DaySetup_DayLabel", new Vector2(350, 200), 250);
             ForecastImage = new ScaledImage("DaySetup_ForecastLabel", new Vector2(800, 200), 250);
             NextButton = new ScaledImage("Results_Next", new Vector2(1200, 2500), 500);
-            NPSBackground = new BlindOpenImage("nps_background", new Vector2((Defaults.GraphicsWidth / 2) + 20, ContentHandler.Images["DaySetup_Paper"].Height - 400), 250);
-            DetractorImage = new PulseImage("nps_detractor", new Vector2((Defaults.GraphicsWidth / 2) - 310, ContentHandler.Images["DaySetup_Paper"].Height - 450), 1, 2.75f, 2.25f, 250);
-            PassiveImage = new PulseImage("nps_passive", new Vector2((Defaults.GraphicsWidth / 2) + 20, ContentHandler.Images["DaySetup_Paper"].Height - 460), 1, 2.5f, 2f, 250);
-            PromoterImage = new PulseImage("nps_promoter", new Vector2((Defaults.GraphicsWidth / 2) + 350, ContentHandler.Images["DaySetup_Paper"].Height - 460), 1, 2.5f, 2f, 250);
+            NPSBackground = new BlindOpenImage("nps_background", new Vector2((Defaults.GraphicsWidth / 2) + 20, ContentHandler.Images["DaySetup_Paper"].Height - 550), 250);
+            DetractorImage = new PulseImage("nps_detractor", new Vector2((Defaults.GraphicsWidth / 2) - 310, ContentHandler.Images["DaySetup_Paper"].Height - 580), 1, 2.75f, 2.25f, 250);
+            PassiveImage = new PulseImage("nps_passive", new Vector2((Defaults.GraphicsWidth / 2) + 20, ContentHandler.Images["DaySetup_Paper"].Height - 590), 1, 2.5f, 2f, 250);
+            PromoterImage = new PulseImage("nps_promoter", new Vector2((Defaults.GraphicsWidth / 2) + 350, ContentHandler.Images["DaySetup_Paper"].Height - 590), 1, 2.5f, 2f, 250);
             RankImage = new PulseImage("Results_Rank", new Vector2((Defaults.GraphicsWidth / 2) + 275, ContentHandler.Images["DaySetup_Paper"].Height + 610), 0.5f, 1.25f, 1f, 250);
         }
 
@@ -217,11 +217,14 @@ namespace SnowConeTycoon.Shared.Screens
 
             spriteBatch.Draw(ContentHandler.Images["DaySetup_Paper"], PositionPaper, Color.White);
             spriteBatch.DrawString(Defaults.Font, "results", new Vector2(PositionPaper.X + 600, PositionPaper.Y + 300), Defaults.Brown);
-            spriteBatch.DrawString(Defaults.Font, "potential customers:", new Vector2(PositionPaper.X + 300, PositionPaper.Y + 550), Defaults.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(Defaults.Font, PotentialCustomerCount.ToString(), new Vector2(PositionPaper.X + 1200, PositionPaper.Y + 550), Defaults.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(Defaults.Font, "snow cones sold:", new Vector2(PositionPaper.X + 260, PositionPaper.Y + 700), Defaults.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(Defaults.Font, SnowConesSold.ToString() + " @ " + SnowConeRate, new Vector2(PositionPaper.X + 990, PositionPaper.Y + 700), Defaults.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
-            spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Rectangle((int)PositionPaper.X + 930 + (int)Defaults.Font.MeasureString(SnowConesSold.ToString() + " @ " + SnowConeRate).X, (int)PositionPaper.Y + 655, (int)(ContentHandler.Images["DaySetup_IconPrice"].Width * 0.75), (int)(ContentHandler.Images["DaySetup_IconPrice"].Height * 0.75)), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(Defaults.Font, "potential customers:", new Vector2(PositionPaper.X + 300, PositionPaper.Y + 500), Defaults.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(Defaults.Font, PotentialCustomerCount.ToString(), new Vector2(PositionPaper.X + 1200, PositionPaper.Y + 500), Defaults.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(Defaults.Font, "snow cones sold:", new Vector2(PositionPaper.X + 260, PositionPaper.Y + 650), Defaults.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(Defaults.Font, SnowConesSold.ToString() + " @ " + SnowConeRate, new Vector2(PositionPaper.X + 990, PositionPaper.Y + 650), Defaults.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
+            spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Rectangle((int)PositionPaper.X + 930 + (int)Defaults.Font.MeasureString(SnowConesSold.ToString() + " @ " + SnowConeRate).X, (int)PositionPaper.Y + 610, (int)(ContentHandler.Images["DaySetup_IconPrice"].Width * 0.75), (int)(ContentHandler.Images["DaySetup_IconPrice"].Height * 0.75)), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
+
+            var quote = "\"yuck! too sweet.\"";
+            spriteBatch.DrawString(Defaults.Font, quote, new Vector2((Defaults.GraphicsWidth / 2), (int)PositionPaper.Y + 1375), Defaults.Brown, 0f, Defaults.Font.MeasureString(quote) / 2, 0.75f, SpriteEffects.None, 1f);
 
             if (!AnimatingPaper)
             {
@@ -282,9 +285,9 @@ namespace SnowConeTycoon.Shared.Screens
 
                     if (ShowingDetractors && ShowingPassives && ShowingPromoters && PromoterImage.IsDoneAnimating())
                     {
-                        spriteBatch.DrawString(Defaults.Font, DetractorCount.ToString(), new Vector2((Defaults.GraphicsWidth / 2) - 310, ContentHandler.Images["DaySetup_Paper"].Height - 270), Defaults.Cream, 0f, Defaults.Font.MeasureString(DetractorCount.ToString()) / 2, 1f, SpriteEffects.None, 1f);
-                        spriteBatch.DrawString(Defaults.Font, PassiveCount.ToString(), new Vector2((Defaults.GraphicsWidth / 2) + 20, ContentHandler.Images["DaySetup_Paper"].Height - 270), Defaults.Cream, 0f, Defaults.Font.MeasureString(PassiveCount.ToString()) / 2, 1f, SpriteEffects.None, 1f);
-                        spriteBatch.DrawString(Defaults.Font, PromoterCount.ToString(), new Vector2((Defaults.GraphicsWidth / 2) + 350, ContentHandler.Images["DaySetup_Paper"].Height - 270), Defaults.Cream, 0f, Defaults.Font.MeasureString(PromoterCount.ToString()) / 2, 1f, SpriteEffects.None, 1f);
+                        spriteBatch.DrawString(Defaults.Font, DetractorCount.ToString(), new Vector2((Defaults.GraphicsWidth / 2) - 310, ContentHandler.Images["DaySetup_Paper"].Height - 400), Defaults.Cream, 0f, Defaults.Font.MeasureString(DetractorCount.ToString()) / 2, 1f, SpriteEffects.None, 1f);
+                        spriteBatch.DrawString(Defaults.Font, PassiveCount.ToString(), new Vector2((Defaults.GraphicsWidth / 2) + 20, ContentHandler.Images["DaySetup_Paper"].Height - 400), Defaults.Cream, 0f, Defaults.Font.MeasureString(PassiveCount.ToString()) / 2, 1f, SpriteEffects.None, 1f);
+                        spriteBatch.DrawString(Defaults.Font, PromoterCount.ToString(), new Vector2((Defaults.GraphicsWidth / 2) + 350, ContentHandler.Images["DaySetup_Paper"].Height - 400), Defaults.Cream, 0f, Defaults.Font.MeasureString(PromoterCount.ToString()) / 2, 1f, SpriteEffects.None, 1f);
                     }
 
                     if (NPSTickerDone && RankDone)

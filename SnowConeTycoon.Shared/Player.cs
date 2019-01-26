@@ -7,12 +7,13 @@ namespace SnowConeTycoon.Shared
         public static int ConeCount { get; private set; }
         public static int IceCount { get; private set; }
         public static int SyrupCount { get; private set; }
+        public static int FlyerCount { get; private set; }
 
         public static void Reset()
         {
             CoinCount = 5;
             ConeCount = 10;
-            IceCount = 0;
+            IceCount = 5;
             SyrupCount = 3;
         }
 
@@ -34,6 +35,11 @@ namespace SnowConeTycoon.Shared
         public static void AddSyrup(int count)
         {
             SyrupCount += count;
+        }
+
+        public static void AddFlyer(int count)
+        {
+            FlyerCount += count;
         }
     }
 }

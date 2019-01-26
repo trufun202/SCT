@@ -174,8 +174,8 @@ namespace SnowConeTycoon.Shared
                 Fade.Reset(() =>
                 {
                     ResultsScreen.Reset();
-                    //CurrentScreen = Screen.Results;
-                    CurrentScreen = Screen.SupplyShop;
+                    CurrentScreen = Screen.Results;
+                    //CurrentScreen = Screen.SupplyShop;
                 });
 
                 return true;
