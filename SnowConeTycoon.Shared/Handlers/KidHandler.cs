@@ -112,6 +112,9 @@ namespace SnowConeTycoon.Shared.Handlers
 
             SelectedKidType = KidType.Girl;
             SelectKid(KidType.Girl, 1);
+
+            Player.KidType = SelectedKidType;
+            Player.KidIndex = 1;
             //SelectKid(KidType.Boy, Utilities.GetRandomInt(1, 20));
             //SelectKid(KidType.Girl, Utilities.GetRandomInt(1, 40));
         }

@@ -1,8 +1,12 @@
 ﻿using System;
+using static SnowConeTycoon.Shared.Handlers.KidHandler;
+
 namespace SnowConeTycoon.Shared
 {
     public static class Player
     {
+        public static KidType KidType { get; set; }
+        public static int KidIndex { get; set; }
         public static int CoinCount { get; private set; }
         public static int ConeCount { get; private set; }
         public static int IceCount { get; private set; }

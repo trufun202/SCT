@@ -817,18 +817,6 @@
 /processorParam:TextureFormat=Color
 /build:DaySetup_LetsGo.png
 
-#begin DaySetup_LetsGo.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:DaySetup_LetsGo.png
-
 #begin DaySetup_NumControl.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2040,18 +2028,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:pop.wav
-
-#begin Results_Next.png
-/importer:TextureImporter
-/processor:TextureProcessor
-/processorParam:ColorKeyColor=255,0,255,255
-/processorParam:ColorKeyEnabled=True
-/processorParam:GenerateMipmaps=False
-/processorParam:PremultiplyAlpha=True
-/processorParam:ResizeToPowerOfTwo=False
-/processorParam:MakeSquare=False
-/processorParam:TextureFormat=Color
-/build:Results_Next.png
 
 #begin Results_Next.png
 /importer:TextureImporter

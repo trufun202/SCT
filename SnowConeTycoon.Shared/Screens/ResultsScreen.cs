@@ -42,20 +42,13 @@ namespace SnowConeTycoon.Shared.Screens
         bool ShowingPromoters = false;
         bool ShowingRank = false;
         int DetractorCount = 0;
-        public int DetractorTotal = 2;
         int PassiveCount = 0;
-        public int PassiveTotal = 5;
         int PromoterCount = 0;
-        public int PromoterTotal = 13;
         int TickTime = 0;
         int TickTimeTotal = 25;
         bool NPSTickerDone = false;
         bool RankDone = false;
-        public int PotentialCustomerCount = 30;
-        public int SnowConesSold = 20;
-        public int SnowConeRate = 1;
-        public int CoinsPrevious = 50;
-        public int CoinsEarned = 20;
+        BusinessDayResult Results = new BusinessDayResult();
 
         public ResultsScreen(double scaleX, double scaleY)
         {
@@ -101,6 +94,12 @@ namespace SnowConeTycoon.Shared.Screens
             PromoterCount = 0;
             NPSTickerDone = false;
             TickTime = 0;
+        }
+
+        public void ResetAndSetResults(BusinessDayResult results)
+        {
+            Reset();
+            Results = results;
         }
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
@@ -167,13 +166,13 @@ namespace SnowConeTycoon.Shared.Screens
                     if (TickTime >= TickTimeTotal)
                     {
                         TickTime = 0;
-                        DetractorCount = DetractorCount < DetractorTotal ? DetractorCount + 1 : DetractorCount;
-                        PassiveCount = PassiveCount < PassiveTotal ? PassiveCount + 1 : PassiveCount;
-                        PromoterCount = PromoterCount < PromoterTotal ? PromoterCount + 1 : PromoterCount;
+                        DetractorCount = DetractorCount < Results.NPSDetractors ? DetractorCount + 1 : DetractorCount;
+                        PassiveCount = PassiveCount < Results.NPSPassives ? PassiveCount + 1 : PassiveCount;
+                        PromoterCount = PromoterCount < Results.NPSPromoters ? PromoterCount + 1 : PromoterCount;
 
-                        if (DetractorCount == DetractorTotal
-                            && PassiveCount == PassiveTotal
-                            && PromoterCount == PromoterTotal)
+                        if (DetractorCount == Results.NPSDetractors
+                            && PassiveCount == Results.NPSPassives
+                            && PromoterCount == Results.NPSPromoters)
                         {
                             NPSTickerDone = true;
                         }
@@ -203,14 +202,14 @@ namespace SnowConeTycoon.Shared.Screens
 
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Rectangle((int)PositionInv.X + 1125, (int)PositionInv.Y + 160, (int)(ContentHandler.Images["DaySetup_IconPrice"].Width * 0.75), (int)(ContentHandler.Images["DaySetup_IconPrice"].Height * 0.75)), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, "previous", new Vector2((int)PositionInv.X + 400, (int)PositionInv.Y + 200), Defaults.Cream, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
-                spriteBatch.DrawString(Defaults.Font, CoinsPrevious.ToString(), new Vector2((int)PositionInv.X + 1000, (int)PositionInv.Y + 200), Defaults.Cream, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Results.CoinsPrevious.ToString(), new Vector2((int)PositionInv.X + 1000, (int)PositionInv.Y + 200), Defaults.Cream, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Rectangle((int)PositionInv.X + 1125, (int)PositionInv.Y + 310, (int)(ContentHandler.Images["DaySetup_IconPrice"].Width * 0.75), (int)(ContentHandler.Images["DaySetup_IconPrice"].Height * 0.75)), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, "earned", new Vector2((int)PositionInv.X + 400, (int)PositionInv.Y + 350), Defaults.Cream, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
-                spriteBatch.DrawString(Defaults.Font, CoinsEarned.ToString(), new Vector2((int)PositionInv.X + 1000, (int)PositionInv.Y + 350), Defaults.Cream, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Results.CoinsEarned.ToString(), new Vector2((int)PositionInv.X + 1000, (int)PositionInv.Y + 350), Defaults.Cream, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, "-------------------------------------", new Vector2((int)PositionInv.X + 400, (int)PositionInv.Y + 450), Defaults.Cream, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Rectangle((int)PositionInv.X + 1125, (int)PositionInv.Y + 510, (int)(ContentHandler.Images["DaySetup_IconPrice"].Width * 0.75), (int)(ContentHandler.Images["DaySetup_IconPrice"].Height * 0.75)), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, "total", new Vector2((int)PositionInv.X + 400, (int)PositionInv.Y + 550), Defaults.Cream, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
-                spriteBatch.DrawString(Defaults.Font, (CoinsPrevious + CoinsEarned).ToString(), new Vector2((int)PositionInv.X + 1000, (int)PositionInv.Y + 550), Defaults.Cream, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, (Results.CoinsPrevious + Results.CoinsEarned).ToString(), new Vector2((int)PositionInv.X + 1000, (int)PositionInv.Y + 550), Defaults.Cream, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, "rank:", new Vector2(PositionInv.X + 400, PositionInv.Y + 700), Defaults.Cream, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
                 //spriteBatch.Draw(ContentHandler.Images["Results_Rank"], new Vector2(PositionInv.X + 750, PositionInv.Y + 670), Color.White);
             }
@@ -218,13 +217,10 @@ namespace SnowConeTycoon.Shared.Screens
             spriteBatch.Draw(ContentHandler.Images["DaySetup_Paper"], PositionPaper, Color.White);
             spriteBatch.DrawString(Defaults.Font, "results", new Vector2(PositionPaper.X + 600, PositionPaper.Y + 300), Defaults.Brown);
             spriteBatch.DrawString(Defaults.Font, "potential customers:", new Vector2(PositionPaper.X + 300, PositionPaper.Y + 500), Defaults.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(Defaults.Font, PotentialCustomerCount.ToString(), new Vector2(PositionPaper.X + 1200, PositionPaper.Y + 500), Defaults.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(Defaults.Font, Results.PotentialCustomers.ToString(), new Vector2(PositionPaper.X + 1200, PositionPaper.Y + 500), Defaults.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(Defaults.Font, "snow cones sold:", new Vector2(PositionPaper.X + 260, PositionPaper.Y + 650), Defaults.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
-            spriteBatch.DrawString(Defaults.Font, SnowConesSold.ToString() + " @ " + SnowConeRate, new Vector2(PositionPaper.X + 990, PositionPaper.Y + 650), Defaults.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
-            spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Rectangle((int)PositionPaper.X + 930 + (int)Defaults.Font.MeasureString(SnowConesSold.ToString() + " @ " + SnowConeRate).X, (int)PositionPaper.Y + 610, (int)(ContentHandler.Images["DaySetup_IconPrice"].Width * 0.75), (int)(ContentHandler.Images["DaySetup_IconPrice"].Height * 0.75)), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
-
-            var quote = "\"yuck! too sweet.\"";
-            spriteBatch.DrawString(Defaults.Font, quote, new Vector2((Defaults.GraphicsWidth / 2), (int)PositionPaper.Y + 1375), Defaults.Brown, 0f, Defaults.Font.MeasureString(quote) / 2, 0.75f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(Defaults.Font, Results.SnowConesSold.ToString() + " @ " + Results.SnowConePrice, new Vector2(PositionPaper.X + 990, PositionPaper.Y + 650), Defaults.Brown, 0f, Vector2.Zero, 0.75f, SpriteEffects.None, 1f);
+            spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Rectangle((int)PositionPaper.X + 930 + (int)Defaults.Font.MeasureString(Results.SnowConesSold.ToString() + " @ " + Results.SnowConePrice).X, (int)PositionPaper.Y + 610, (int)(ContentHandler.Images["DaySetup_IconPrice"].Width * 0.75), (int)(ContentHandler.Images["DaySetup_IconPrice"].Height * 0.75)), null, Color.White, 0f, Vector2.Zero, SpriteEffects.None, 1f);
 
             if (!AnimatingPaper)
             {
@@ -285,6 +281,7 @@ namespace SnowConeTycoon.Shared.Screens
 
                     if (ShowingDetractors && ShowingPassives && ShowingPromoters && PromoterImage.IsDoneAnimating())
                     {
+                        spriteBatch.DrawString(Defaults.Font, $"\"{Results.DayQuote}\"", new Vector2((Defaults.GraphicsWidth / 2), (int)PositionPaper.Y + 1375), Defaults.Brown, 0f, Defaults.Font.MeasureString($"\"{Results.DayQuote}\"") / 2, 0.75f, SpriteEffects.None, 1f);
                         spriteBatch.DrawString(Defaults.Font, DetractorCount.ToString(), new Vector2((Defaults.GraphicsWidth / 2) - 310, ContentHandler.Images["DaySetup_Paper"].Height - 400), Defaults.Cream, 0f, Defaults.Font.MeasureString(DetractorCount.ToString()) / 2, 1f, SpriteEffects.None, 1f);
                         spriteBatch.DrawString(Defaults.Font, PassiveCount.ToString(), new Vector2((Defaults.GraphicsWidth / 2) + 20, ContentHandler.Images["DaySetup_Paper"].Height - 400), Defaults.Cream, 0f, Defaults.Font.MeasureString(PassiveCount.ToString()) / 2, 1f, SpriteEffects.None, 1f);
                         spriteBatch.DrawString(Defaults.Font, PromoterCount.ToString(), new Vector2((Defaults.GraphicsWidth / 2) + 350, ContentHandler.Images["DaySetup_Paper"].Height - 400), Defaults.Cream, 0f, Defaults.Font.MeasureString(PromoterCount.ToString()) / 2, 1f, SpriteEffects.None, 1f);

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SnowConeTycoon.Shared.Animations;
@@ -7,6 +8,7 @@ using SnowConeTycoon.Shared.Handlers;
 using SnowConeTycoon.Shared.Particles;
 using SnowConeTycoon.Shared.Utils;
 using static SnowConeTycoon.Shared.Handlers.KidHandler;
+using SnowConeTycoon.Shared.Extensions;
 
 namespace SnowConeTycoon.Shared.Kids
 {
@@ -42,22 +44,83 @@ namespace SnowConeTycoon.Shared.Kids
         private bool CoinHasScaled = false;
         private ParticleEmitter ParticleEmitter;
         private ParticleEmitter ParticleCircleEmitter;
+        private BusinessDayResult Results = new BusinessDayResult();
+        private List<CustomerTransaction> Transactions = new List<CustomerTransaction>();
+        private int TransactionIndex = 0;
+        private SnowConeTycoonGame Game;
 
-        public Customer()
+        public Customer(SnowConeTycoonGame game)
         {
+            Game = game;
             ParticleEmitter = new ParticleEmitter(100, 0, 0, 30, 3000);
             ParticleCircleEmitter = new ParticleEmitter(5000, 0, 0, 40, 700);
             ParticleCircleEmitter.Velocity = new Vector2(350, 350);
+        }
+
+        private void BuildTransactions(BusinessDayResult results)
+        {
+            Results = results;
+
+            Transactions.Clear();
+            TransactionIndex = 0;
+
+            var purchaseCount = 0;
+            var promoterCount = 0;
+            var passiveCount = 0;
+            var detractorCount = 0;
+
+            for (int i = 0; i < results.PotentialCustomers; i++)
+            {
+                var transaction = new CustomerTransaction();
+
+                if (purchaseCount < results.SnowConesSold)
+                {
+                    transaction.MadePurchase = true;
+
+                    if (promoterCount < results.NPSPromoters)
+                    {
+                        transaction.NPS = NPS.Promoter;
+                        promoterCount++;
+                    }
+                    else if (passiveCount < results.NPSPassives)
+                    {
+                        transaction.NPS = NPS.Passive;
+                        passiveCount++;
+                    }
+                    else if (detractorCount < results.NPSDetractors)
+                    {
+                        transaction.NPS = NPS.Detractor;
+                        detractorCount++;
+                    }
+
+                    purchaseCount++;
+                }
+                else
+                {
+                    transaction.MadePurchase = false;
+                }
+
+                transaction.ConfigureKid();
+                Transactions.Add(transaction);
+            }
+
+            Transactions.Shuffle();
+        }
+
+        public void Reset(BusinessDayResult results)
+        {
+            BuildTransactions(results);
+            TransactionIndex = 0;
             Reset();
         }
 
-        public void Reset()
+        private void Reset()
         {
             sinWalkEvent = new TimedEvent(500,
             () =>
-                {
-                    YSinRadius += IsApproaching ? -5 : 5;
-                },
+            {
+                YSinRadius += IsApproaching ? -5 : 5;
+            },
                 true);
             purchaseEvent = new TimedEvent(2000,
             () =>
@@ -82,44 +145,28 @@ namespace SnowConeTycoon.Shared.Kids
             IsApproaching = true;
             IsPurchasing = false;
             IsLeaving = false;
-            KidType = Utilities.GetRandomInt(1, 2) == 1 ? KidType.Boy : KidType.Girl;
-            KidIndex = Utilities.GetRandomInt(1, 40);
+            KidType = Transactions[TransactionIndex].KidType;
+            KidIndex = Transactions[TransactionIndex].KidIndex;
             if (GameSpeed == GameSpeed.x1)
             {
                 coinImage = new BezierCurveImage("DaySetup_IconPrice", 0, 0);
             }
             ShowingCoinEvent = new TimedEvent(1000,
             () =>
+            {
+                if (GameSpeed == GameSpeed.x1)
                 {
-                    if (GameSpeed == GameSpeed.x1)
-                    {
-                        AnimatingCoin = true;
-                        ContentHandler.Sounds["Magic Wand 1"].Play();
-                    }
+                    AnimatingCoin = true;
+                    ContentHandler.Sounds["Magic Wand 1"].Play();
+                }
 
-                    ParticleCircleEmitter.FlowOn = false;
-                    IsPurchasing = true;
-                    purchaseEvent.Reset();
-                    ThoughtBubbleCount = 1;
-                    thoughtEvent.Reset();
-                    var rand = Utilities.GetRandomInt(0, 100);
-
-                    if (rand <= 30)
-                    {
-                        CurrentNPS = NPS.Detractor;
-                        KidHandler.MakeKidMad(KidType, KidIndex);
-                    }
-                    else if (rand <= 60)
-                    {
-                        CurrentNPS = NPS.Passive;
-                        KidHandler.MakeKidSad(KidType, KidIndex);
-                    }
-                    else
-                    {
-                        CurrentNPS = NPS.Promoter;
-                        KidHandler.MakeKidHappy(KidType, KidIndex);
-                    }
-                },
+                ParticleCircleEmitter.FlowOn = false;
+                IsPurchasing = true;
+                purchaseEvent.Reset();
+                ThoughtBubbleCount = 1;
+                thoughtEvent.Reset();
+                CurrentNPS = Transactions[TransactionIndex].NPS;
+            },
             false);
             CoinScale = new Vector2(0, 1);
             CoinScaleTime = 0;
@@ -174,13 +221,22 @@ namespace SnowConeTycoon.Shared.Kids
                 if (Position.Y < (Defaults.GraphicsHeight / 2) + 100)
                 {
                     IsApproaching = false;
-                    ShowingCoin = true;
+
+                    if (Transactions[TransactionIndex].MadePurchase)
+                    {
+                        ShowingCoin = true;
+                        coinImage = new BezierCurveImage("DaySetup_IconPrice", (int)Position.X + 660, (int)Position.Y);
+                        ParticleCircleEmitter.FlowOn = true;
+                        ParticleCircleEmitter.Position = new Vector2((int)Position.X + 660, (int)Position.Y);
+                        ContentHandler.Sounds["Game Coin"].Play();
+                        ShowingCoinEvent.Reset();
+                    }
+                    else
+                    {
+                        IsLeaving = true;
+                    }
+
                     AnimatingCoin = false;
-                    coinImage = new BezierCurveImage("DaySetup_IconPrice", (int)Position.X + 660, (int)Position.Y);
-                    ShowingCoinEvent.Reset();
-                    ParticleCircleEmitter.FlowOn = true;
-                    ParticleCircleEmitter.Position = new Vector2((int)Position.X + 660, (int)Position.Y);
-                    ContentHandler.Sounds["Game Coin"].Play();
                 }
             }
             else if (IsPurchasing)
@@ -197,6 +253,13 @@ namespace SnowConeTycoon.Shared.Kids
                 if (Position.Y > Defaults.GraphicsHeight - 700)
                 {
                     Reset();
+
+                    TransactionIndex++;
+
+                    if (TransactionIndex >= Transactions.Count)
+                    {
+                        Game.GoToResultsScreen(Results);
+                    }
 
                     if (GameSpeed == GameSpeed.x2)
                     {

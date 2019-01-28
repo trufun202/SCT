@@ -15,6 +15,7 @@ using SnowConeTycoon.Shared.Handlers;
 using SnowConeTycoon.Shared.Kids;
 using SnowConeTycoon.Shared.Screens;
 using SnowConeTycoon.Shared.ScreenTransitions;
+using SnowConeTycoon.Shared.Services;
 using SnowConeTycoon.Shared.Utils;
 using XnaMediaPlayer = Microsoft.Xna.Framework.Media.MediaPlayer;
 
@@ -55,6 +56,7 @@ namespace SnowConeTycoon.Shared
         IBackgroundEffect CurrentBackgroundEffect;
         FadeTransition Fade;
 
+        int CurrentDay = 1;
         int KidSwapTime = 0;
         int KidSwapTimeTotal = 500;
         bool SwappingKids = false;
@@ -73,11 +75,56 @@ namespace SnowConeTycoon.Shared
         TimedEvent LogoScreenEvent;
         bool ContentLoaded = false;
 
+        IBusinessDayService businessDayService;
+        IWeatherService weatherService;
+
         public SnowConeTycoonGame()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             graphics.IsFullScreen = true;
+
+            businessDayService = new MockAverageBusinessDayService();
+            weatherService = new MockWeatherService();
+        }
+
+        public void GoToResultsScreen(BusinessDayResult results)
+        {
+            Fade.Reset(() =>
+            {
+                ResultsScreen.ResetAndSetResults(results);
+                CurrentScreen = Screen.Results;
+                //CurrentScreen = Screen.SupplyShop;
+            });
+        }
+
+        public void SetWeather(Forecast forecast)
+        {
+            DaySetupScreen.CurrentForecast = forecast;
+
+            switch (forecast)
+            {
+                case Forecast.Sunny:
+                    CurrentBackground = Backgrounds["sunny"];
+                    CurrentBackgroundEffect = null;
+                    break;
+                case Forecast.Cloudy:
+                    CurrentBackground = Backgrounds["cloudy"];
+                    CurrentBackgroundEffect = null;
+                    break;
+                case Forecast.PartlyCloudy:
+                    CurrentBackground = Backgrounds["partlycloudy"];
+                    CurrentBackgroundEffect = null;
+                    break;
+                case Forecast.Rain:
+                    CurrentBackground = Backgrounds["rainy"];
+                    CurrentBackgroundEffect = BackgroundEffects["rain"];
+                    break;
+                case Forecast.Snow:
+                    CurrentBackground = Backgrounds["snowing"];
+                    CurrentBackgroundEffect = BackgroundEffects["snow"];
+                    break;
+            }
         }
 
         /// <summary>
@@ -144,7 +191,7 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    DaySetupScreen.Reset();
+                    DaySetupScreen.Reset(CurrentDay);
                     CurrentScreen = Screen.DaySetup;
                 });
 
@@ -173,7 +220,7 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    ResultsScreen.Reset();
+                    ResultsScreen.ResetAndSetResults(businessDayService.CalculateDay(Forecast.Sunny, 0, 0, 0, 2));
                     CurrentScreen = Screen.Results;
                     //CurrentScreen = Screen.SupplyShop;
                 });
@@ -292,7 +339,6 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    DaySetupScreen.Reset();
                     CurrentScreen = Screen.Title;
                 });
 
@@ -302,7 +348,7 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    OpenForBusinessScreen.Reset();
+                    OpenForBusinessScreen.Reset(businessDayService.CalculateDay(Forecast.Sunny, 0, 0, 0, 0));
                     CurrentScreen = Screen.OpenForBusiness;
                 });
 
@@ -325,7 +371,10 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    DaySetupScreen.Reset();
+                    CurrentDay++;
+                    var forecast = weatherService.GetForecast(CurrentDay);
+                    SetWeather(forecast);
+                    DaySetupScreen.Reset(CurrentDay);
                     CurrentScreen = Screen.DaySetup;
                 });
 
@@ -337,7 +386,6 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    DaySetupScreen.Reset();
                     CurrentScreen = Screen.DaySetup;
                 });
 
@@ -348,7 +396,6 @@ namespace SnowConeTycoon.Shared
                 Fade.Reset(() =>
                 {
                     //TODO checkout items purchased on supply screen
-                    DaySetupScreen.Reset();
                     CurrentScreen = Screen.DaySetup;
                 });
 
@@ -394,7 +441,7 @@ namespace SnowConeTycoon.Shared
 
             LogoScreen = new LogoScreen();
             DaySetupScreen = new DaySetupScreen(scaleX, scaleY);
-            OpenForBusinessScreen = new OpenForBusinessScreen(scaleX, scaleY);
+            OpenForBusinessScreen = new OpenForBusinessScreen(this, scaleX, scaleY);
             ResultsScreen = new ResultsScreen(scaleX, scaleY);
             SupplyShopScreen = new SupplyShopScreen(scaleX, scaleY);
         }

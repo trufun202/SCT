@@ -16,6 +16,16 @@ namespace SnowConeTycoon.Shared.Enums
         Results
     }
 
+    public enum OverallDayOpinion
+    {
+        Perfect,
+        JustOkay,
+        TooSweet,
+        TooPlain,
+        WeatherRain,
+        WeatherCold
+    }
+
     public enum KidState
     {
         Happy,

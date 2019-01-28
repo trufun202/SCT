@@ -13,7 +13,7 @@ namespace SnowConeTycoon.Shared.Screens
     public class DaySetupScreen
     {
         int CurrentDay = 1;
-        Forecast CurrentForecast = Forecast.Sunny;
+        public Forecast CurrentForecast = Forecast.Sunny;
         Vector2 PositionPaperStart = Vector2.Zero;
         Vector2 PositionPaperEnd = Vector2.Zero;
         Vector2 PositionPaper = Vector2.Zero;
@@ -45,8 +45,9 @@ namespace SnowConeTycoon.Shared.Screens
             BackButton = new ScaledImage("DaySetup_Back", new Vector2(350, 2470), 500);
         }
 
-        public void Reset()
+        public void Reset(int currentDay)
         {
+            CurrentDay = currentDay;
             DoneAnimating = false;
             form = new Form(0, 0);
             form.Controls.Add(new NumberPicker("DaySetup_IconFlavor", "syrup", new Vector2(250, 550), 0, 10, ScaleX, ScaleY, false));

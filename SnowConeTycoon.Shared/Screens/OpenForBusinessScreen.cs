@@ -15,35 +15,22 @@ namespace SnowConeTycoon.Shared.Screens
         double ScaleY;
         Form Form;
         Customer Customer;
+        BusinessDayResult Results = new BusinessDayResult();
+        SnowConeTycoonGame Game;
 
-        public OpenForBusinessScreen(double scaleX, double scaleY)
+        public OpenForBusinessScreen(SnowConeTycoonGame game, double scaleX, double scaleY)
         {
-            Customer = new Customer();
+            Game = game;
+            Customer = new Customer(game);
             ScaleX = scaleX;
             ScaleY = scaleY;
-            Form = new Form(0, 0);
-
-            /* Form.Controls.Add(new Button(new Rectangle(120, 1000, 136, 136),
-                () =>
-                {
-                    return Customer.SetSpeed1x();
-                },
-                "", //TODO add slowdown sound
-                scaleX,
-                scaleY));
-            Form.Controls.Add(new Button(new Rectangle(1320, 1000, 136, 136),
-                () =>
-                {
-                    return Customer.SetSpeed2x();
-                },
-                "", //TODO add speedup sound
-                scaleX,
-                scaleY)); */               
+            Form = new Form(0, 0);              
         }
 
-        public void Reset()
+        public void Reset(BusinessDayResult results)
         {
-            Customer.Reset();
+            Customer.Reset(results);
+            Results = results;
         }
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)

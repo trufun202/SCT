@@ -54,6 +54,17 @@
     <Compile Include="$(MSBuildThisFileDirectory)Forms\Label.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Forms\LabelWithImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\LoadingScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\IBusinessDayService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)BusinessDayResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\MockPerfectBusinessDayService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\DayQuoteService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\MockAverageBusinessDayService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\MockRainyBusinessDayService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\MockColdBusinessDayService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Kids\CustomerTransaction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ExtensionMethods.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\IWeatherService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\MockWeatherService.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
@@ -67,5 +78,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Screens\" />
     <Folder Include="$(MSBuildThisFileDirectory)Animations\" />
     <Folder Include="$(MSBuildThisFileDirectory)Particles\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Services\" />
   </ItemGroup>
 </Project>
