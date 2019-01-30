@@ -1,13 +1,14 @@
 ﻿using System;
 using SnowConeTycoon.Shared.Enums;
+using SnowConeTycoon.Shared.Models;
 
 namespace SnowConeTycoon.Shared.Services
 {
-    public class MockColdBusinessDayService : IBusinessDayService
+    public class MockPerfectBusinessDayService : IBusinessDayService
     {
         private DayQuoteService quoteService = new DayQuoteService();
 
-        public MockColdBusinessDayService()
+        public MockPerfectBusinessDayService()
         {
         }
 
@@ -15,15 +16,15 @@ namespace SnowConeTycoon.Shared.Services
         {
             return new BusinessDayResult()
             {
-                DayQuote = quoteService.GetQuote(OverallDayOpinion.WeatherCold),
-                SnowConePrice = 1,
-                SnowConesSold = 1,
-                PotentialCustomers = 6,
-                CoinsEarned = 1,
+                DayQuote = quoteService.GetQuote(OverallDayOpinion.Perfect),
+                SnowConePrice = 2,
+                SnowConesSold = 20,
+                PotentialCustomers = 20,
+                CoinsEarned = 40,
                 CoinsPrevious = 0,
                 NPSDetractors = 0,
-                NPSPassives = 1,
-                NPSPromoters = 0
+                NPSPassives = 0,
+                NPSPromoters = 20
             };
         }
     }

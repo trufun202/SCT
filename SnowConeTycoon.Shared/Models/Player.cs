@@ -1,7 +1,7 @@
 ﻿using System;
 using static SnowConeTycoon.Shared.Handlers.KidHandler;
 
-namespace SnowConeTycoon.Shared
+namespace SnowConeTycoon.Shared.Models
 {
     public static class Player
     {

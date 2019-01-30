@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SnowConeTycoon.Shared.Kids;
+using SnowConeTycoon.Shared.Models;
 
 namespace SnowConeTycoon.Shared.Handlers
 {

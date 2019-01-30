@@ -13,6 +13,7 @@ using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Forms;
 using SnowConeTycoon.Shared.Handlers;
 using SnowConeTycoon.Shared.Kids;
+using SnowConeTycoon.Shared.Models;
 using SnowConeTycoon.Shared.Screens;
 using SnowConeTycoon.Shared.ScreenTransitions;
 using SnowConeTycoon.Shared.Services;
@@ -85,7 +86,7 @@ namespace SnowConeTycoon.Shared
             graphics.IsFullScreen = true;
 
             businessDayService = new MockAverageBusinessDayService();
-            weatherService = new MockWeatherService();
+            weatherService = new WeatherService();
         }
 
         public void GoToResultsScreen(BusinessDayResult results)
@@ -98,11 +99,13 @@ namespace SnowConeTycoon.Shared
             });
         }
 
-        public void SetWeather(Forecast forecast)
+        public void SetWeather(DayForecast dayForecast)
         {
-            DaySetupScreen.CurrentForecast = forecast;
+            DaySetupScreen.CurrentForecast = dayForecast.Forecast;
+            ResultsScreen.CurrentForecast = dayForecast.Forecast;
+            ResultsScreen.CurrentTemperature = dayForecast.Temperature;
 
-            switch (forecast)
+            switch (dayForecast.Forecast)
             {
                 case Forecast.Sunny:
                     CurrentBackground = Backgrounds["sunny"];
@@ -191,7 +194,7 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    DaySetupScreen.Reset(CurrentDay);
+                    DaySetupScreen.Reset(CurrentDay, 100);
                     CurrentScreen = Screen.DaySetup;
                 });
 
@@ -372,9 +375,9 @@ namespace SnowConeTycoon.Shared
                 Fade.Reset(() =>
                 {
                     CurrentDay++;
-                    var forecast = weatherService.GetForecast(CurrentDay);
-                    SetWeather(forecast);
-                    DaySetupScreen.Reset(CurrentDay);
+                    var dayForecast = weatherService.GetForecast(CurrentDay);
+                    SetWeather(dayForecast);
+                    DaySetupScreen.Reset(CurrentDay, dayForecast.Temperature);
                     CurrentScreen = Screen.DaySetup;
                 });
 
@@ -432,7 +435,7 @@ namespace SnowConeTycoon.Shared
             Backgrounds.Add("partlycloudy", new BackgroundPartlyCloudy());
             Backgrounds.Add("rainy", new BackgroundRainy());
             Backgrounds.Add("snowing", new BackgroundSnowing());
-            CurrentBackground = Backgrounds["partlycloudy"];
+            CurrentBackground = Backgrounds["sunny"];
 
             BackgroundEffects = new Dictionary<string, IBackgroundEffect>();
             BackgroundEffects.Add("rain", new Rain(100));

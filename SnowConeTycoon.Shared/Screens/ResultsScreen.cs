@@ -6,6 +6,7 @@ using SnowConeTycoon.Shared.Animations;
 using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Forms;
 using SnowConeTycoon.Shared.Handlers;
+using SnowConeTycoon.Shared.Models;
 using SnowConeTycoon.Shared.Utils;
 
 namespace SnowConeTycoon.Shared.Screens
@@ -13,7 +14,8 @@ namespace SnowConeTycoon.Shared.Screens
     public class ResultsScreen
     {
         int CurrentDay = 1;
-        Forecast CurrentForecast = Forecast.Sunny;
+        public Forecast CurrentForecast = Forecast.Sunny;
+        public int CurrentTemperature = 100;
         Vector2 PositionPaperStart = Vector2.Zero;
         Vector2 PositionPaperEnd = Vector2.Zero;
         Vector2 PositionPaper = Vector2.Zero;
@@ -30,6 +32,7 @@ namespace SnowConeTycoon.Shared.Screens
         double ScaleY;
         ScaledImage DayImage;
         ScaledImage ForecastImage;
+        ScaledImage TemperatureImage;
         ScaledImage NextButton;
         BlindOpenImage NPSBackground;
         public bool DoneAnimating = false;
@@ -54,8 +57,9 @@ namespace SnowConeTycoon.Shared.Screens
         {
             ScaleX = scaleX;
             ScaleY = scaleY;
-            DayImage = new ScaledImage("DaySetup_DayLabel", new Vector2(350, 200), 250);
-            ForecastImage = new ScaledImage("DaySetup_ForecastLabel", new Vector2(800, 200), 250);
+            DayImage = new ScaledImage("DaySetup_DayLabel", new Vector2(300, 200), 250);
+            ForecastImage = new ScaledImage("DaySetup_ForecastLabel", new Vector2(750, 200), 250);
+            TemperatureImage = new ScaledImage("DaySetup_DayLabel", new Vector2(1200, 200), 250);
             NextButton = new ScaledImage("Results_Next", new Vector2(1200, 2500), 500);
             NPSBackground = new BlindOpenImage("nps_background", new Vector2((Defaults.GraphicsWidth / 2) + 20, ContentHandler.Images["DaySetup_Paper"].Height - 550), 250);
             DetractorImage = new PulseImage("nps_detractor", new Vector2((Defaults.GraphicsWidth / 2) - 310, ContentHandler.Images["DaySetup_Paper"].Height - 580), 1, 2.75f, 2.25f, 250);
@@ -78,6 +82,7 @@ namespace SnowConeTycoon.Shared.Screens
             PositionInvEnd = new Vector2(0, Defaults.GraphicsHeight - ContentHandler.Images["DaySetup_Inventory"].Height - 200);
             DayImage.Reset();
             ForecastImage.Reset();
+            TemperatureImage.Reset();
             NextButton.Reset();
             NPSBackground.Reset();
             ShowingDetractors = false;
@@ -143,6 +148,10 @@ namespace SnowConeTycoon.Shared.Screens
                 else if (!ForecastImage.IsDoneAnimating())
                 {
                     ForecastImage.Update(gameTime);
+                }
+                else if (!TemperatureImage.IsDoneAnimating())
+                {
+                    TemperatureImage.Update(gameTime);
                 }
                 else if (!DetractorImage.IsDoneAnimating())
                 {
@@ -239,6 +248,21 @@ namespace SnowConeTycoon.Shared.Screens
                     spriteBatch.DrawString(Defaults.Font, $"day {CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
                     ForecastImage.Draw(spriteBatch);
                 }
+                else if (!TemperatureImage.IsDoneAnimating())
+                {
+                    DayImage.Draw(spriteBatch);
+                    spriteBatch.DrawString(Defaults.Font, $"day {CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
+                    ForecastImage.Draw(spriteBatch);
+                    var forecast = CurrentForecast.ToString().ToLower();
+
+                    if (CurrentForecast == Forecast.PartlyCloudy)
+                    {
+                        forecast = "partly cloudy";
+                    }
+
+                    spriteBatch.DrawString(Defaults.Font, forecast, ForecastImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString(forecast) / 2, 0.6f, SpriteEffects.None, 1f);
+                    TemperatureImage.Draw(spriteBatch);
+                }
                 else
                 {
                     DayImage.Draw(spriteBatch);
@@ -252,7 +276,11 @@ namespace SnowConeTycoon.Shared.Screens
                     }
 
                     spriteBatch.DrawString(Defaults.Font, forecast, ForecastImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString(forecast) / 2, 0.6f, SpriteEffects.None, 1f);
+                    TemperatureImage.Draw(spriteBatch);
+                    spriteBatch.DrawString(Defaults.Font, $"{CurrentTemperature}", TemperatureImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"{CurrentTemperature}") / 2, 0.6f, SpriteEffects.None, 1f);
 
+                    var degrees = "          o";
+                    spriteBatch.DrawString(Defaults.Font, degrees, TemperatureImage.Position, Defaults.Brown, -0.1f, new Vector2(Defaults.Font.MeasureString(degrees).X / 2, (Defaults.Font.MeasureString(degrees).Y / 2) + 50), 0.6f, SpriteEffects.None, 1f);
                     if (ShowingDetractors)
                     {
                         DetractorImage.Draw(spriteBatch);

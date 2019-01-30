@@ -1,5 +1,5 @@
 ﻿using System;
-namespace SnowConeTycoon.Shared
+namespace SnowConeTycoon.Shared.Models
 {
     public class BusinessDayResult
     {

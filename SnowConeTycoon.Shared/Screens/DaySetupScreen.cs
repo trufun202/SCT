@@ -31,23 +31,27 @@ namespace SnowConeTycoon.Shared.Screens
         Form form;
         ScaledImage DayImage;
         ScaledImage ForecastImage;
+        ScaledImage TemperatureImage;
         ScaledImage LetsGoButton;
         ScaledImage BackButton;
         public bool DoneAnimating = false;
+        int Temperature = 100;
 
         public DaySetupScreen(double scaleX, double scaleY)
         {
             ScaleX = scaleX;
             ScaleY = scaleY;
-            DayImage = new ScaledImage("DaySetup_DayLabel", new Vector2(350, 200), 250);
-            ForecastImage = new ScaledImage("DaySetup_ForecastLabel", new Vector2(800, 200), 250);
+            DayImage = new ScaledImage("DaySetup_DayLabel", new Vector2(300, 200), 250);
+            ForecastImage = new ScaledImage("DaySetup_ForecastLabel", new Vector2(750, 200), 250);
+            TemperatureImage = new ScaledImage("DaySetup_DayLabel", new Vector2(1200, 200), 250);
             LetsGoButton = new ScaledImage("DaySetup_LetsGo", new Vector2(1200, 2500), 500);
             BackButton = new ScaledImage("DaySetup_Back", new Vector2(350, 2470), 500);
         }
 
-        public void Reset(int currentDay)
+        public void Reset(int currentDay, int temperature)
         {
             CurrentDay = currentDay;
+            Temperature = temperature;
             DoneAnimating = false;
             form = new Form(0, 0);
             form.Controls.Add(new NumberPicker("DaySetup_IconFlavor", "syrup", new Vector2(250, 550), 0, 10, ScaleX, ScaleY, false));
@@ -66,6 +70,7 @@ namespace SnowConeTycoon.Shared.Screens
             PositionInvEnd = new Vector2(0, Defaults.GraphicsHeight - ContentHandler.Images["DaySetup_Inventory"].Height - 200);
             DayImage.Reset();
             ForecastImage.Reset();
+            TemperatureImage.Reset();
             LetsGoButton.Reset();
             BackButton.Reset();
         }
@@ -113,6 +118,10 @@ namespace SnowConeTycoon.Shared.Screens
                 else if (!ForecastImage.IsDoneAnimating())
                 {
                     ForecastImage.Update(gameTime);
+                }
+                else if (!TemperatureImage.IsDoneAnimating())
+                {
+                    TemperatureImage.Update(gameTime);
                 }
                 else if (!LetsGoButton.IsDoneAnimating())
                 {
@@ -173,6 +182,21 @@ namespace SnowConeTycoon.Shared.Screens
                     spriteBatch.DrawString(Defaults.Font, $"day {CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
                     ForecastImage.Draw(spriteBatch);
                 }
+                else if (!TemperatureImage.IsDoneAnimating())
+                {
+                    DayImage.Draw(spriteBatch);
+                    spriteBatch.DrawString(Defaults.Font, $"{CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
+                    ForecastImage.Draw(spriteBatch);
+                    var forecast = CurrentForecast.ToString().ToLower();
+
+                    if (CurrentForecast == Forecast.PartlyCloudy)
+                    {
+                        forecast = "partly cloudy";
+                    }
+
+                    spriteBatch.DrawString(Defaults.Font, forecast, ForecastImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString(forecast) / 2, 0.6f, SpriteEffects.None, 1f);
+                    TemperatureImage.Draw(spriteBatch);
+                }
                 else
                 {
                     DayImage.Draw(spriteBatch);
@@ -186,6 +210,11 @@ namespace SnowConeTycoon.Shared.Screens
                     }
 
                     spriteBatch.DrawString(Defaults.Font, forecast, ForecastImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString(forecast) / 2, 0.6f, SpriteEffects.None, 1f);
+                    TemperatureImage.Draw(spriteBatch);
+                    spriteBatch.DrawString(Defaults.Font, $"{Temperature}", TemperatureImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"{Temperature}") / 2, 0.6f, SpriteEffects.None, 1f);
+
+                    var degrees = "          o";
+                    spriteBatch.DrawString(Defaults.Font, degrees, TemperatureImage.Position, Defaults.Brown, -0.1f, new Vector2(Defaults.Font.MeasureString(degrees).X / 2, (Defaults.Font.MeasureString(degrees).Y / 2) + 50), 0.6f, SpriteEffects.None, 1f);
                     LetsGoButton.Draw(spriteBatch);
                     BackButton.Draw(spriteBatch);
                 }

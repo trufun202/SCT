@@ -9,6 +9,7 @@ using SnowConeTycoon.Shared.Particles;
 using SnowConeTycoon.Shared.Utils;
 using static SnowConeTycoon.Shared.Handlers.KidHandler;
 using SnowConeTycoon.Shared.Extensions;
+using SnowConeTycoon.Shared.Models;
 
 namespace SnowConeTycoon.Shared.Kids
 {

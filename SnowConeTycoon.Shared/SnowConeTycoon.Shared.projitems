@@ -43,7 +43,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Particles\FallingStar.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Particles\ParticleEmitter.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Particles\Particle.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Player.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Effects\Snow.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\Effects\Components\SnowFlake.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Backgrounds\BackgroundSnowing.cs" />
@@ -54,17 +53,20 @@
     <Compile Include="$(MSBuildThisFileDirectory)Forms\Label.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Forms\LabelWithImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\LoadingScreen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\IBusinessDayService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)BusinessDayResult.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\MockPerfectBusinessDayService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DayQuoteService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\MockAverageBusinessDayService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\MockRainyBusinessDayService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\MockColdBusinessDayService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Kids\CustomerTransaction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionMethods.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\IWeatherService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Services\MockWeatherService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\WeatherService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Mocks\MockAverageBusinessDayService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Mocks\MockColdBusinessDayService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Mocks\MockPerfectBusinessDayService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Mocks\MockRainyBusinessDayService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Mocks\MockWeatherService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IBusinessDayService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IWeatherService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\BusinessDayResult.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\DayForecast.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
@@ -79,5 +81,8 @@
     <Folder Include="$(MSBuildThisFileDirectory)Animations\" />
     <Folder Include="$(MSBuildThisFileDirectory)Particles\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Services\Mocks\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Services\Interfaces\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\" />
   </ItemGroup>
 </Project>

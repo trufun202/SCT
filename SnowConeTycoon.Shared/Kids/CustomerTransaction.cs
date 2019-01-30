@@ -1,6 +1,7 @@
 ﻿using System;
 using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Handlers;
+using SnowConeTycoon.Shared.Models;
 using static SnowConeTycoon.Shared.Handlers.KidHandler;
 
 namespace SnowConeTycoon.Shared.Kids
