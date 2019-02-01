@@ -63,6 +63,12 @@
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
+    <None Include="Resources\Drawable\mipmap-ldpi\Icon.png" />
+    <None Include="Resources\Drawable\mipmap-hdpi\Icon.png" />
+    <None Include="Resources\Drawable\mipmap-mdpi\Icon.png" />
+    <None Include="Resources\Drawable\mipmap-xhdpi\Icon.png" />
+    <None Include="Resources\Drawable\mipmap-xxhdpi\Icon.png" />
+    <None Include="Resources\Drawable\mipmap-xxxhdpi\Icon.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
@@ -73,6 +79,7 @@
   <ItemGroup>
     <Folder Include="Content\" />
     <Folder Include="Resources\Layout\" />
+    <Folder Include="Resources\Drawable\mipmap-hdpi\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\Splash.png" />

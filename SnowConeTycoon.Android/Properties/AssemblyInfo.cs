@@ -10,8 +10,8 @@ using Android.App;
 [assembly: AssemblyProduct("SnowConeTycoon.Android")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyDescription("")]
-[assembly: AssemblyCompany("DSS")]
-[assembly: AssemblyCopyright("Copyright © DSS 2018")]
+[assembly: AssemblyCompany("Chros Games")]
+[assembly: AssemblyCopyright("Copyright © Chros Games 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
