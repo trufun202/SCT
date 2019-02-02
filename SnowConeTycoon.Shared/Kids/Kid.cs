@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Handlers;
+using SnowConeTycoon.Shared.Utils;
 
 namespace SnowConeTycoon.Shared.Kids
 {
@@ -19,12 +20,14 @@ namespace SnowConeTycoon.Shared.Kids
         private TimedEvent EyeOpeningEvent;
         private int Size = 1100;
         private TimedEvent EmotionEvent;
-
         public string Name { get; set; }
         public bool IsLocked { get; set; }
-        public Kid(string name, string avatar, string eyes, bool locked = false)
+        public int UnlockPrice { get; set; }
+
+        public Kid(string name, string avatar, string eyes, bool locked = false, int unlockPrice = 0)
         {
             IsLocked = locked;
+            UnlockPrice = unlockPrice;
             Name = name;
             Image = ContentHandler.Images[avatar];
             Eyes = ContentHandler.Images[eyes];
@@ -62,6 +65,7 @@ namespace SnowConeTycoon.Shared.Kids
             if (IsLocked)
             {
                 color = Color.Black;
+                facingAway = true;
             }
 
             var effect = SpriteEffects.None;
@@ -84,6 +88,21 @@ namespace SnowConeTycoon.Shared.Kids
             }
 
             spriteBatch.Draw(Mouth, new Rectangle(x, y, size.Value, size.Value), color);
+
+            if (IsLocked)
+            {
+                spriteBatch.DrawString(Defaults.Font, UnlockPrice.ToString(), new Vector2((int)(x + (size.Value / 2)) - 85, (int)(y + (size.Value / 2)) + 150), Defaults.Cream, 0f, Defaults.Font.MeasureString(UnlockPrice.ToString()) / 2, 1f, SpriteEffects.None, 1f);
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Rectangle((int)(x + (size.Value / 2)) + 85, (int)(y + (size.Value / 2) - 15 + 150), ContentHandler.Images["DaySetup_IconPrice"].Width, ContentHandler.Images["DaySetup_IconPrice"].Height), null, Color.White, 0f, new Vector2((int)(ContentHandler.Images["DaySetup_IconPrice"].Width / 2), (int)(ContentHandler.Images["DaySetup_IconPrice"].Height / 2)), SpriteEffects.None, 1f);
+                //spriteBatch.Draw(ContentHandler.Images["lock"], new Rectangle((int)(x + (size.Value / 2)), (int)(y + (size.Value / 2) + 250), ContentHandler.Images["lock"].Width, ContentHandler.Images["lock"].Height), null, Color.White, 0f, new Vector2((int)(ContentHandler.Images["lock"].Width / 2), (int)(ContentHandler.Images["lock"].Height / 2)), SpriteEffects.None, 1f);
+            }
+        }
+
+        public string GetName()
+        {
+            if (IsLocked)
+                return "???";
+
+            return Name;
         }
 
         public void MakeHappy()

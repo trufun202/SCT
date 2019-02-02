@@ -31,12 +31,12 @@ namespace SnowConeTycoon.Shared.Handlers
 
             Boys.Add("Boy1", new Kid("Jay", "BoyAvatar_01", "Eyes_Open3"));
             Boys.Add("Boy2", new Kid("Chad", "BoyAvatar_02", "Eyes_Open1"));
-            Boys.Add("Boy3", new Kid("Sam", "BoyAvatar_03", "Eyes_Open2", false));
-            Boys.Add("Boy4", new Kid("Jake", "BoyAvatar_04", "Eyes_Open4"));
-            Boys.Add("Boy5", new Kid("Lucas", "BoyAvatar_05", "Eyes_Open3"));
-            Boys.Add("Boy6", new Kid("Chris", "BoyAvatar_06", "Eyes_Open7"));
-            Boys.Add("Boy7", new Kid("Craig", "BoyAvatar_07", "Eyes_Open5"));
-            Boys.Add("Boy8", new Kid("Tommy", "BoyAvatar_08", "Eyes_Open6"));
+            Boys.Add("Boy3", new Kid("Sam", "BoyAvatar_03", "Eyes_Open2", true, 15));
+            Boys.Add("Boy4", new Kid("Jake", "BoyAvatar_04", "Eyes_Open4", true, 20));
+            Boys.Add("Boy5", new Kid("Lucas", "BoyAvatar_05", "Eyes_Open3", true, 40));
+            Boys.Add("Boy6", new Kid("Chris", "BoyAvatar_06", "Eyes_Open7", true, 100));
+            Boys.Add("Boy7", new Kid("Craig", "BoyAvatar_07", "Eyes_Open5",true, 25));
+            Boys.Add("Boy8", new Kid("Tommy", "BoyAvatar_08", "Eyes_Open6", true, 250));
             Boys.Add("Boy9", new Kid("Kyle", "BoyAvatar_09", "Eyes_Open3"));
             Boys.Add("Boy10", new Kid("Bailey", "BoyAvatar_10", "Eyes_Open7"));
             Boys.Add("Boy11", new Kid("Braiden", "BoyAvatar_11", "Eyes_Open6"));

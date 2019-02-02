@@ -6,9 +6,10 @@ using SnowConeTycoon.Shared;
 
 namespace SnowConeTycoon.Android
 {
-    [Activity(Label = "SnowConeTycoon.Android"
+    [Activity(Label = "Snow Cones"
         , MainLauncher = true
         , Icon = "@drawable/icon"
+        , RoundIcon = "@drawable/ic_launcher_round"
         , Theme = "@style/Theme.Splash"
         , AlwaysRetainTaskState = true
         //, LaunchMode = Android.Content.PM.LaunchMode.SingleInstance

@@ -701,12 +701,20 @@ namespace SnowConeTycoon.Shared
                     KidHandler.DrawKid(SelectedKidType, nextKid, spriteBatch, (int)Kid2Position.X, (int)Kid2Position.Y, null, false);
                 }
 
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Vector2(40, -15), Color.White);
+
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(218, 33), Defaults.Brown);
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(218, 37), Defaults.Brown);
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(222, 33), Defaults.Brown);
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(222, 37), Defaults.Brown);
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(220, 35), Defaults.Cream);
+
                 spriteBatch.Draw(ContentHandler.Images["CharacterSelectScreen_Foreground"], new Rectangle(0, 0, 1536, 2732), Color.White);
                 spriteBatch.Draw(ContentHandler.Images["Symbol_Female"], new Rectangle(80, 700, 191, 171), Color.White);
                 spriteBatch.Draw(ContentHandler.Images["Symbol_Male"], new Rectangle(1280, 700, 191, 171), Color.White);
                 spriteBatch.Draw(ContentHandler.Images["ArrowLeft"], new Rectangle(140, 1145, 136, 136), Color.White);
                 spriteBatch.Draw(ContentHandler.Images["ArrowRight"], new Rectangle(1330, 1145, 136, 136), Color.White);
-                spriteBatch.DrawString(Defaults.Font, KidHandler.CurrentKid.Name, new Vector2(808, 1830), Defaults.Cream, 0f, Defaults.Font.MeasureString(KidHandler.CurrentKid.Name) / 2, 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, KidHandler.CurrentKid.GetName(), new Vector2(808, 1830), Defaults.Cream, 0f, Defaults.Font.MeasureString(KidHandler.CurrentKid.GetName()) / 2, 1.2f, SpriteEffects.None, 1f);
 
                 FormCharacterSelect.Draw(spriteBatch);
                 CurrentBackgroundEffect?.Draw(spriteBatch);
