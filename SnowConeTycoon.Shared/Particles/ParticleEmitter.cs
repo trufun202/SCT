@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SnowConeTycoon.Shared.Enums;
+using SnowConeTycoon.Shared.Handlers;
 
 namespace SnowConeTycoon.Shared.Particles
 {
@@ -16,14 +18,25 @@ namespace SnowConeTycoon.Shared.Particles
         public bool FlowOn = false;
         public float Gravity = 4f;
         public int TTL = 3000;
+        private Vector2 Origin;
+        private float CircleTime = 0;
+        private float CircleRadius;
+        public ParticleMovementPath Path = ParticleMovementPath.None;
 
         public ParticleEmitter(int maxParticles, int x, int y, int radius, int ttl)
         {
             Particles = new List<IParticle>();
             MaxParticleCount = maxParticles;
             Position = new Vector2(x, y);
+            Origin = Position;
             Radius = radius;
             TTL = ttl;
+        }
+
+        public void SetCircularPath(float radius)
+        {
+            Path = ParticleMovementPath.Circle;
+            CircleRadius = radius;
         }
 
         private IParticle GenerateNewParticle()
@@ -48,10 +61,18 @@ namespace SnowConeTycoon.Shared.Particles
         public void Reset()
         {
             FlowOn = true;
+            CircleTime = 0;
         }
 
         public void Update(GameTime gameTime)
         {
+            if (Path == ParticleMovementPath.Circle)
+            {
+                CircleTime += gameTime.ElapsedGameTime.Milliseconds * 0.01f;
+                Position.X = (float)(Origin.X + Math.Cos(CircleTime) * CircleRadius);
+                Position.Y = (float)(Origin.Y + Math.Sin(CircleTime) * CircleRadius);
+            }
+
             if (FlowOn)
             {
                 if (Particles.Count < MaxParticleCount)
@@ -89,6 +110,11 @@ namespace SnowConeTycoon.Shared.Particles
             foreach (var particle in Particles)
             {
                 particle.Draw(spriteBatch);
+            }
+
+            if (FlowOn)
+            {
+                spriteBatch.Draw(ContentHandler.Images["particle"], new Rectangle((int)Position.X, (int)Position.Y, 200, 200), null, Color.White, 1f, new Vector2(ContentHandler.Images["particle"].Width / 2, ContentHandler.Images["particle"].Height / 2), SpriteEffects.None, 0);
             }
         }
     }

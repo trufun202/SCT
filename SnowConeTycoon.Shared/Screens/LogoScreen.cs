@@ -27,7 +27,7 @@ namespace SnowConeTycoon.Shared.Screens
 
             ChrosGamesLogo = new ScaledImage("ChrosGamesLogoNoCircle", new Vector2((int)(Defaults.GraphicsWidth / 2), (int)(Defaults.GraphicsHeight / 2)), 500);
 
-            delayEvent = new TimedEvent(1500,
+            delayEvent = new TimedEvent(500,
             () =>
                 {
                     AnimatingLogo = true;

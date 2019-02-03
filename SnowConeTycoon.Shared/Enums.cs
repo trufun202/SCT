@@ -62,4 +62,17 @@ namespace SnowConeTycoon.Shared.Enums
         Left,
         Right
     }
+
+    public enum ParticleMovementPath
+    {
+        None,
+        Circle
+    }
+
+    public enum UnlockMechanism
+    {
+        None,
+        Purchase,
+        Sales
+    }
 }

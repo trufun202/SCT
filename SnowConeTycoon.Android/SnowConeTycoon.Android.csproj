@@ -63,29 +63,48 @@
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
-    <None Include="Resources\Drawable\mipmap-ldpi\Icon.png" />
-    <None Include="Resources\Drawable\mipmap-hdpi\Icon.png" />
-    <None Include="Resources\Drawable\mipmap-mdpi\Icon.png" />
-    <None Include="Resources\Drawable\mipmap-xhdpi\Icon.png" />
-    <None Include="Resources\Drawable\mipmap-xxhdpi\Icon.png" />
-    <None Include="Resources\Drawable\mipmap-xxxhdpi\Icon.png" />
-    <None Include="Resources\Drawable\drawable-hdpi\ic_launcher_round.png" />
-    <None Include="Resources\Drawable\drawable-mdpi\ic_launcher_round.png" />
-    <None Include="Resources\Drawable\drawable-xhdpi\ic_launcher_round.png" />
-    <None Include="Resources\Drawable\drawable-xxhdpi\ic_launcher_round.png" />
-    <None Include="Resources\Drawable\drawable-xxxhdpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
+    <AndroidResource Include="Resources\Drawable\ic_launcher.png" />
+    <AndroidResource Include="Resources\Drawable\ic_launcher_back.png" />
+    <AndroidResource Include="Resources\Drawable\ic_launcher_fore.png" />
     <AndroidResource Include="Resources\Drawable\ic_launcher_round.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\Icon.png" />
+    <AndroidResource Include="Resources\mipmap-anydpi-v26\ic_launcher.xml" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher_back.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\ic_launcher_fore.png" />
+    <AndroidResource Include="Resources\mipmap-ldpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-ldpi\ic_launcher_back.png" />
+    <AndroidResource Include="Resources\mipmap-ldpi\ic_launcher_fore.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher_back.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher_fore.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher_back.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher_fore.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher_back.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher_fore.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_back.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_fore.png" />
+    <AndroidResource Include="Resources\mipmap-xxxhdpi\ic_launcher_round.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\ic_launcher_round.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\ic_launcher_round.png" />
+    <AndroidResource Include="Resources\mipmap-mdpi\ic_launcher_round.png" />
+    <AndroidResource Include="Resources\mipmap-ldpi\ic_launcher_round.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />
     <Folder Include="Resources\Layout\" />
-    <Folder Include="Resources\Drawable\mipmap-hdpi\" />
+    <Folder Include="Resources\mipmap-anydpi-v26\" />
+    <Folder Include="Resources\mipmap-hdpi\" />
+    <Folder Include="Resources\mipmap-ldpi\" />
+    <Folder Include="Resources\mipmap-mdpi\" />
+    <Folder Include="Resources\mipmap-xhdpi\" />
+    <Folder Include="Resources\mipmap-xxhdpi\" />
+    <Folder Include="Resources\mipmap-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Drawable\Splash.png" />

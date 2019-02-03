@@ -45,13 +45,19 @@ namespace SnowConeTycoon.Android
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int ic_launcher_round = 2130837504;
+			public const int ic_launcher = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int Icon = 2130837505;
+			public const int ic_launcher_back = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int Splash = 2130837506;
+			public const int ic_launcher_fore = 2130837506;
+			
+			// aapt resource value: 0x7f020003
+			public const int ic_launcher_round = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int Splash = 2130837508;
 			
 			static Drawable()
 			{
@@ -63,14 +69,39 @@ namespace SnowConeTycoon.Android
 			}
 		}
 		
+		public partial class Mipmap
+		{
+			
+			// aapt resource value: 0x7f030000
+			public const int ic_launcher = 2130903040;
+			
+			// aapt resource value: 0x7f030001
+			public const int ic_launcher_back = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int ic_launcher_fore = 2130903042;
+			
+			// aapt resource value: 0x7f030003
+			public const int ic_launcher_round = 2130903043;
+			
+			static Mipmap()
+			{
+				global::Android.Runtime.ResourceIdManager.UpdateIdValues();
+			}
+			
+			private Mipmap()
+			{
+			}
+		}
+		
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f030001
-			public const int ApplicationName = 2130903041;
+			// aapt resource value: 0x7f040001
+			public const int ApplicationName = 2130968577;
 			
-			// aapt resource value: 0x7f030000
-			public const int Hello = 2130903040;
+			// aapt resource value: 0x7f040000
+			public const int Hello = 2130968576;
 			
 			static String()
 			{
@@ -85,8 +116,8 @@ namespace SnowConeTycoon.Android
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7f040000
-			public const int Theme_Splash = 2130968576;
+			// aapt resource value: 0x7f050000
+			public const int Theme_Splash = 2131034112;
 			
 			static Style()
 			{

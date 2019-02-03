@@ -301,12 +301,20 @@ namespace SnowConeTycoon.Shared
             ////////////////
             FormCharacterSelect.Controls.Add(new Button(new Rectangle(30, 1948, 1485, 205), () =>
             {
-                Fade.Reset(() =>
+                if (KidHandler.CurrentKid.IsLocked)
                 {
-                    SelectedKidIndex = KidHandler.SelectedKidIndex;
-                    CurrentScreen = Screen.Title;
-                });
-
+                    KidHandler.CurrentKid.Unlock();
+                    //TODO play sound
+                    return false; //so the default sound doesn't play
+                }
+                else
+                {
+                    Fade.Reset(() =>
+                    {
+                        SelectedKidIndex = KidHandler.SelectedKidIndex;
+                        CurrentScreen = Screen.Title;
+                    });
+                }
                 return true;
             }, "pop", scaleX, scaleY));
             ///////////////////

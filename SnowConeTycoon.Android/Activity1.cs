@@ -8,8 +8,8 @@ namespace SnowConeTycoon.Android
 {
     [Activity(Label = "Snow Cones"
         , MainLauncher = true
-        , Icon = "@drawable/icon"
-        , RoundIcon = "@drawable/ic_launcher_round"
+        , Icon = "@mipmap/ic_launcher"
+        , RoundIcon = "@mipmap/ic_launcher_round"
         , Theme = "@style/Theme.Splash"
         , AlwaysRetainTaskState = true
         //, LaunchMode = Android.Content.PM.LaunchMode.SingleInstance

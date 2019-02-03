@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Handlers;
+using SnowConeTycoon.Shared.Particles;
 using SnowConeTycoon.Shared.Utils;
 
 namespace SnowConeTycoon.Shared.Kids
@@ -23,11 +24,13 @@ namespace SnowConeTycoon.Shared.Kids
         public string Name { get; set; }
         public bool IsLocked { get; set; }
         public int UnlockPrice { get; set; }
+        private ParticleEmitter ParticleEmitter;
+        private TimedEvent ParticleEvent;
 
-        public Kid(string name, string avatar, string eyes, bool locked = false, int unlockPrice = 0)
+        public Kid(string name, string avatar, string eyes, bool locked = false, UnlockMechanism unlockMechanism = UnlockMechanism.None, int unlockValue = 0)
         {
             IsLocked = locked;
-            UnlockPrice = unlockPrice;
+            UnlockPrice = unlockValue;
             Name = name;
             Image = ContentHandler.Images[avatar];
             Eyes = ContentHandler.Images[eyes];
@@ -51,6 +54,28 @@ namespace SnowConeTycoon.Shared.Kids
                         break;
                 }
             }, true);
+
+            if (locked)
+            {
+                ParticleEmitter = new ParticleEmitter(100, (int)(Defaults.GraphicsWidth / 2), (int)(Defaults.GraphicsHeight / 2), 40, 1000);
+                ParticleEmitter.Gravity = 20f;
+                ParticleEmitter.Velocity = new Vector2(1350, 1350);
+                ParticleEmitter.SetCircularPath(300);
+            }
+        }
+
+        public void Unlock()
+        {
+            if (IsLocked)
+            {
+                ParticleEmitter.FlowOn = true;
+                ParticleEvent = new TimedEvent(1000, () =>
+                {
+                    ParticleEmitter.FlowOn = false;
+                    IsLocked = false;
+                },
+                false);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch, int x, int y, bool facingAway, int? size)
@@ -65,7 +90,6 @@ namespace SnowConeTycoon.Shared.Kids
             if (IsLocked)
             {
                 color = Color.Black;
-                facingAway = true;
             }
 
             var effect = SpriteEffects.None;
@@ -95,6 +119,8 @@ namespace SnowConeTycoon.Shared.Kids
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Rectangle((int)(x + (size.Value / 2)) + 85, (int)(y + (size.Value / 2) - 15 + 150), ContentHandler.Images["DaySetup_IconPrice"].Width, ContentHandler.Images["DaySetup_IconPrice"].Height), null, Color.White, 0f, new Vector2((int)(ContentHandler.Images["DaySetup_IconPrice"].Width / 2), (int)(ContentHandler.Images["DaySetup_IconPrice"].Height / 2)), SpriteEffects.None, 1f);
                 //spriteBatch.Draw(ContentHandler.Images["lock"], new Rectangle((int)(x + (size.Value / 2)), (int)(y + (size.Value / 2) + 250), ContentHandler.Images["lock"].Width, ContentHandler.Images["lock"].Height), null, Color.White, 0f, new Vector2((int)(ContentHandler.Images["lock"].Width / 2), (int)(ContentHandler.Images["lock"].Height / 2)), SpriteEffects.None, 1f);
             }
+
+            ParticleEmitter?.Draw(spriteBatch);
         }
 
         public string GetName()
@@ -138,6 +164,9 @@ namespace SnowConeTycoon.Shared.Kids
             }
 
             EmotionEvent.Update(gameTime);
+
+            ParticleEmitter?.Update(gameTime);
+            ParticleEvent?.Update(gameTime);
         }
     }
 }
