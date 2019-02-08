@@ -20,7 +20,7 @@ namespace SnowConeTycoon.Android
         protected override void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-            var g = new SnowConeTycoonGame();
+            var g = new AndroidWrapperGame(this);
             SetContentView((View)g.Services.GetService(typeof(View)));
             g.Run();
         }

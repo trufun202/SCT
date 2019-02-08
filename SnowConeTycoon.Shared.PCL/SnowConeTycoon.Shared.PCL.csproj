@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{44B6AED8-766D-4F0E-9D94-91F8E17C4E27}</ProjectGuid>
+    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <UseMSBuildEngine>true</UseMSBuildEngine>
+    <OutputType>Library</OutputType>
+    <RootNamespace>SnowConeTycoon.Shared.PCL</RootNamespace>
+    <AssemblyName>SnowConeTycoon.Shared.PCL</AssemblyName>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Enums.cs" />
+    <Compile Include="ExtensionMethods.cs" />
+    <Compile Include="SnowConeTycoonGame.cs" />
+    <Compile Include="Animations\BlindOpenImage.cs" />
+    <Compile Include="Animations\PulseImage.cs" />
+    <Compile Include="Animations\ScaledImage.cs" />
+    <Compile Include="Backgrounds\BackgroundCloudy.cs" />
+    <Compile Include="Backgrounds\BackgroundPartlyCloudy.cs" />
+    <Compile Include="Backgrounds\BackgroundRainy.cs" />
+    <Compile Include="Backgrounds\BackgroundSnowing.cs" />
+    <Compile Include="Backgrounds\BackgroundSunny.cs" />
+    <Compile Include="Backgrounds\Effects\Components\IBackgroundEffectComponent.cs" />
+    <Compile Include="Backgrounds\Effects\Components\Raindrop.cs" />
+    <Compile Include="Backgrounds\Effects\Components\SnowFlake.cs" />
+    <Compile Include="Backgrounds\Effects\IBackgroundEffect.cs" />
+    <Compile Include="Backgrounds\Effects\Rain.cs" />
+    <Compile Include="Backgrounds\Effects\Snow.cs" />
+    <Compile Include="Backgrounds\IBackground.cs" />
+    <Compile Include="Forms\Button.cs" />
+    <Compile Include="Forms\Form.cs" />
+    <Compile Include="Forms\IFormControl.cs" />
+    <Compile Include="Forms\Label.cs" />
+    <Compile Include="Forms\LabelWithImage.cs" />
+    <Compile Include="Forms\NumberPicker.cs" />
+    <Compile Include="Handlers\ContentHandler.cs" />
+    <Compile Include="Handlers\KidHandler.cs" />
+    <Compile Include="Kids\Customer.cs" />
+    <Compile Include="Kids\CustomerTransaction.cs" />
+    <Compile Include="Kids\IKid.cs" />
+    <Compile Include="Kids\Kid.cs" />
+    <Compile Include="Models\BusinessDayResult.cs" />
+    <Compile Include="Models\DayForecast.cs" />
+    <Compile Include="Models\Player.cs" />
+    <Compile Include="Particles\FallingStar.cs" />
+    <Compile Include="Particles\IParticle.cs" />
+    <Compile Include="Particles\Particle.cs" />
+    <Compile Include="Particles\ParticleEmitter.cs" />
+    <Compile Include="Screens\DaySetupScreen.cs" />
+    <Compile Include="Screens\LoadingScreen.cs" />
+    <Compile Include="Screens\LogoScreen.cs" />
+    <Compile Include="Screens\OpenForBusinessScreen.cs" />
+    <Compile Include="Screens\ResultsScreen.cs" />
+    <Compile Include="Screens\SupplyShopScreen.cs" />
+    <Compile Include="ScreenTransitions\FadeTransition.cs" />
+    <Compile Include="ScreenTransitions\IScreenTransition.cs" />
+    <Compile Include="Services\DayQuoteService.cs" />
+    <Compile Include="Services\Interfaces\IBusinessDayService.cs" />
+    <Compile Include="Services\Interfaces\IWeatherService.cs" />
+    <Compile Include="Services\Mocks\MockAverageBusinessDayService.cs" />
+    <Compile Include="Services\Mocks\MockColdBusinessDayService.cs" />
+    <Compile Include="Services\Mocks\MockPerfectBusinessDayService.cs" />
+    <Compile Include="Services\Mocks\MockRainyBusinessDayService.cs" />
+    <Compile Include="Services\Mocks\MockWeatherService.cs" />
+    <Compile Include="Services\WeatherService.cs" />
+    <Compile Include="Utils\Defaults.cs" />
+    <Compile Include="Utils\TimedEvent.cs" />
+    <Compile Include="Utils\Utilities.cs" />
+    <Compile Include="Animations\BezierCurveImage.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>packages\MonoGame.Framework.Portable.3.6.0.1625\lib\portable-net45+win8+wpa81\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>..\..\..\..\Library\Frameworks\Mono.framework\External\xbuild\MonoGame\v3.0\Assemblies\iOS\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Mono.Android" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="audio.txt" />
+    <None Include="project.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Animations\" />
+    <Folder Include="Backgrounds\" />
+    <Folder Include="Forms\" />
+    <Folder Include="Handlers\" />
+    <Folder Include="Kids\" />
+    <Folder Include="Models\" />
+    <Folder Include="Particles\" />
+    <Folder Include="Screens\" />
+    <Folder Include="ScreenTransitions\" />
+    <Folder Include="Services\" />
+    <Folder Include="Utils\" />
+    <Folder Include="Ads\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+</Project>

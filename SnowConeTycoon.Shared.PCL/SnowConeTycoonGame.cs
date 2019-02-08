@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -28,11 +27,12 @@ namespace SnowConeTycoon.Shared
     /// <summary>
     /// This is the main type for your game.
     /// </summary>
-    public class SnowConeTycoonGame
+    public class SnowConeTycoonGame : Game
     {
-        ContentManager Content;
-        public Screen CurrentScreen = Screen.Loading;
+        Screen CurrentScreen = Screen.Loading;
+        GraphicsDeviceManager graphics;
         RenderTarget2D renderTarget;
+        SpriteBatch spriteBatch;
         int ScreenHeight = 0;
         int ScreenWidth = 0;
         TouchCollection currentTouchCollection;
@@ -81,6 +81,10 @@ namespace SnowConeTycoon.Shared
 
         public SnowConeTycoonGame()
         {
+            graphics = new GraphicsDeviceManager(this);
+            Content.RootDirectory = "Content";
+            graphics.IsFullScreen = true;
+
             businessDayService = new MockAverageBusinessDayService();
             weatherService = new WeatherService();
         }
@@ -126,7 +130,13 @@ namespace SnowConeTycoon.Shared
             }
         }
 
-        public void Initialize(GraphicsDeviceManager graphics)
+        /// <summary>
+        /// Allows the game to perform any initialization it needs to before starting to run.
+        /// This is where it can query for any required services and load any non-graphic
+        /// related content.  Calling base.Initialize will enumerate through any components
+        /// and initialize them as well.
+        /// </summary>
+        protected override void Initialize()
         {
             ScreenHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
             ScreenWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
@@ -138,11 +148,11 @@ namespace SnowConeTycoon.Shared
             graphics.ApplyChanges();
 
             renderTarget = new RenderTarget2D(
-                graphics.GraphicsDevice,
+                GraphicsDevice,
                 Defaults.GraphicsWidth,
                 Defaults.GraphicsHeight,
                 false,
-                graphics.GraphicsDevice.PresentationParameters.BackBufferFormat,
+                GraphicsDevice.PresentationParameters.BackBufferFormat,
                 DepthFormat.Depth24);
 
             Player.Reset();
@@ -211,14 +221,12 @@ namespace SnowConeTycoon.Shared
             /////////////////////////
             FormTitle.Controls.Add(new Button(new Rectangle(30, 2144, 1485, 205), () =>
             {
-                CurrentScreen = Screen.FullScreenAd;
-
-                //Fade.Reset(() =>
-                //{
-                //   ResultsScreen.ResetAndSetResults(businessDayService.CalculateDay(Forecast.Sunny, 0, 0, 0, 2));
-                //    CurrentScreen = Screen.Results;
-                //    //CurrentScreen = Screen.SupplyShop;
-                //});
+                Fade.Reset(() =>
+                {
+                    ResultsScreen.ResetAndSetResults(businessDayService.CalculateDay(Forecast.Sunny, 0, 0, 0, 2));
+                    CurrentScreen = Screen.Results;
+                    //CurrentScreen = Screen.SupplyShop;
+                });
 
                 return true;
             }, "pop", scaleX, scaleY));
@@ -406,11 +414,16 @@ namespace SnowConeTycoon.Shared
             }, "pop", scaleX, scaleY));
 
             previousTouchCollection = TouchPanel.GetState();
+            base.Initialize();
         }
 
-        public void LoadContent(ContentManager content)
+        /// <summary>
+        /// LoadContent will be called once per game and is the place to load
+        /// all of your content.
+        /// </summary>
+        protected override void LoadContent()
         {
-            Content = content;
+            spriteBatch = new SpriteBatch(GraphicsDevice);
             Defaults.Font = Content.Load<SpriteFont>("cooper-black-80");
             ContentHandler.PreInit(Content);
             LoadingScreen = new LoadingScreen();
@@ -444,7 +457,13 @@ namespace SnowConeTycoon.Shared
             SupplyShopScreen = new SupplyShopScreen(scaleX, scaleY);
         }
 
-        public void Update(GameTime gameTime)
+        /// <summar>(""));
+
+        /// Allows the game to run logic such as updating the world,
+        /// checking for collisions, gathering input, and playing audio.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Update(GameTime gameTime)
         {
             if (Fade.ShowingFade)
             {
@@ -603,11 +622,17 @@ namespace SnowConeTycoon.Shared
                     FormCharacterSelect.Update(gameTime);
                 }
             }
+
+            base.Update(gameTime);
         }
 
-        public void Draw(GraphicsDeviceManager graphics, SpriteBatch spriteBatch, GameTime gameTime)
+        /// <summary>
+        /// This is called when the game should draw itself.
+        /// </summary>
+        /// <param name="gameTime">Provides a snapshot of timing values.</param>
+        protected override void Draw(GameTime gameTime)
         {
-            graphics.GraphicsDevice.SetRenderTarget(renderTarget);
+            GraphicsDevice.SetRenderTarget(renderTarget);
             spriteBatch.Begin();
 
             if (CurrentScreen == Screen.Loading)
@@ -710,11 +735,13 @@ namespace SnowConeTycoon.Shared
 
             spriteBatch.End();
 
-            graphics.GraphicsDevice.SetRenderTarget(null);
-            graphics.GraphicsDevice.Clear(Color.Black);
+            GraphicsDevice.SetRenderTarget(null);
+            GraphicsDevice.Clear(Color.Black);
             spriteBatch.Begin();
             spriteBatch.Draw(renderTarget, new Rectangle(0, 0, ScreenWidth, ScreenHeight), Color.White);
             spriteBatch.End();
+
+            base.Draw(gameTime);
         }
     }
 }

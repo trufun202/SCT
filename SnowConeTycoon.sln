@@ -5,9 +5,9 @@ VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowConeTycoon.Android", "SnowConeTycoon.Android\SnowConeTycoon.Android.csproj", "{1C9214E1-F93C-4D9C-BE90-BFDA9F5F0F4A}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SnowConeTycoon.Shared", "SnowConeTycoon.Shared\SnowConeTycoon.Shared.shproj", "{A0CDBD0E-3A41-42B7-9425-A838BC2C7383}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SnowConeTycoon.iOS.iOS", "SnowConeTycoon.iOS\SnowConeTycoon.iOS.iOS.csproj", "{CA7AB65C-57DE-412C-AF42-E7E6EDDF2D5F}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "SnowConeTycoon.Shared", "SnowConeTycoon.Shared\SnowConeTycoon.Shared.shproj", "{A0CDBD0E-3A41-42B7-9425-A838BC2C7383}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution

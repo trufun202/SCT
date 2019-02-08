@@ -13,9 +13,7 @@ namespace SnowConeTycoon.Shared.Enums
         DaySetup,
         SupplyShop,
         OpenForBusiness,
-        Results,
-        RewardAd,
-        FullScreenAd
+        Results
     }
 
     public enum OverallDayOpinion
