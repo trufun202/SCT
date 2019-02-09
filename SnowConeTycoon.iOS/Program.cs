@@ -8,11 +8,11 @@ namespace SnowConeTycoon.iOS.iOS
     [Register("AppDelegate")]
     class Program : UIApplicationDelegate
     {
-        private static SnowConeTycoonGame game;
+        private static iOSWrapperGame game;
 
         internal static void RunGame()
         {
-            game = new SnowConeTycoonGame();
+            game = new iOSWrapperGame();
             game.Run();
         }
 

@@ -211,7 +211,7 @@ namespace SnowConeTycoon.Shared
             /////////////////////////
             FormTitle.Controls.Add(new Button(new Rectangle(30, 2144, 1485, 205), () =>
             {
-                CurrentScreen = Screen.FullScreenAd;
+                CurrentScreen = Screen.RewardAd;
 
                 //Fade.Reset(() =>
                 //{
