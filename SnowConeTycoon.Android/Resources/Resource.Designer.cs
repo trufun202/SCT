@@ -31,41 +31,59 @@ namespace SnowConeTycoon.Android
 		public partial class Attribute
 		{
 			
-			// aapt resource value: 0x7f010000
-			public const int adSize = 2130771968;
-			
-			// aapt resource value: 0x7f010001
-			public const int adSizes = 2130771969;
-			
-			// aapt resource value: 0x7f010002
-			public const int adUnitId = 2130771970;
-			
-			// aapt resource value: 0x7f01000a
-			public const int font = 2130771978;
-			
-			// aapt resource value: 0x7f010003
-			public const int fontProviderAuthority = 2130771971;
-			
 			// aapt resource value: 0x7f010006
-			public const int fontProviderCerts = 2130771974;
+			public const int adSize = 2130771974;
 			
 			// aapt resource value: 0x7f010007
-			public const int fontProviderFetchStrategy = 2130771975;
+			public const int adSizes = 2130771975;
 			
 			// aapt resource value: 0x7f010008
-			public const int fontProviderFetchTimeout = 2130771976;
+			public const int adUnitId = 2130771976;
+			
+			// aapt resource value: 0x7f010003
+			public const int buttonSize = 2130771971;
+			
+			// aapt resource value: 0x7f010002
+			public const int circleCrop = 2130771970;
 			
 			// aapt resource value: 0x7f010004
-			public const int fontProviderPackage = 2130771972;
+			public const int colorScheme = 2130771972;
 			
-			// aapt resource value: 0x7f010005
-			public const int fontProviderQuery = 2130771973;
+			// aapt resource value: 0x7f010010
+			public const int font = 2130771984;
 			
 			// aapt resource value: 0x7f010009
-			public const int fontStyle = 2130771977;
+			public const int fontProviderAuthority = 2130771977;
+			
+			// aapt resource value: 0x7f01000c
+			public const int fontProviderCerts = 2130771980;
+			
+			// aapt resource value: 0x7f01000d
+			public const int fontProviderFetchStrategy = 2130771981;
+			
+			// aapt resource value: 0x7f01000e
+			public const int fontProviderFetchTimeout = 2130771982;
+			
+			// aapt resource value: 0x7f01000a
+			public const int fontProviderPackage = 2130771978;
 			
 			// aapt resource value: 0x7f01000b
-			public const int fontWeight = 2130771979;
+			public const int fontProviderQuery = 2130771979;
+			
+			// aapt resource value: 0x7f01000f
+			public const int fontStyle = 2130771983;
+			
+			// aapt resource value: 0x7f010011
+			public const int fontWeight = 2130771985;
+			
+			// aapt resource value: 0x7f010001
+			public const int imageAspectRatio = 2130771969;
+			
+			// aapt resource value: 0x7f010000
+			public const int imageAspectRatioAdjust = 2130771968;
+			
+			// aapt resource value: 0x7f010005
+			public const int scopeUris = 2130771973;
 			
 			static Attribute()
 			{
@@ -96,26 +114,59 @@ namespace SnowConeTycoon.Android
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f080003
-			public const int notification_action_color_filter = 2131230723;
+			// aapt resource value: 0x7f07000f
+			public const int common_google_signin_btn_text_dark = 2131165199;
 			
-			// aapt resource value: 0x7f080004
-			public const int notification_icon_bg_color = 2131230724;
+			// aapt resource value: 0x7f070000
+			public const int common_google_signin_btn_text_dark_default = 2131165184;
 			
-			// aapt resource value: 0x7f080000
-			public const int notification_material_background_media_default_color = 2131230720;
+			// aapt resource value: 0x7f070001
+			public const int common_google_signin_btn_text_dark_disabled = 2131165185;
 			
-			// aapt resource value: 0x7f080001
-			public const int primary_text_default_material_dark = 2131230721;
+			// aapt resource value: 0x7f070002
+			public const int common_google_signin_btn_text_dark_focused = 2131165186;
 			
-			// aapt resource value: 0x7f080005
-			public const int ripple_material_light = 2131230725;
+			// aapt resource value: 0x7f070003
+			public const int common_google_signin_btn_text_dark_pressed = 2131165187;
 			
-			// aapt resource value: 0x7f080002
-			public const int secondary_text_default_material_dark = 2131230722;
+			// aapt resource value: 0x7f070010
+			public const int common_google_signin_btn_text_light = 2131165200;
 			
-			// aapt resource value: 0x7f080006
-			public const int secondary_text_default_material_light = 2131230726;
+			// aapt resource value: 0x7f070004
+			public const int common_google_signin_btn_text_light_default = 2131165188;
+			
+			// aapt resource value: 0x7f070005
+			public const int common_google_signin_btn_text_light_disabled = 2131165189;
+			
+			// aapt resource value: 0x7f070006
+			public const int common_google_signin_btn_text_light_focused = 2131165190;
+			
+			// aapt resource value: 0x7f070007
+			public const int common_google_signin_btn_text_light_pressed = 2131165191;
+			
+			// aapt resource value: 0x7f070011
+			public const int common_google_signin_btn_tint = 2131165201;
+			
+			// aapt resource value: 0x7f07000b
+			public const int notification_action_color_filter = 2131165195;
+			
+			// aapt resource value: 0x7f07000c
+			public const int notification_icon_bg_color = 2131165196;
+			
+			// aapt resource value: 0x7f070008
+			public const int notification_material_background_media_default_color = 2131165192;
+			
+			// aapt resource value: 0x7f070009
+			public const int primary_text_default_material_dark = 2131165193;
+			
+			// aapt resource value: 0x7f07000d
+			public const int ripple_material_light = 2131165197;
+			
+			// aapt resource value: 0x7f07000a
+			public const int secondary_text_default_material_dark = 2131165194;
+			
+			// aapt resource value: 0x7f07000e
+			public const int secondary_text_default_material_light = 2131165198;
 			
 			static Color()
 			{
@@ -204,55 +255,118 @@ namespace SnowConeTycoon.Android
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int ic_launcher = 2130837504;
+			public const int common_full_open_on_phone = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int ic_launcher_back = 2130837505;
+			public const int common_google_signin_btn_icon_dark = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int ic_launcher_fore = 2130837506;
+			public const int common_google_signin_btn_icon_dark_focused = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int ic_launcher_round = 2130837507;
+			public const int common_google_signin_btn_icon_dark_normal = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int notification_action_background = 2130837508;
+			public const int common_google_signin_btn_icon_dark_normal_background = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int notification_bg = 2130837509;
+			public const int common_google_signin_btn_icon_disabled = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int notification_bg_low = 2130837510;
+			public const int common_google_signin_btn_icon_light = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int notification_bg_low_normal = 2130837511;
+			public const int common_google_signin_btn_icon_light_focused = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int notification_bg_low_pressed = 2130837512;
+			public const int common_google_signin_btn_icon_light_normal = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int notification_bg_normal = 2130837513;
+			public const int common_google_signin_btn_icon_light_normal_background = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int notification_bg_normal_pressed = 2130837514;
+			public const int common_google_signin_btn_text_dark = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int notification_icon_background = 2130837515;
-			
-			// aapt resource value: 0x7f02000f
-			public const int notification_template_icon_bg = 2130837519;
-			
-			// aapt resource value: 0x7f020010
-			public const int notification_template_icon_low_bg = 2130837520;
+			public const int common_google_signin_btn_text_dark_focused = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int notification_tile_bg = 2130837516;
+			public const int common_google_signin_btn_text_dark_normal = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int notify_panel_notification_icon_bg = 2130837517;
+			public const int common_google_signin_btn_text_dark_normal_background = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int Splash = 2130837518;
+			public const int common_google_signin_btn_text_disabled = 2130837518;
+			
+			// aapt resource value: 0x7f02000f
+			public const int common_google_signin_btn_text_light = 2130837519;
+			
+			// aapt resource value: 0x7f020010
+			public const int common_google_signin_btn_text_light_focused = 2130837520;
+			
+			// aapt resource value: 0x7f020011
+			public const int common_google_signin_btn_text_light_normal = 2130837521;
+			
+			// aapt resource value: 0x7f020012
+			public const int common_google_signin_btn_text_light_normal_background = 2130837522;
+			
+			// aapt resource value: 0x7f020013
+			public const int googleg_disabled_color_18 = 2130837523;
+			
+			// aapt resource value: 0x7f020014
+			public const int googleg_standard_color_18 = 2130837524;
+			
+			// aapt resource value: 0x7f020015
+			public const int ic_launcher = 2130837525;
+			
+			// aapt resource value: 0x7f020016
+			public const int ic_launcher_back = 2130837526;
+			
+			// aapt resource value: 0x7f020017
+			public const int ic_launcher_fore = 2130837527;
+			
+			// aapt resource value: 0x7f020018
+			public const int ic_launcher_round = 2130837528;
+			
+			// aapt resource value: 0x7f020019
+			public const int notification_action_background = 2130837529;
+			
+			// aapt resource value: 0x7f02001a
+			public const int notification_bg = 2130837530;
+			
+			// aapt resource value: 0x7f02001b
+			public const int notification_bg_low = 2130837531;
+			
+			// aapt resource value: 0x7f02001c
+			public const int notification_bg_low_normal = 2130837532;
+			
+			// aapt resource value: 0x7f02001d
+			public const int notification_bg_low_pressed = 2130837533;
+			
+			// aapt resource value: 0x7f02001e
+			public const int notification_bg_normal = 2130837534;
+			
+			// aapt resource value: 0x7f02001f
+			public const int notification_bg_normal_pressed = 2130837535;
+			
+			// aapt resource value: 0x7f020020
+			public const int notification_icon_background = 2130837536;
+			
+			// aapt resource value: 0x7f020024
+			public const int notification_template_icon_bg = 2130837540;
+			
+			// aapt resource value: 0x7f020025
+			public const int notification_template_icon_low_bg = 2130837541;
+			
+			// aapt resource value: 0x7f020021
+			public const int notification_tile_bg = 2130837537;
+			
+			// aapt resource value: 0x7f020022
+			public const int notify_panel_notification_icon_bg = 2130837538;
+			
+			// aapt resource value: 0x7f020023
+			public const int Splash = 2130837539;
 			
 			static Drawable()
 			{
@@ -267,53 +381,71 @@ namespace SnowConeTycoon.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f0b000d
-			public const int action0 = 2131427341;
+			// aapt resource value: 0x7f0b0016
+			public const int action0 = 2131427350;
 			
-			// aapt resource value: 0x7f0b000a
-			public const int action_container = 2131427338;
+			// aapt resource value: 0x7f0b0013
+			public const int action_container = 2131427347;
 			
-			// aapt resource value: 0x7f0b0011
-			public const int action_divider = 2131427345;
+			// aapt resource value: 0x7f0b001a
+			public const int action_divider = 2131427354;
 			
-			// aapt resource value: 0x7f0b000b
-			public const int action_image = 2131427339;
+			// aapt resource value: 0x7f0b0014
+			public const int action_image = 2131427348;
 			
-			// aapt resource value: 0x7f0b000c
-			public const int action_text = 2131427340;
+			// aapt resource value: 0x7f0b0015
+			public const int action_text = 2131427349;
 			
-			// aapt resource value: 0x7f0b001b
-			public const int actions = 2131427355;
+			// aapt resource value: 0x7f0b0024
+			public const int actions = 2131427364;
 			
 			// aapt resource value: 0x7f0b0005
-			public const int async = 2131427333;
+			public const int adjust_height = 2131427333;
 			
 			// aapt resource value: 0x7f0b0006
-			public const int blocking = 2131427334;
+			public const int adjust_width = 2131427334;
 			
 			// aapt resource value: 0x7f0b000e
-			public const int cancel_action = 2131427342;
+			public const int async = 2131427342;
 			
-			// aapt resource value: 0x7f0b0016
-			public const int chronometer = 2131427350;
+			// aapt resource value: 0x7f0b000b
+			public const int auto = 2131427339;
 			
-			// aapt resource value: 0x7f0b001d
-			public const int end_padder = 2131427357;
-			
-			// aapt resource value: 0x7f0b0007
-			public const int forever = 2131427335;
-			
-			// aapt resource value: 0x7f0b0018
-			public const int icon = 2131427352;
-			
-			// aapt resource value: 0x7f0b001c
-			public const int icon_group = 2131427356;
+			// aapt resource value: 0x7f0b000f
+			public const int blocking = 2131427343;
 			
 			// aapt resource value: 0x7f0b0017
-			public const int info = 2131427351;
+			public const int cancel_action = 2131427351;
+			
+			// aapt resource value: 0x7f0b001f
+			public const int chronometer = 2131427359;
+			
+			// aapt resource value: 0x7f0b000c
+			public const int dark = 2131427340;
+			
+			// aapt resource value: 0x7f0b0026
+			public const int end_padder = 2131427366;
+			
+			// aapt resource value: 0x7f0b0010
+			public const int forever = 2131427344;
+			
+			// aapt resource value: 0x7f0b0021
+			public const int icon = 2131427361;
+			
+			// aapt resource value: 0x7f0b0025
+			public const int icon_group = 2131427365;
 			
 			// aapt resource value: 0x7f0b0008
-			public const int italic = 2131427336;
+			public const int icon_only = 2131427336;
+			
+			// aapt resource value: 0x7f0b0020
+			public const int info = 2131427360;
+			
+			// aapt resource value: 0x7f0b0011
+			public const int italic = 2131427345;
+			
+			// aapt resource value: 0x7f0b000d
+			public const int light = 2131427341;
 			
 			// aapt resource value: 0x7f0b0000
 			public const int line1 = 2131427328;
@@ -321,29 +453,35 @@ namespace SnowConeTycoon.Android
 			// aapt resource value: 0x7f0b0001
 			public const int line3 = 2131427329;
 			
-			// aapt resource value: 0x7f0b0010
-			public const int media_actions = 2131427344;
+			// aapt resource value: 0x7f0b0019
+			public const int media_actions = 2131427353;
 			
-			// aapt resource value: 0x7f0b0009
-			public const int normal = 2131427337;
-			
-			// aapt resource value: 0x7f0b001a
-			public const int notification_background = 2131427354;
-			
-			// aapt resource value: 0x7f0b0013
-			public const int notification_main_column = 2131427347;
+			// aapt resource value: 0x7f0b0007
+			public const int none = 2131427335;
 			
 			// aapt resource value: 0x7f0b0012
-			public const int notification_main_column_container = 2131427346;
+			public const int normal = 2131427346;
 			
-			// aapt resource value: 0x7f0b0019
-			public const int right_icon = 2131427353;
+			// aapt resource value: 0x7f0b0023
+			public const int notification_background = 2131427363;
 			
-			// aapt resource value: 0x7f0b0014
-			public const int right_side = 2131427348;
+			// aapt resource value: 0x7f0b001c
+			public const int notification_main_column = 2131427356;
 			
-			// aapt resource value: 0x7f0b000f
-			public const int status_bar_latest_event_content = 2131427343;
+			// aapt resource value: 0x7f0b001b
+			public const int notification_main_column_container = 2131427355;
+			
+			// aapt resource value: 0x7f0b0022
+			public const int right_icon = 2131427362;
+			
+			// aapt resource value: 0x7f0b001d
+			public const int right_side = 2131427357;
+			
+			// aapt resource value: 0x7f0b0009
+			public const int standard = 2131427337;
+			
+			// aapt resource value: 0x7f0b0018
+			public const int status_bar_latest_event_content = 2131427352;
 			
 			// aapt resource value: 0x7f0b0002
 			public const int text = 2131427330;
@@ -351,11 +489,14 @@ namespace SnowConeTycoon.Android
 			// aapt resource value: 0x7f0b0003
 			public const int text2 = 2131427331;
 			
-			// aapt resource value: 0x7f0b0015
-			public const int time = 2131427349;
+			// aapt resource value: 0x7f0b001e
+			public const int time = 2131427358;
 			
 			// aapt resource value: 0x7f0b0004
 			public const int title = 2131427332;
+			
+			// aapt resource value: 0x7f0b000a
+			public const int wide = 2131427338;
 			
 			static Id()
 			{
@@ -370,14 +511,14 @@ namespace SnowConeTycoon.Android
 		public partial class Integer
 		{
 			
-			// aapt resource value: 0x7f050001
-			public const int cancel_button_image_alpha = 2131034113;
+			// aapt resource value: 0x7f060001
+			public const int cancel_button_image_alpha = 2131099649;
 			
-			// aapt resource value: 0x7f050000
-			public const int google_play_services_version = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int google_play_services_version = 2131099648;
 			
-			// aapt resource value: 0x7f050002
-			public const int status_bar_notification_info_maxnum = 2131034114;
+			// aapt resource value: 0x7f060002
+			public const int status_bar_notification_info_maxnum = 2131099650;
 			
 			static Integer()
 			{
@@ -475,17 +616,92 @@ namespace SnowConeTycoon.Android
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f060003
-			public const int ApplicationName = 2131099651;
+			// aapt resource value: 0x7f05001c
+			public const int ApplicationName = 2131034140;
 			
-			// aapt resource value: 0x7f060002
-			public const int Hello = 2131099650;
+			// aapt resource value: 0x7f05001b
+			public const int Hello = 2131034139;
 			
-			// aapt resource value: 0x7f060000
-			public const int common_google_play_services_unknown_issue = 2131099648;
+			// aapt resource value: 0x7f050019
+			public const int app_name = 2131034137;
 			
-			// aapt resource value: 0x7f060001
-			public const int status_bar_notification_info_overflow = 2131099649;
+			// aapt resource value: 0x7f050008
+			public const int common_google_play_services_enable_button = 2131034120;
+			
+			// aapt resource value: 0x7f050009
+			public const int common_google_play_services_enable_text = 2131034121;
+			
+			// aapt resource value: 0x7f05000a
+			public const int common_google_play_services_enable_title = 2131034122;
+			
+			// aapt resource value: 0x7f05000b
+			public const int common_google_play_services_install_button = 2131034123;
+			
+			// aapt resource value: 0x7f05000c
+			public const int common_google_play_services_install_text = 2131034124;
+			
+			// aapt resource value: 0x7f05000d
+			public const int common_google_play_services_install_title = 2131034125;
+			
+			// aapt resource value: 0x7f05000e
+			public const int common_google_play_services_notification_ticker = 2131034126;
+			
+			// aapt resource value: 0x7f050007
+			public const int common_google_play_services_unknown_issue = 2131034119;
+			
+			// aapt resource value: 0x7f05000f
+			public const int common_google_play_services_unsupported_text = 2131034127;
+			
+			// aapt resource value: 0x7f050010
+			public const int common_google_play_services_update_button = 2131034128;
+			
+			// aapt resource value: 0x7f050011
+			public const int common_google_play_services_update_text = 2131034129;
+			
+			// aapt resource value: 0x7f050012
+			public const int common_google_play_services_update_title = 2131034130;
+			
+			// aapt resource value: 0x7f050013
+			public const int common_google_play_services_updating_text = 2131034131;
+			
+			// aapt resource value: 0x7f050014
+			public const int common_google_play_services_wear_update_text = 2131034132;
+			
+			// aapt resource value: 0x7f050015
+			public const int common_open_on_phone = 2131034133;
+			
+			// aapt resource value: 0x7f050016
+			public const int common_signin_button_text = 2131034134;
+			
+			// aapt resource value: 0x7f050017
+			public const int common_signin_button_text_long = 2131034135;
+			
+			// aapt resource value: 0x7f050002
+			public const int default_web_client_id = 2131034114;
+			
+			// aapt resource value: 0x7f050018
+			public const int fcm_fallback_notification_channel_label = 2131034136;
+			
+			// aapt resource value: 0x7f050003
+			public const int firebase_database_url = 2131034115;
+			
+			// aapt resource value: 0x7f050000
+			public const int gcm_defaultSenderId = 2131034112;
+			
+			// aapt resource value: 0x7f050004
+			public const int google_api_key = 2131034116;
+			
+			// aapt resource value: 0x7f050001
+			public const int google_app_id = 2131034113;
+			
+			// aapt resource value: 0x7f050005
+			public const int google_crash_reporting_api_key = 2131034117;
+			
+			// aapt resource value: 0x7f050006
+			public const int google_storage_bucket = 2131034118;
+			
+			// aapt resource value: 0x7f05001a
+			public const int status_bar_notification_info_overflow = 2131034138;
 			
 			static String()
 			{
@@ -500,47 +716,47 @@ namespace SnowConeTycoon.Android
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7f070006
-			public const int TextAppearance_Compat_Notification = 2131165190;
+			// aapt resource value: 0x7f080006
+			public const int TextAppearance_Compat_Notification = 2131230726;
 			
-			// aapt resource value: 0x7f070007
-			public const int TextAppearance_Compat_Notification_Info = 2131165191;
+			// aapt resource value: 0x7f080007
+			public const int TextAppearance_Compat_Notification_Info = 2131230727;
 			
-			// aapt resource value: 0x7f070001
-			public const int TextAppearance_Compat_Notification_Info_Media = 2131165185;
+			// aapt resource value: 0x7f080001
+			public const int TextAppearance_Compat_Notification_Info_Media = 2131230721;
 			
-			// aapt resource value: 0x7f07000c
-			public const int TextAppearance_Compat_Notification_Line2 = 2131165196;
+			// aapt resource value: 0x7f08000c
+			public const int TextAppearance_Compat_Notification_Line2 = 2131230732;
 			
-			// aapt resource value: 0x7f070005
-			public const int TextAppearance_Compat_Notification_Line2_Media = 2131165189;
+			// aapt resource value: 0x7f080005
+			public const int TextAppearance_Compat_Notification_Line2_Media = 2131230725;
 			
-			// aapt resource value: 0x7f070002
-			public const int TextAppearance_Compat_Notification_Media = 2131165186;
+			// aapt resource value: 0x7f080002
+			public const int TextAppearance_Compat_Notification_Media = 2131230722;
 			
-			// aapt resource value: 0x7f070008
-			public const int TextAppearance_Compat_Notification_Time = 2131165192;
+			// aapt resource value: 0x7f080008
+			public const int TextAppearance_Compat_Notification_Time = 2131230728;
 			
-			// aapt resource value: 0x7f070003
-			public const int TextAppearance_Compat_Notification_Time_Media = 2131165187;
+			// aapt resource value: 0x7f080003
+			public const int TextAppearance_Compat_Notification_Time_Media = 2131230723;
 			
-			// aapt resource value: 0x7f070009
-			public const int TextAppearance_Compat_Notification_Title = 2131165193;
+			// aapt resource value: 0x7f080009
+			public const int TextAppearance_Compat_Notification_Title = 2131230729;
 			
-			// aapt resource value: 0x7f070004
-			public const int TextAppearance_Compat_Notification_Title_Media = 2131165188;
+			// aapt resource value: 0x7f080004
+			public const int TextAppearance_Compat_Notification_Title_Media = 2131230724;
 			
-			// aapt resource value: 0x7f070000
-			public const int Theme_IAPTheme = 2131165184;
+			// aapt resource value: 0x7f080000
+			public const int Theme_IAPTheme = 2131230720;
 			
-			// aapt resource value: 0x7f07000d
-			public const int Theme_Splash = 2131165197;
+			// aapt resource value: 0x7f08000d
+			public const int Theme_Splash = 2131230733;
 			
-			// aapt resource value: 0x7f07000a
-			public const int Widget_Compat_NotificationActionContainer = 2131165194;
+			// aapt resource value: 0x7f08000a
+			public const int Widget_Compat_NotificationActionContainer = 2131230730;
 			
-			// aapt resource value: 0x7f07000b
-			public const int Widget_Compat_NotificationActionText = 2131165195;
+			// aapt resource value: 0x7f08000b
+			public const int Widget_Compat_NotificationActionText = 2131230731;
 			
 			static Style()
 			{
@@ -556,9 +772,9 @@ namespace SnowConeTycoon.Android
 		{
 			
 			public static int[] AdsAttrs = new int[] {
-					2130771968,
-					2130771969,
-					2130771970};
+					2130771974,
+					2130771975,
+					2130771976};
 			
 			// aapt resource value: 0
 			public const int AdsAttrs_adSize = 0;
@@ -570,12 +786,12 @@ namespace SnowConeTycoon.Android
 			public const int AdsAttrs_adUnitId = 2;
 			
 			public static int[] FontFamily = new int[] {
-					2130771971,
-					2130771972,
-					2130771973,
-					2130771974,
-					2130771975,
-					2130771976};
+					2130771977,
+					2130771978,
+					2130771979,
+					2130771980,
+					2130771981,
+					2130771982};
 			
 			// aapt resource value: 0
 			public const int FontFamily_fontProviderAuthority = 0;
@@ -596,9 +812,9 @@ namespace SnowConeTycoon.Android
 			public const int FontFamily_fontProviderQuery = 2;
 			
 			public static int[] FontFamilyFont = new int[] {
-					2130771977,
-					2130771978,
-					2130771979};
+					2130771983,
+					2130771984,
+					2130771985};
 			
 			// aapt resource value: 1
 			public const int FontFamilyFont_font = 1;
@@ -608,6 +824,34 @@ namespace SnowConeTycoon.Android
 			
 			// aapt resource value: 2
 			public const int FontFamilyFont_fontWeight = 2;
+			
+			public static int[] LoadingImageView = new int[] {
+					2130771968,
+					2130771969,
+					2130771970};
+			
+			// aapt resource value: 2
+			public const int LoadingImageView_circleCrop = 2;
+			
+			// aapt resource value: 1
+			public const int LoadingImageView_imageAspectRatio = 1;
+			
+			// aapt resource value: 0
+			public const int LoadingImageView_imageAspectRatioAdjust = 0;
+			
+			public static int[] SignInButton = new int[] {
+					2130771971,
+					2130771972,
+					2130771973};
+			
+			// aapt resource value: 0
+			public const int SignInButton_buttonSize = 0;
+			
+			// aapt resource value: 1
+			public const int SignInButton_colorScheme = 1;
+			
+			// aapt resource value: 2
+			public const int SignInButton_scopeUris = 2;
 			
 			static Styleable()
 			{

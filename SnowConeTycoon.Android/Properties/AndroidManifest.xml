@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="Snow Cone" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="com.chrosgames.snowconetycoon" android:versionCode="1" android:versionName="1.0" android:installLocation="auto">
 	<uses-sdk android:targetSdkVersion="26" android:minSdkVersion="26" />
 	<application android:label="Snow Cone" android:icon="@mipmap/ic_launcher" android:roundIcon="@mipmap/ic_launcher_round"></application>
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />

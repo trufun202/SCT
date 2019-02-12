@@ -3,9 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDisplayName</key>
-	<string>Snow Cone</string>
-	<key>CFBundleIdentifier</key>
-	<string>Snow Cone</string>
+	<string>Snow Cone Tycoon</string>
 	<key>MinimumOSVersion</key>
 	<string>8.0</string>
 	<key>UISupportedInterfaceOrientations</key>
@@ -23,5 +21,7 @@
 		<integer>1</integer>
 		<integer>2</integer>
 	</array>
+	<key>CFBundleIdentifier</key>
+	<string>com.chrosgames.snowconetycoon</string>
 </dict>
 </plist>

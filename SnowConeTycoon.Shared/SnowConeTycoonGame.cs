@@ -690,6 +690,18 @@ namespace SnowConeTycoon.Shared
                 spriteBatch.Draw(ContentHandler.Images["ArrowRight"], new Rectangle(1330, 1145, 136, 136), Color.White);
                 spriteBatch.DrawString(Defaults.Font, KidHandler.CurrentKid.GetName(), new Vector2(808, 1830), Defaults.Cream, 0f, Defaults.Font.MeasureString(KidHandler.CurrentKid.GetName()) / 2, 1.2f, SpriteEffects.None, 1f);
 
+                if (KidHandler.CurrentKid.IsLocked)
+                {
+                    if (KidHandler.CurrentKid.UnlockMechanism == UnlockMechanism.Purchase && Player.CoinCount >= 0)//KidHandler.CurrentKid.UnlockPrice)
+                    {
+                        spriteBatch.Draw(ContentHandler.Images["button_unlock"], new Vector2(30, 1926), Color.White);
+                    }
+                    else
+                    {
+                        spriteBatch.Draw(ContentHandler.Images["button_locked"], new Vector2(30, 1926), Color.White);
+                    }
+                }
+
                 FormCharacterSelect.Draw(spriteBatch);
                 CurrentBackgroundEffect?.Draw(spriteBatch);
             }

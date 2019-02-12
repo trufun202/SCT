@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "731054739643",
+    "firebase_url": "https://snowconetycoon.firebaseio.com",
+    "project_id": "snowconetycoon",
+    "storage_bucket": "snowconetycoon.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:731054739643:android:fddef9eeadfc43d5",
+        "android_client_info": {
+          "package_name": "com.chrosgames.snowconetycoon"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "731054739643-eng0nm89jerq56sau462ao9pnttf7tsd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAE9le1NeMGcr509aBp5GNOy2FypXiQTqw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

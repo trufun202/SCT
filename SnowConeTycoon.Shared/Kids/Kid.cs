@@ -26,9 +26,11 @@ namespace SnowConeTycoon.Shared.Kids
         public int UnlockPrice { get; set; }
         private ParticleEmitter ParticleEmitter;
         private TimedEvent ParticleEvent;
+        public UnlockMechanism UnlockMechanism { get; set; }
 
         public Kid(string name, string avatar, string eyes, bool locked = false, UnlockMechanism unlockMechanism = UnlockMechanism.None, int unlockValue = 0)
         {
+            UnlockMechanism = unlockMechanism;
             IsLocked = locked;
             UnlockPrice = unlockValue;
             Name = name;
@@ -113,7 +115,7 @@ namespace SnowConeTycoon.Shared.Kids
 
             spriteBatch.Draw(Mouth, new Rectangle(x, y, size.Value, size.Value), color);
 
-            if (IsLocked)
+            if (IsLocked && UnlockMechanism == UnlockMechanism.Purchase)
             {
                 spriteBatch.DrawString(Defaults.Font, UnlockPrice.ToString(), new Vector2((int)(x + (size.Value / 2)) - 85, (int)(y + (size.Value / 2)) + 150), Defaults.Cream, 0f, Defaults.Font.MeasureString(UnlockPrice.ToString()) / 2, 1f, SpriteEffects.None, 1f);
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Rectangle((int)(x + (size.Value / 2)) + 85, (int)(y + (size.Value / 2) - 15 + 150), ContentHandler.Images["DaySetup_IconPrice"].Width, ContentHandler.Images["DaySetup_IconPrice"].Height), null, Color.White, 0f, new Vector2((int)(ContentHandler.Images["DaySetup_IconPrice"].Width / 2), (int)(ContentHandler.Images["DaySetup_IconPrice"].Height / 2)), SpriteEffects.None, 1f);
