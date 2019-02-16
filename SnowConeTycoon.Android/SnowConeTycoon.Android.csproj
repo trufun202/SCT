@@ -168,9 +168,6 @@
       <Link>Content\Content_ios.mgcb</Link>
     </MonoGameContentReference>
   </ItemGroup>
-  <ItemGroup>
-    <GoogleServicesJson Include="google-services.json" />
-  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\MonoGame\v3.0\MonoGame.Content.Builder.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
