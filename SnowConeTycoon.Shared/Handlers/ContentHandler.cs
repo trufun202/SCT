@@ -129,6 +129,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("DailyBonus_Ice", content.Load<Texture2D>("DailyBonus_Ice"));
             Images.Add("DailyBonus_Circle", content.Load<Texture2D>("DailyBonus_Circle"));
             Images.Add("DailyBonus_Check", content.Load<Texture2D>("DailyBonus_Check"));
+            Images.Add("TitleScreen_Ice", content.Load<Texture2D>("TitleScreen_Ice"));
 
             ///////////////////////////////////////////
             //DAY SETUP

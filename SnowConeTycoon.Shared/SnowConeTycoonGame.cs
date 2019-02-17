@@ -663,7 +663,7 @@ namespace SnowConeTycoon.Shared
                 KidHandler.Draw(spriteBatch, (int)Kid1Position.X, (int)Kid1Position.Y);
                 spriteBatch.Draw(ContentHandler.Images["TitleScreen_Foreground"], new Rectangle(0, 0, 1536, 2732), Color.White);
                 FormTitle.Draw(spriteBatch);
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvIce"], new Vector2(1380, 40), Color.White);
+                spriteBatch.Draw(ContentHandler.Images["TitleScreen_Ice"], new Vector2(1380, 40), Color.White);
                 CurrentBackgroundEffect?.Draw(spriteBatch);
 
                 if (ShowingDailyBonus)
