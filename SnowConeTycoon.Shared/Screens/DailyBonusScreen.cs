@@ -79,26 +79,32 @@ namespace SnowConeTycoon.Shared.Screens
 
             if (ShowingDayStats > 0)
             {
+                spriteBatch.Draw(ContentHandler.Images["DailyBonus_Circle"], new Vector2((Defaults.GraphicsWidth / 2) - 450, PaperPosition.Y + 600), Color.White);
+                spriteBatch.Draw(ContentHandler.Images["DailyBonus_Circle"], new Vector2((Defaults.GraphicsWidth / 2) - 450, PaperPosition.Y + 600), Color.White);
                 spriteBatch.DrawString(Defaults.Font, "1                   1", new Vector2((Defaults.GraphicsWidth / 2) - 250, PaperPosition.Y + 600), Defaults.Brown);
             }
 
             if (ShowingDayStats > 1)
             {
+                spriteBatch.Draw(ContentHandler.Images["DailyBonus_Circle"], new Vector2((Defaults.GraphicsWidth / 2) - 450, PaperPosition.Y + 750), Color.White);
                 spriteBatch.DrawString(Defaults.Font, "2                   4", new Vector2((Defaults.GraphicsWidth / 2) - 250, PaperPosition.Y + 750), Defaults.Brown);
             }
 
             if (ShowingDayStats > 2)
             {
+                spriteBatch.Draw(ContentHandler.Images["DailyBonus_Circle"], new Vector2((Defaults.GraphicsWidth / 2) - 450, PaperPosition.Y + 900), Color.White);
                 spriteBatch.DrawString(Defaults.Font, "3                   6", new Vector2((Defaults.GraphicsWidth / 2) - 250, PaperPosition.Y + 900), Defaults.Brown);
             }
 
             if (ShowingDayStats > 3)
             {
+                spriteBatch.Draw(ContentHandler.Images["DailyBonus_Circle"], new Vector2((Defaults.GraphicsWidth / 2) - 450, PaperPosition.Y + 1050), Color.White);
                 spriteBatch.DrawString(Defaults.Font, "4                   8", new Vector2((Defaults.GraphicsWidth / 2) - 250, PaperPosition.Y + 1050), Defaults.Brown);
             }
 
             if (ShowingDayStats > 4)
             {
+                spriteBatch.Draw(ContentHandler.Images["DailyBonus_Circle"], new Vector2((Defaults.GraphicsWidth / 2) - 450, PaperPosition.Y + 1200), Color.White);
                 spriteBatch.DrawString(Defaults.Font, "5                  10", new Vector2((Defaults.GraphicsWidth / 2) - 250, PaperPosition.Y + 1200), Defaults.Brown);
             }
         }
