@@ -12,6 +12,7 @@ namespace SnowConeTycoon.Shared.Models
         public static int IceCount { get; private set; }
         public static int SyrupCount { get; private set; }
         public static int FlyerCount { get; private set; }
+        public static int ConsecutiveDaysPlayed { get; private set; }
 
         public static void Reset()
         {
@@ -19,6 +20,7 @@ namespace SnowConeTycoon.Shared.Models
             ConeCount = 10;
             IceCount = 5;
             SyrupCount = 3;
+            ConsecutiveDaysPlayed = 2;
         }
 
         public static void AddCoins(int count)
@@ -44,6 +46,11 @@ namespace SnowConeTycoon.Shared.Models
         public static void AddFlyer(int count)
         {
             FlyerCount += count;
+        }
+
+        public static void AddConsecutiveDays(int count)
+        {
+            ConsecutiveDaysPlayed += count;
         }
     }
 }

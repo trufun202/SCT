@@ -419,6 +419,16 @@ namespace SnowConeTycoon.Shared
             }, "pop", scaleX, scaleY));
 
             FormDailyBonus = new Form(0, 0);
+            FormDailyBonus.Controls.Add(new Button(new Rectangle(850, 2000, 592, 250), () =>
+            {
+                if (DailyBonusScreen.ScreenHasLoaded())
+                {
+                    ShowingDailyBonus = false;
+                    return true;
+                }
+
+                return false;
+            }, "pop", scaleX, scaleY));
 
             previousTouchCollection = TouchPanel.GetState();
         }
@@ -482,11 +492,13 @@ namespace SnowConeTycoon.Shared
                 }
                 else if (CurrentScreen == Screen.Title)
                 {
-                    FormTitle.HandleInput(previousTouchCollection, currentTouchCollection);
-
                     if (ShowingDailyBonus)
                     {
                         FormDailyBonus.HandleInput(previousTouchCollection, currentTouchCollection);
+                    }
+                    else
+                    {
+                        FormTitle.HandleInput(previousTouchCollection, currentTouchCollection);
                     }
                 }
                 else if (CurrentScreen == Screen.CharacterSelect)
@@ -651,12 +663,13 @@ namespace SnowConeTycoon.Shared
                 KidHandler.Draw(spriteBatch, (int)Kid1Position.X, (int)Kid1Position.Y);
                 spriteBatch.Draw(ContentHandler.Images["TitleScreen_Foreground"], new Rectangle(0, 0, 1536, 2732), Color.White);
                 FormTitle.Draw(spriteBatch);
-                spriteBatch.Draw(ContentHandler.Images["IconGear"], new Vector2(1380, 40), Color.White);
+                spriteBatch.Draw(ContentHandler.Images["DaySetup_InvIce"], new Vector2(1380, 40), Color.White);
                 CurrentBackgroundEffect?.Draw(spriteBatch);
 
                 if (ShowingDailyBonus)
                 {
                     DailyBonusScreen.Draw(spriteBatch);
+                    FormDailyBonus.Draw(spriteBatch);
                 }
             }
             else if (CurrentScreen == Screen.DaySetup)
