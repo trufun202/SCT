@@ -76,12 +76,13 @@ namespace SnowConeTycoon.Shared
         KidHandler.KidType OriginalSelectedKidType = KidHandler.KidType.Girl;
         TimedEvent LoadingScreenEvent;
         TimedEvent LogoScreenEvent;
+        TimedEvent DailyBonusEvent;
         bool ContentLoaded = false;
 
         IBusinessDayService businessDayService;
         IWeatherService weatherService;
 
-        bool ShowingDailyBonus = true;
+        bool ShowingDailyBonus = false;
 
         public SnowConeTycoonGame()
         {
@@ -175,6 +176,14 @@ namespace SnowConeTycoon.Shared
                     //XnaMediaPlayer.Play(ContentHandler.Songs["Song1"]);
                     //XnaMediaPlayer.IsRepeating = true;
                 });
+            },
+            false);
+
+            DailyBonusEvent = new TimedEvent(500,
+            () =>
+            {
+                DailyBonusScreen.Reset();
+                ShowingDailyBonus = true;
             },
             false);
 
@@ -533,6 +542,7 @@ namespace SnowConeTycoon.Shared
                     CurrentBackgroundEffect?.Update(gameTime);
                     KidHandler.Update(gameTime);
                     FormTitle.Update(gameTime);
+                    DailyBonusEvent.Update(gameTime);
 
                     if (ShowingDailyBonus)
                     {

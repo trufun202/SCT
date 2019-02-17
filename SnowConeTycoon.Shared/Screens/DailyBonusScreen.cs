@@ -14,7 +14,7 @@ namespace SnowConeTycoon.Shared.Screens
         Vector2 PaperPositionStart;
         Vector2 PaperPositionEnd;
         int PaperTime = 0;
-        int PaperTimeTotal = 2000;
+        int PaperTimeTotal = 500;
         bool PaperDoneAnimating = false;
         int ShowingDayStats = 0;
         int DayStatTime = 0;
@@ -45,7 +45,7 @@ namespace SnowConeTycoon.Shared.Screens
             if (!PaperDoneAnimating)
             {
                 PaperTime += gameTime.ElapsedGameTime.Milliseconds;
-                var amt = PaperTime / PaperTimeTotal;
+                var amt = PaperTime / (float)PaperTimeTotal;
                 PaperPosition = Vector2.SmoothStep(PaperPositionStart, PaperPositionEnd, amt);
 
                 if (PaperTime >= PaperTimeTotal)
@@ -72,7 +72,35 @@ namespace SnowConeTycoon.Shared.Screens
         {
             spriteBatch.Draw(ContentHandler.Images["WhiteDot"], new Rectangle(0, 0, Defaults.GraphicsWidth, Defaults.GraphicsHeight), Color.FromNonPremultiplied(new Vector4(0,0,0, 0.5f)));
             spriteBatch.Draw(ContentHandler.Images["DaySetup_Paper"], PaperPosition, Color.White);
-            spriteBatch.DrawString(Defaults.Font, "Daily Bonus", new Vector2(Defaults.GraphicsWidth / 2, PaperPosition.Y + 400), Defaults.Brown, 0f, Defaults.Font.MeasureString("Daily Bonus") / 2, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(Defaults.Font, "daily bonus", new Vector2(Defaults.GraphicsWidth / 2, PaperPosition.Y + 300), Defaults.Brown, 0f, Defaults.Font.MeasureString("daily bonus") / 2, 1f, SpriteEffects.None, 1f);
+            spriteBatch.DrawString(Defaults.Font, "consecutive\ndays", new Vector2((Defaults.GraphicsWidth / 2) - 300, PaperPosition.Y + 450), Defaults.Brown, 0f, Defaults.Font.MeasureString("consecutive\ndays") / 2, 0.5f, SpriteEffects.None, 1f);
+            spriteBatch.Draw(ContentHandler.Images["DailyBonus_Ice"], new Vector2((Defaults.GraphicsWidth / 2) + 250, PaperPosition.Y + 375), Color.White);
+            spriteBatch.DrawString(Defaults.Font, "--------------------------------", new Vector2(Defaults.GraphicsWidth / 2, PaperPosition.Y + 550), Defaults.Brown, 0f, Defaults.Font.MeasureString("--------------------------------") / 2, 1f, SpriteEffects.None, 1f);
+
+            if (ShowingDayStats > 0)
+            {
+                spriteBatch.DrawString(Defaults.Font, "1                   1", new Vector2((Defaults.GraphicsWidth / 2) - 250, PaperPosition.Y + 600), Defaults.Brown);
+            }
+
+            if (ShowingDayStats > 1)
+            {
+                spriteBatch.DrawString(Defaults.Font, "2                   4", new Vector2((Defaults.GraphicsWidth / 2) - 250, PaperPosition.Y + 750), Defaults.Brown);
+            }
+
+            if (ShowingDayStats > 2)
+            {
+                spriteBatch.DrawString(Defaults.Font, "3                   6", new Vector2((Defaults.GraphicsWidth / 2) - 250, PaperPosition.Y + 900), Defaults.Brown);
+            }
+
+            if (ShowingDayStats > 3)
+            {
+                spriteBatch.DrawString(Defaults.Font, "4                   8", new Vector2((Defaults.GraphicsWidth / 2) - 250, PaperPosition.Y + 1050), Defaults.Brown);
+            }
+
+            if (ShowingDayStats > 4)
+            {
+                spriteBatch.DrawString(Defaults.Font, "5                  10", new Vector2((Defaults.GraphicsWidth / 2) - 250, PaperPosition.Y + 1200), Defaults.Brown);
+            }
         }
     }
 }
