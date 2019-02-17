@@ -126,6 +126,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("lock", content.Load<Texture2D>("lock"));
             Images.Add("button_locked", content.Load<Texture2D>("button_locked"));
             Images.Add("button_unlock", content.Load<Texture2D>("button_unlock"));
+            Images.Add("DailyBonus_Ice", content.Load<Texture2D>("DailyBonus_Ice"));
 
             ///////////////////////////////////////////
             //DAY SETUP

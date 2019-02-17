@@ -43,9 +43,11 @@ namespace SnowConeTycoon.Shared
         Form FormOpenForBusiness;
         Form FormResults;
         Form FormSupplyShop;
+        Form FormDailyBonus;
 
         LoadingScreen LoadingScreen;
         LogoScreen LogoScreen;
+        DailyBonusScreen DailyBonusScreen;
         DaySetupScreen DaySetupScreen;
         OpenForBusinessScreen OpenForBusinessScreen;
         ResultsScreen ResultsScreen;
@@ -78,6 +80,8 @@ namespace SnowConeTycoon.Shared
 
         IBusinessDayService businessDayService;
         IWeatherService weatherService;
+
+        bool ShowingDailyBonus = true;
 
         public SnowConeTycoonGame()
         {
@@ -405,6 +409,8 @@ namespace SnowConeTycoon.Shared
                 return true;
             }, "pop", scaleX, scaleY));
 
+            FormDailyBonus = new Form(0, 0);
+
             previousTouchCollection = TouchPanel.GetState();
         }
 
@@ -442,6 +448,7 @@ namespace SnowConeTycoon.Shared
             OpenForBusinessScreen = new OpenForBusinessScreen(this, scaleX, scaleY);
             ResultsScreen = new ResultsScreen(scaleX, scaleY);
             SupplyShopScreen = new SupplyShopScreen(scaleX, scaleY);
+            DailyBonusScreen = new DailyBonusScreen();
         }
 
         public void Update(GameTime gameTime)
@@ -467,6 +474,11 @@ namespace SnowConeTycoon.Shared
                 else if (CurrentScreen == Screen.Title)
                 {
                     FormTitle.HandleInput(previousTouchCollection, currentTouchCollection);
+
+                    if (ShowingDailyBonus)
+                    {
+                        FormDailyBonus.HandleInput(previousTouchCollection, currentTouchCollection);
+                    }
                 }
                 else if (CurrentScreen == Screen.CharacterSelect)
                 {
@@ -521,6 +533,11 @@ namespace SnowConeTycoon.Shared
                     CurrentBackgroundEffect?.Update(gameTime);
                     KidHandler.Update(gameTime);
                     FormTitle.Update(gameTime);
+
+                    if (ShowingDailyBonus)
+                    {
+                        DailyBonusScreen.Update(gameTime);
+                    }
                 }
                 else if (CurrentScreen == Screen.DaySetup)
                 {
@@ -626,6 +643,11 @@ namespace SnowConeTycoon.Shared
                 FormTitle.Draw(spriteBatch);
                 spriteBatch.Draw(ContentHandler.Images["IconGear"], new Vector2(1380, 40), Color.White);
                 CurrentBackgroundEffect?.Draw(spriteBatch);
+
+                if (ShowingDailyBonus)
+                {
+                    DailyBonusScreen.Draw(spriteBatch);
+                }
             }
             else if (CurrentScreen == Screen.DaySetup)
             {

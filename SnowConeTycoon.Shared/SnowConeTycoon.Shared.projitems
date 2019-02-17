@@ -67,6 +67,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\BusinessDayResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Player.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\DayForecast.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\DailyBonusScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
