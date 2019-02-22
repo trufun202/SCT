@@ -26,7 +26,7 @@ namespace SnowConeTycoon.Shared.Particles
                 {
                     IsAlive = false;
                 },
-                false);
+                1);
             IsAlive = true;
             Scale = Utilities.GetRandomInt(ScaleMin, ScaleMax) / (float)10;
             Position = new Vector2(x, y);

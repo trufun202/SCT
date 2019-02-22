@@ -15,6 +15,7 @@ using SnowConeTycoon.Shared.Forms;
 using SnowConeTycoon.Shared.Handlers;
 using SnowConeTycoon.Shared.Kids;
 using SnowConeTycoon.Shared.Models;
+using SnowConeTycoon.Shared.Particles;
 using SnowConeTycoon.Shared.Screens;
 using SnowConeTycoon.Shared.ScreenTransitions;
 using SnowConeTycoon.Shared.Services;
@@ -30,6 +31,7 @@ namespace SnowConeTycoon.Shared
     /// </summary>
     public class SnowConeTycoonGame
     {
+        DeviceStorageService storageService = new DeviceStorageService();
         ContentManager Content;
         public Screen CurrentScreen = Screen.Loading;
         RenderTarget2D renderTarget;
@@ -77,12 +79,13 @@ namespace SnowConeTycoon.Shared
         TimedEvent LoadingScreenEvent;
         TimedEvent LogoScreenEvent;
         TimedEvent DailyBonusEvent;
+        TimedEvent DailyBonusIceEarnedEvent;
         bool ContentLoaded = false;
-
         IBusinessDayService businessDayService;
         IWeatherService weatherService;
-
         bool ShowingDailyBonus = false;
+        ParticleEmitter IceParticleEmitter;
+        TimedEvent IceParticleTimedEvent;
 
         public SnowConeTycoonGame()
         {
@@ -151,6 +154,14 @@ namespace SnowConeTycoon.Shared
                 DepthFormat.Depth24);
 
             Player.Reset();
+
+            if (storageService.SaveFileExists())
+            {
+                storageService.Load();
+            }
+
+            storageService.Save();
+
             var scaleX = (double)ScreenWidth / (double)Defaults.GraphicsWidth;
             var scaleY = (double)ScreenHeight / (double)Defaults.GraphicsHeight;
 
@@ -165,7 +176,7 @@ namespace SnowConeTycoon.Shared
                     }
                 });
             },
-            true);
+            -1);
 
             LogoScreenEvent = new TimedEvent(5500,
             () =>
@@ -177,15 +188,20 @@ namespace SnowConeTycoon.Shared
                     //XnaMediaPlayer.IsRepeating = true;
                 });
             },
-            false);
+            1);
 
             DailyBonusEvent = new TimedEvent(500,
             () =>
             {
-                DailyBonusScreen.Reset();
-                ShowingDailyBonus = true;
+                var ts = DateTime.Now - Player.DailyBonusLastReceived;
+
+                if (ts.Days >= 0)
+                {
+                    DailyBonusScreen.Reset();
+                    ShowingDailyBonus = true;
+                }
             },
-            false);
+            1);
 
             Fade = new FadeTransition(Color.White, null);
 
@@ -424,6 +440,24 @@ namespace SnowConeTycoon.Shared
                 if (DailyBonusScreen.ScreenHasLoaded())
                 {
                     ShowingDailyBonus = false;
+
+                    DailyBonusIceEarnedEvent = new TimedEvent(750,
+                    () =>
+                        {
+                            Player.AddIce(1);
+                            ContentHandler.Sounds["Game Coin"].Play();
+                            IceParticleEmitter.FlowOn = true;
+
+                            IceParticleTimedEvent = new TimedEvent(500,
+                            () =>
+                            {
+                                IceParticleEmitter.FlowOn = false;
+                            },
+                            1);
+
+                        },
+                        Player.GetIceEarned());
+
                     return true;
                 }
 
@@ -468,6 +502,16 @@ namespace SnowConeTycoon.Shared
             ResultsScreen = new ResultsScreen(scaleX, scaleY);
             SupplyShopScreen = new SupplyShopScreen(scaleX, scaleY);
             DailyBonusScreen = new DailyBonusScreen();
+
+            IceParticleEmitter = new ParticleEmitter(100, 1270, 45, 40, 1000);
+            IceParticleEmitter.Gravity = 20f;
+            IceParticleEmitter.Velocity = new Vector2(1350, 1350);
+            IceParticleEmitter.SetCircularPath(30);
+        }
+
+        public void OnDeactivated()
+        {
+            storageService.Save();
         }
 
         public void Update(GameTime gameTime)
@@ -555,6 +599,9 @@ namespace SnowConeTycoon.Shared
                     KidHandler.Update(gameTime);
                     FormTitle.Update(gameTime);
                     DailyBonusEvent.Update(gameTime);
+                    DailyBonusIceEarnedEvent?.Update(gameTime);
+                    IceParticleEmitter.Update(gameTime);
+                    IceParticleTimedEvent?.Update(gameTime);
 
                     if (ShowingDailyBonus)
                     {
@@ -663,8 +710,14 @@ namespace SnowConeTycoon.Shared
                 KidHandler.Draw(spriteBatch, (int)Kid1Position.X, (int)Kid1Position.Y);
                 spriteBatch.Draw(ContentHandler.Images["TitleScreen_Foreground"], new Rectangle(0, 0, 1536, 2732), Color.White);
                 FormTitle.Draw(spriteBatch);
-                spriteBatch.Draw(ContentHandler.Images["TitleScreen_Ice"], new Vector2(1380, 40), Color.White);
+                spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1268, 43), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1268, 47), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1272, 43), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1272, 47), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1270, 45), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.Draw(ContentHandler.Images["TitleScreen_Ice"], new Vector2(1320, 40), Color.White);
                 CurrentBackgroundEffect?.Draw(spriteBatch);
+                IceParticleEmitter.Draw(spriteBatch);
 
                 if (ShowingDailyBonus)
                 {

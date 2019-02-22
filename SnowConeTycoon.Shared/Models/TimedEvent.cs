@@ -14,17 +14,20 @@ namespace SnowConeTycoon.Shared
         private bool IsLooping = false;
         private bool IsComplete = false;
         private EventMethod Method;
+        private int InvokeCount = 0;
+        private int InvokeCountTotal = 1;
 
-        public TimedEvent(int timeoutMilliseconds, EventMethod method, bool looping)
+        public TimedEvent(int timeoutMilliseconds, EventMethod method, int invokeCountTotal)
         {
             TimeTotal = timeoutMilliseconds;
             Method = method;
-            IsLooping = looping;
+            InvokeCountTotal = invokeCountTotal;
         }
 
         public void Reset()
         {
             Time = 0;
+            InvokeCount = 0;
         }
 
         public void Update(GameTime gameTime)
@@ -35,11 +38,13 @@ namespace SnowConeTycoon.Shared
 
                 if (Time >= TimeTotal)
                 {
-                    if (IsLooping)
+                    if (InvokeCount < InvokeCountTotal || InvokeCountTotal == -1)
                     {
                         Time = 0;
+                        InvokeCount++;
                     }
-                    else
+
+                    if (InvokeCount >= InvokeCountTotal && InvokeCountTotal > 0)
                     {
                         IsComplete = true;
                     }

@@ -36,7 +36,7 @@ namespace SnowConeTycoon.Shared.Forms
                         Reveiling = false;
                     }
                 }
-            }, true);
+            }, -1);
         }
 
         public void Reveil()

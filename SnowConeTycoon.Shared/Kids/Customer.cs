@@ -122,14 +122,14 @@ namespace SnowConeTycoon.Shared.Kids
             {
                 YSinRadius += IsApproaching ? -5 : 5;
             },
-                true);
+                -1);
             purchaseEvent = new TimedEvent(2000,
             () =>
             {
                 IsPurchasing = false;
                 IsLeaving = true;
             },
-            true);
+            -1);
             thoughtEvent = new TimedEvent(500,
             () =>
             {
@@ -138,7 +138,7 @@ namespace SnowConeTycoon.Shared.Kids
                 if (ThoughtBubbleCount > 3)
                     ThoughtBubbleCount = 3;
             },
-            true);
+            -1);
             sinTime = 0;
             YSinRadius = YSinRadiusStart;
             Position.Y = Defaults.GraphicsHeight + ContentHandler.Images["BoyAvatar_01"].Height - 1400;
@@ -168,7 +168,7 @@ namespace SnowConeTycoon.Shared.Kids
                 thoughtEvent.Reset();
                 CurrentNPS = Transactions[TransactionIndex].NPS;
             },
-            false);
+            1);
             CoinScale = new Vector2(0, 1);
             CoinScaleTime = 0;
             CoinScaleDirection = 1;

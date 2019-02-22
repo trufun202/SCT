@@ -32,10 +32,10 @@ namespace SnowConeTycoon.Shared.ScreenTransitions
             FadingInEvent = new TimedEvent(FadeTime, () => {
                 FadingIn = false;
                 method.Invoke();
-            }, false);
+            }, 1);
             FadingOutEvent = new TimedEvent(FadeOutTime, () => {
                 ShowingFade = false;
-            }, false);
+            }, 1);
 
             if (method != null)
             {

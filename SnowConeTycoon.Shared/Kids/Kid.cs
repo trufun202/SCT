@@ -39,8 +39,8 @@ namespace SnowConeTycoon.Shared.Kids
             //MakeHappy();
             MakeMad();
 
-            EyeClosingEvent = new TimedEvent(3000, () => { IsBlinking = true; EyeOpeningEvent.Reset(); }, true);
-            EyeOpeningEvent = new TimedEvent(150, () => { IsBlinking = false; EyeClosingEvent.Reset(); }, true);
+            EyeClosingEvent = new TimedEvent(3000, () => { IsBlinking = true; EyeOpeningEvent.Reset(); }, -1);
+            EyeOpeningEvent = new TimedEvent(150, () => { IsBlinking = false; EyeClosingEvent.Reset(); }, -1);
             EmotionEvent = new TimedEvent(6000, () =>
             {
                 switch (State)
@@ -55,7 +55,7 @@ namespace SnowConeTycoon.Shared.Kids
                         MakeSad();
                         break;
                 }
-            }, true);
+            }, -1);
 
             if (locked)
             {
@@ -76,7 +76,7 @@ namespace SnowConeTycoon.Shared.Kids
                     ParticleEmitter.FlowOn = false;
                     IsLocked = false;
                 },
-                false);
+                1);
             }
         }
 

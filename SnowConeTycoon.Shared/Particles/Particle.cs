@@ -40,7 +40,7 @@ namespace SnowConeTycoon.Shared.Particles
                 {
                     IsAlive = false;
                 },
-            false);
+            1);
         }
 
         public void Update(GameTime gameTime)

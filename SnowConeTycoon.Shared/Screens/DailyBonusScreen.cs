@@ -98,7 +98,12 @@ namespace SnowConeTycoon.Shared.Screens
             if (ShowingDayStats > 0)
             {
                 spriteBatch.Draw(ContentHandler.Images["DailyBonus_Circle"], new Vector2((Defaults.GraphicsWidth / 2) - 450, PaperPosition.Y + 600), Color.White);
-                spriteBatch.Draw(ContentHandler.Images["DailyBonus_Check"], new Vector2((Defaults.GraphicsWidth / 2) - 440, PaperPosition.Y + 570), Color.White);
+
+                if (Player.ConsecutiveDaysPlayed > 1)
+                {
+                    spriteBatch.Draw(ContentHandler.Images["DailyBonus_Check"], new Vector2((Defaults.GraphicsWidth / 2) - 440, PaperPosition.Y + 570), Color.White);
+                }
+
                 spriteBatch.DrawString(Defaults.Font, "1                   1", new Vector2((Defaults.GraphicsWidth / 2) - 250, PaperPosition.Y + 600), Defaults.Brown);
             }
 

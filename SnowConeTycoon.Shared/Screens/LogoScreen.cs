@@ -32,7 +32,7 @@ namespace SnowConeTycoon.Shared.Screens
                 {
                     AnimatingLogo = true;
                 },
-                false);
+                1);
         }
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)

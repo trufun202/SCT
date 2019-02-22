@@ -30,7 +30,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)ScreenTransitions\IScreenTransition.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SnowConeTycoonGame.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\Defaults.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Utils\TimedEvent.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Utils\Utilities.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\DaySetupScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Forms\NumberPicker.cs" />
@@ -68,6 +67,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Player.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\DayForecast.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\DailyBonusScreen.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\TimedEvent.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IStorageService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\DeviceStorageService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\GameData.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

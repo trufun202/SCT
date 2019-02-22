@@ -34,6 +34,12 @@ namespace SnowConeTycoon.iOS
             AdMobService = new AdMobService();
         }
 
+        protected override void OnDeactivated(object sender, EventArgs args)
+        {
+            SnowConeGame.OnDeactivated();
+            base.OnDeactivated(sender, args);
+        }
+
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
