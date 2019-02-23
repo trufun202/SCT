@@ -174,6 +174,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Sounds.Add("Game Coin", content.Load<SoundEffect>("Game Coin"));
             Sounds.Add("Cash Register Fast", content.Load<SoundEffect>("Cash Register Fast"));
             Sounds.Add("Magic Wand 1", content.Load<SoundEffect>("Magic Wand 1"));
+            Sounds.Add("Ice_Cube", content.Load<SoundEffect>("Ice_Cube"));
 
             ///////////////////////////////////////////
             //SONGS

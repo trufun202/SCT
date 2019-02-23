@@ -1537,6 +1537,12 @@
 /processorParam:Quality=Best
 /build:Happy Victory 2.wav
 
+#begin Ice_Cube.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Ice_Cube.wav
+
 #begin IconGear.png
 /importer:TextureImporter
 /processor:TextureProcessor
