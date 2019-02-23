@@ -22,8 +22,10 @@ namespace SnowConeTycoon.Shared.Particles
         private float CircleTime = 0;
         private float CircleRadius;
         public ParticleMovementPath Path = ParticleMovementPath.None;
+        private string ParticleImage;
+        private float MaxScale;
 
-        public ParticleEmitter(int maxParticles, int x, int y, int radius, int ttl)
+        public ParticleEmitter(int maxParticles, int x, int y, int radius, int ttl, string particleImage = "particle", float maxScale = 3)
         {
             Particles = new List<IParticle>();
             MaxParticleCount = maxParticles;
@@ -31,6 +33,8 @@ namespace SnowConeTycoon.Shared.Particles
             Origin = Position;
             Radius = radius;
             TTL = ttl;
+            ParticleImage = particleImage;
+            MaxScale = maxScale;
         }
 
         public void SetCircularPath(float radius)
@@ -53,9 +57,9 @@ namespace SnowConeTycoon.Shared.Particles
             float angle = 0;
             float angularVelocity = AngularVelocity * (float)(Utilities.rand.NextDouble() * 2 - 1);
 
-            float size = (float)Utilities.rand.NextDouble() * 3;
+            float size = (float)Utilities.rand.NextDouble() * MaxScale;
 
-            return new Particle("particle", position, velocity, angle, angularVelocity, Color.White, TTL, size, Gravity);
+            return new Particle(ParticleImage, position, velocity, angle, angularVelocity, Color.White, TTL, size, Gravity);
         }
 
         public void Reset()

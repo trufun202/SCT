@@ -123,6 +123,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("ChrosGamesLogoNoCircle", content.Load<Texture2D>("ChrosGamesLogoNoCircle"));
             Images.Add("ChrosGamesLogoCircle", content.Load<Texture2D>("ChrosGamesLogoCircle"));
             Images.Add("particle", content.Load<Texture2D>("particle"));
+            Images.Add("particle_ice", content.Load<Texture2D>("particle_ice"));
             Images.Add("lock", content.Load<Texture2D>("lock"));
             Images.Add("button_locked", content.Load<Texture2D>("button_locked"));
             Images.Add("button_unlock", content.Load<Texture2D>("button_unlock"));

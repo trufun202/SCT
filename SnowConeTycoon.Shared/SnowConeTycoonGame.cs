@@ -441,14 +441,14 @@ namespace SnowConeTycoon.Shared
                 {
                     ShowingDailyBonus = false;
 
-                    DailyBonusIceEarnedEvent = new TimedEvent(750,
+                    DailyBonusIceEarnedEvent = new TimedEvent(250,
                     () =>
                         {
                             Player.AddIce(1);
                             ContentHandler.Sounds["Game Coin"].Play();
                             IceParticleEmitter.FlowOn = true;
 
-                            IceParticleTimedEvent = new TimedEvent(500,
+                            IceParticleTimedEvent = new TimedEvent(200,
                             () =>
                             {
                                 IceParticleEmitter.FlowOn = false;
@@ -503,10 +503,10 @@ namespace SnowConeTycoon.Shared
             SupplyShopScreen = new SupplyShopScreen(scaleX, scaleY);
             DailyBonusScreen = new DailyBonusScreen();
 
-            IceParticleEmitter = new ParticleEmitter(100, 1270, 45, 40, 1000);
+            IceParticleEmitter = new ParticleEmitter(100, 1270, 45, 40, 500, "particle_ice", 0.5f);
             IceParticleEmitter.Gravity = 20f;
             IceParticleEmitter.Velocity = new Vector2(1350, 1350);
-            IceParticleEmitter.SetCircularPath(30);
+            IceParticleEmitter.SetCircularPath(25);
         }
 
         public void OnDeactivated()
