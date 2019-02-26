@@ -38,7 +38,7 @@ namespace SnowConeTycoon.Shared.Models
                 SyrupCount = SyrupCount,
                 FlyerCount = FlyerCount,
                 ConsecutiveDayCount = ConsecutiveDaysPlayed,
-                LastPlayed = DateTime.Now,
+                LastPlayed = DateTime.Now.Date,
                 DailyBonusLastReceived = DailyBonusLastReceived
             };
         }
@@ -55,11 +55,11 @@ namespace SnowConeTycoon.Shared.Models
             ConsecutiveDaysPlayed = gameData.ConsecutiveDayCount;
             DailyBonusLastReceived = gameData.DailyBonusLastReceived;
 
-            TimeSpan ts = DateTime.Now - gameData.LastPlayed;
+            TimeSpan ts = DateTime.Now.Date - gameData.LastPlayed;
 
             if (ts.Days <= 1)
             {
-                ConsecutiveDaysPlayed = ts.Days;
+                ConsecutiveDaysPlayed += ts.Days;
             }
             else
             {
@@ -69,8 +69,6 @@ namespace SnowConeTycoon.Shared.Models
 
         public static int GetIceEarned()
         {
-            return 4;
-
             switch (ConsecutiveDaysPlayed)
             {
                 case 2:

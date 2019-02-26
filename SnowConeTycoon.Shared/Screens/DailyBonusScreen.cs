@@ -76,6 +76,7 @@ namespace SnowConeTycoon.Shared.Screens
                     {
                         ShowingDayStats++;
                         DayStatTime = 0;
+                        ContentHandler.Sounds["Swoosh"].Play();
                     }
                 }
             }

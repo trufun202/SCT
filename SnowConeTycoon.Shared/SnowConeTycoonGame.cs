@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
+using SnowConeTycoon.Shared.Animations;
 using SnowConeTycoon.Shared.Backgrounds;
 using SnowConeTycoon.Shared.Backgrounds.Effects;
 using SnowConeTycoon.Shared.Backgrounds.Effects.Components;
@@ -86,6 +87,7 @@ namespace SnowConeTycoon.Shared
         bool ShowingDailyBonus = false;
         ParticleEmitter IceParticleEmitter;
         TimedEvent IceParticleTimedEvent;
+        PulseImage IceIcon;
 
         public SnowConeTycoonGame()
         {
@@ -447,6 +449,7 @@ namespace SnowConeTycoon.Shared
                             Player.AddIce(1);
                             ContentHandler.Sounds["Ice_Cube"].Play();
                             IceParticleEmitter.FlowOn = true;
+                            IceIcon.Reset();
 
                             IceParticleTimedEvent = new TimedEvent(350,
                             () =>
@@ -503,10 +506,12 @@ namespace SnowConeTycoon.Shared
             SupplyShopScreen = new SupplyShopScreen(scaleX, scaleY);
             DailyBonusScreen = new DailyBonusScreen();
 
-            IceParticleEmitter = new ParticleEmitter(100, 1270, 45, 40, 2000, "particle", 3.5f);
+            IceParticleEmitter = new ParticleEmitter(100, 1375, 110, 40, 2000, "particle_ice", 3.25f);
             IceParticleEmitter.Gravity = 30f;
-            IceParticleEmitter.Velocity = new Vector2(1350, 1375);
+            IceParticleEmitter.Velocity = new Vector2(1350, 1350);
             IceParticleEmitter.SetCircularPath(30);
+
+            IceIcon = new PulseImage("TitleScreen_Ice", new Vector2(1400, 125), 1f, 1.5f, 1f);
         }
 
         public void OnDeactivated()
@@ -602,6 +607,7 @@ namespace SnowConeTycoon.Shared
                     DailyBonusIceEarnedEvent?.Update(gameTime);
                     IceParticleEmitter.Update(gameTime);
                     IceParticleTimedEvent?.Update(gameTime);
+                    IceIcon?.Update(gameTime);
 
                     if (ShowingDailyBonus)
                     {
@@ -715,7 +721,7 @@ namespace SnowConeTycoon.Shared
                 spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1272, 43), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1272, 47), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1270, 45), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
-                spriteBatch.Draw(ContentHandler.Images["TitleScreen_Ice"], new Vector2(1320, 40), Color.White);
+                IceIcon?.Draw(spriteBatch);
                 CurrentBackgroundEffect?.Draw(spriteBatch);
                 IceParticleEmitter.Draw(spriteBatch);
 
