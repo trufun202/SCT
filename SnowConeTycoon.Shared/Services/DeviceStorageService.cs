@@ -10,7 +10,7 @@ namespace SnowConeTycoon.Shared.Services
 {
     public class DeviceStorageService : IStorageService
     {
-        private const string SAVEFILENAME = "SC.sav";
+        private const string SAVEFILENAME = "SCTy.sav";
 
         public DeviceStorageService()
         {
@@ -83,21 +83,7 @@ namespace SnowConeTycoon.Shared.Services
                     }
                 }
 
-                Player.SetCoins(gameData.CoinCount);
-                Player.SetCones(gameData.ConeCount);
-                Player.SetIce(gameData.IceCount);
-                Player.SetFlyer(gameData.FlyerCount);
-                Player.SetSyrup(gameData.SyrupCount);
-
-                var ts = DateTime.Now - gameData.LastPlayed;
-                var days = ts.Days;
-
-                if (days < 1)
-                {
-                    days = 1;
-                }
-
-                Player.SetConsecutiveDays(days);
+                Player.FromGameData(gameData);
             }
             catch (Exception ex)
             {

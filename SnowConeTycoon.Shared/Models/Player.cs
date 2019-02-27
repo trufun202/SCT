@@ -23,7 +23,7 @@ namespace SnowConeTycoon.Shared.Models
             IceCount = 10;
             SyrupCount = 10;
             ConsecutiveDaysPlayed = 1;
-            DailyBonusLastReceived = DateTime.Now;
+            DailyBonusLastReceived = DateTime.Now.Date;
         }
 
         public static GameData ToGameData()
@@ -57,13 +57,24 @@ namespace SnowConeTycoon.Shared.Models
 
             TimeSpan ts = DateTime.Now.Date - gameData.LastPlayed;
 
-            if (ts.Days <= 1)
+            if (ts.Days == 1)
             {
-                ConsecutiveDaysPlayed += ts.Days;
+                ConsecutiveDaysPlayed++;
+            }
+            else if (ts.Days == 0)
+            {
+                //do nothing...because it's the same day
             }
             else
             {
+                //it's been greater than 1 day since they played, so reset back to 1
                 ConsecutiveDaysPlayed = 1;
+            }
+
+            if (ConsecutiveDaysPlayed > 5)
+            {
+                //cap them at 5 consecutive days played
+                ConsecutiveDaysPlayed = 5;
             }
         }
 
