@@ -62,7 +62,6 @@ namespace SnowConeTycoon.Shared
         IBackgroundEffect CurrentBackgroundEffect;
         FadeTransition Fade;
 
-        int CurrentDay = 1;
         int KidSwapTime = 0;
         int KidSwapTimeTotal = 500;
         bool SwappingKids = false;
@@ -91,7 +90,7 @@ namespace SnowConeTycoon.Shared
 
         public SnowConeTycoonGame()
         {
-            businessDayService = new MockAverageBusinessDayService();
+            businessDayService = new BusinessDayService();
             weatherService = new WeatherService();
         }
 
@@ -215,7 +214,7 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    DaySetupScreen.Reset(CurrentDay, 100);
+                    DaySetupScreen.Reset(100);
                     CurrentScreen = Screen.DaySetup;
                 });
 
@@ -382,7 +381,7 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    OpenForBusinessScreen.Reset(businessDayService.CalculateDay(Forecast.Sunny, 0, 0, 0, 0));
+                    OpenForBusinessScreen.Reset(businessDayService.CalculateDay(weatherService.GetForecast(Player.CurrentDay), Player.ConeCount, DaySetupScreen.SyrupCount, DaySetupScreen.FlyerCount, DaySetupScreen.Price));
                     CurrentScreen = Screen.OpenForBusiness;
                 });
 
@@ -405,10 +404,10 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    CurrentDay++;
-                    var dayForecast = weatherService.GetForecast(CurrentDay);
+                    Player.CurrentDay++;
+                    var dayForecast = weatherService.GetForecast(Player.CurrentDay);
                     SetWeather(dayForecast);
-                    DaySetupScreen.Reset(CurrentDay, dayForecast.Temperature);
+                    DaySetupScreen.Reset(dayForecast.Temperature);
                     CurrentScreen = Screen.DaySetup;
                 });
 
@@ -443,7 +442,7 @@ namespace SnowConeTycoon.Shared
                 {
                     ShowingDailyBonus = false;
 
-                    DailyBonusIceEarnedEvent = new TimedEvent(500,
+                    DailyBonusIceEarnedEvent = new TimedEvent(250,
                     () =>
                         {
                             Player.AddIce(1);
@@ -451,7 +450,7 @@ namespace SnowConeTycoon.Shared
                             IceParticleEmitter.FlowOn = true;
                             IceIcon.Reset();
 
-                            IceParticleTimedEvent = new TimedEvent(350,
+                            IceParticleTimedEvent = new TimedEvent(200,
                             () =>
                             {
                                 IceParticleEmitter.FlowOn = false;

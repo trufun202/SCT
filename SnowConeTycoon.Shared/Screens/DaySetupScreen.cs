@@ -6,13 +6,13 @@ using SnowConeTycoon.Shared.Animations;
 using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Forms;
 using SnowConeTycoon.Shared.Handlers;
+using SnowConeTycoon.Shared.Models;
 using SnowConeTycoon.Shared.Utils;
 
 namespace SnowConeTycoon.Shared.Screens
 {
     public class DaySetupScreen
     {
-        int CurrentDay = 1;
         public Forecast CurrentForecast = Forecast.Sunny;
         Vector2 PositionPaperStart = Vector2.Zero;
         Vector2 PositionPaperEnd = Vector2.Zero;
@@ -36,6 +36,33 @@ namespace SnowConeTycoon.Shared.Screens
         ScaledImage BackButton;
         public bool DoneAnimating = false;
         int Temperature = 100;
+        NumberPicker syrupPicker;
+        NumberPicker flyerPicker;
+        NumberPicker pricePicker;
+
+        public int SyrupCount
+        {
+            get
+            {
+                return syrupPicker.Value;
+            }
+        }
+
+        public int FlyerCount
+        {
+            get
+            {
+                return flyerPicker.Value;
+            }
+        }
+
+        public int Price
+        {
+            get
+            {
+                return pricePicker.Value;
+            }
+        }
 
         public DaySetupScreen(double scaleX, double scaleY)
         {
@@ -46,18 +73,20 @@ namespace SnowConeTycoon.Shared.Screens
             TemperatureImage = new ScaledImage("DaySetup_DayLabel", new Vector2(1200, 200), 250);
             LetsGoButton = new ScaledImage("DaySetup_LetsGo", new Vector2(1200, 2500), 500);
             BackButton = new ScaledImage("DaySetup_Back", new Vector2(350, 2470), 500);
+            syrupPicker = new NumberPicker("DaySetup_IconFlavor", "syrup", new Vector2(250, 550), 0, 10, ScaleX, ScaleY, false);
+            flyerPicker = new NumberPicker("DaySetup_IconFlyer", "flyers", new Vector2(250, 800), 0, 10, ScaleX, ScaleY, false);
+            pricePicker = new NumberPicker("DaySetup_IconPrice", "price", new Vector2(250, 1200), 1, 10, ScaleX, ScaleY, false);
         }
 
-        public void Reset(int currentDay, int temperature)
+        public void Reset(int temperature)
         {
-            CurrentDay = currentDay;
             Temperature = temperature;
             DoneAnimating = false;
             form = new Form(0, 0);
-            form.Controls.Add(new NumberPicker("DaySetup_IconFlavor", "syrup", new Vector2(250, 550), 0, 10, ScaleX, ScaleY, false));
-            form.Controls.Add(new NumberPicker("DaySetup_IconFlyer", "flyers", new Vector2(250, 800), 0, 10, ScaleX, ScaleY, false));
+            form.Controls.Add(syrupPicker);
+            form.Controls.Add(flyerPicker);
             form.Controls.Add(new Label("---------------------------------", new Vector2(250, 1000), Defaults.Brown));
-            form.Controls.Add(new NumberPicker("DaySetup_IconPrice", "price", new Vector2(250, 1200), 1, 10, ScaleX, ScaleY, false));
+            form.Controls.Add(pricePicker);
 
             AnimatingPaper = true;
             ShowingInventory = false;
@@ -73,6 +102,9 @@ namespace SnowConeTycoon.Shared.Screens
             TemperatureImage.Reset();
             LetsGoButton.Reset();
             BackButton.Reset();
+            syrupPicker.Visible = false;
+            flyerPicker.Visible = false;
+            pricePicker.Visible = false;
         }
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
@@ -179,13 +211,13 @@ namespace SnowConeTycoon.Shared.Screens
                 else if (!ForecastImage.IsDoneAnimating())
                 {
                     DayImage.Draw(spriteBatch);
-                    spriteBatch.DrawString(Defaults.Font, $"day {CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
+                    spriteBatch.DrawString(Defaults.Font, $"day {Player.CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {Player.CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
                     ForecastImage.Draw(spriteBatch);
                 }
                 else if (!TemperatureImage.IsDoneAnimating())
                 {
                     DayImage.Draw(spriteBatch);
-                    spriteBatch.DrawString(Defaults.Font, $"{CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
+                    spriteBatch.DrawString(Defaults.Font, $"{Player.CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {Player.CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
                     ForecastImage.Draw(spriteBatch);
                     var forecast = CurrentForecast.ToString().ToLower();
 
@@ -200,7 +232,7 @@ namespace SnowConeTycoon.Shared.Screens
                 else
                 {
                     DayImage.Draw(spriteBatch);
-                    spriteBatch.DrawString(Defaults.Font, $"day {CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
+                    spriteBatch.DrawString(Defaults.Font, $"day {Player.CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {Player.CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
                     ForecastImage.Draw(spriteBatch);
                     var forecast = CurrentForecast.ToString().ToLower();
 

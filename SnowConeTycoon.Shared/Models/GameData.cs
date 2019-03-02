@@ -16,5 +16,6 @@ namespace SnowConeTycoon.Shared.Models
         public int ConsecutiveDayCount { get; set; }
         public DateTime LastPlayed { get; set; }
         public DateTime DailyBonusLastReceived { get; set; }
+        public int CurrentDay { get; set; }
     }
 }

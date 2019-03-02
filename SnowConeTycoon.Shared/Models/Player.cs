@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO.IsolatedStorage;
+using SnowConeTycoon.Shared.Enums;
 using static SnowConeTycoon.Shared.Handlers.KidHandler;
 
 namespace SnowConeTycoon.Shared.Models
@@ -13,8 +14,10 @@ namespace SnowConeTycoon.Shared.Models
         public static int IceCount { get; private set; }
         public static int SyrupCount { get; private set; }
         public static int FlyerCount { get; private set; }
+        public static int SoldCount { get; private set; }
         public static int ConsecutiveDaysPlayed { get; private set; }
         public static DateTime DailyBonusLastReceived { get; set; }
+        public static int CurrentDay { get; set; }
 
         public static void Reset()
         {
@@ -23,6 +26,7 @@ namespace SnowConeTycoon.Shared.Models
             IceCount = 10;
             SyrupCount = 10;
             ConsecutiveDaysPlayed = 1;
+            CurrentDay = 1;
             DailyBonusLastReceived = DateTime.Now.Date;
         }
 
@@ -93,6 +97,35 @@ namespace SnowConeTycoon.Shared.Models
                 default:
                     return 1;
             }
+        }
+
+        public static Rank GetRank()
+        {
+            if (SoldCount <= 10)
+                return Rank.Lousy;
+            else if (SoldCount <= 30)
+                return Rank.Dabbling;
+            else if (SoldCount <= 70)
+                return Rank.Aspiring;
+            else if (SoldCount <= 130)
+                return Rank.Novice;
+            else if (SoldCount <= 210)
+                return Rank.Experienced;
+            else if (SoldCount <= 310)
+                return Rank.Skilled;
+            else if (SoldCount <= 430)
+                return Rank.Excellent;
+            else if (SoldCount <= 570)
+                return Rank.Professional;
+            else if (SoldCount <= 730)
+                return Rank.Veteran;
+            else
+                return Rank.Tycoon;
+        }
+
+        public static void AddSold(int count)
+        {
+            SoldCount += count;
         }
 
         public static void AddCoins(int count)

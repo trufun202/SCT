@@ -77,4 +77,18 @@ namespace SnowConeTycoon.Shared.Enums
         Purchase,
         Sales
     }
+
+    public enum Rank
+    {
+        Lousy,
+        Dabbling,
+        Aspiring,
+        Novice,
+        Experienced,
+        Skilled,
+        Excellent,
+        Professional,
+        Veteran,
+        Tycoon
+    }
 }

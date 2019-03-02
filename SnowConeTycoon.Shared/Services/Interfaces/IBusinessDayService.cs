@@ -6,6 +6,6 @@ namespace SnowConeTycoon.Shared.Services
 {
     public interface IBusinessDayService
     {
-        BusinessDayResult CalculateDay(Forecast forecast, int cones, int syrup, int flyers, int price);
+        BusinessDayResult CalculateDay(DayForecast forecast, int cones, int syrup, int flyers, int price);
     }
 }

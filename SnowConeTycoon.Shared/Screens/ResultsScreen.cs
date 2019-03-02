@@ -105,6 +105,9 @@ namespace SnowConeTycoon.Shared.Screens
         {
             Reset();
             Results = results;
+
+            Player.AddCoins(results.CoinsEarned);
+            Player.AddSold(results.SnowConesSold);
         }
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
@@ -302,7 +305,7 @@ namespace SnowConeTycoon.Shared.Screens
 
                         if (RankImage.IsDoneAnimating())
                         {
-                            spriteBatch.DrawString(Defaults.Font, "novice", new Vector2(PositionInv.X + 800, PositionInv.Y + 680), Defaults.Cream, 0f, Vector2.Zero, 1.25f, SpriteEffects.None, 1f);
+                            spriteBatch.DrawString(Defaults.Font, Player.GetRank().ToString().ToLower(), new Vector2(PositionInv.X + 800, PositionInv.Y + 700), Defaults.Cream, 0f, Vector2.Zero, 1f, SpriteEffects.None, 1f);
                             RankDone = true;
                         }
                     }

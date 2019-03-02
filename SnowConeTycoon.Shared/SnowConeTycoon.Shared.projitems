@@ -71,6 +71,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\Interfaces\IStorageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DeviceStorageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\GameData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\BusinessDayService.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

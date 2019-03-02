@@ -80,7 +80,7 @@ namespace SnowConeTycoon.Shared.Kids
             }
         }
 
-        public void Draw(SpriteBatch spriteBatch, int x, int y, bool facingAway, int? size)
+        public void Draw(SpriteBatch spriteBatch, int x, int y, bool facingAway, int? size, bool isCustomer = false)
         {
             if (!size.HasValue)
             {
@@ -89,9 +89,9 @@ namespace SnowConeTycoon.Shared.Kids
 
             Color color = Color.White;
 
-            if (IsLocked)
+            if (IsLocked && !isCustomer)
             {
-                color = Color.Black;
+                color = Color.FromNonPremultiplied(new Vector4(0.1f, 0.1f, 0.1f, 1));
             }
 
             var effect = SpriteEffects.None;
@@ -115,7 +115,7 @@ namespace SnowConeTycoon.Shared.Kids
 
             spriteBatch.Draw(Mouth, new Rectangle(x, y, size.Value, size.Value), color);
 
-            if (IsLocked && UnlockMechanism == UnlockMechanism.Purchase)
+            if (IsLocked && UnlockMechanism == UnlockMechanism.Purchase && !isCustomer)
             {
                 spriteBatch.DrawString(Defaults.Font, UnlockPrice.ToString(), new Vector2((int)(x + (size.Value / 2)) - 85, (int)(y + (size.Value / 2)) + 150), Defaults.Cream, 0f, Defaults.Font.MeasureString(UnlockPrice.ToString()) / 2, 1f, SpriteEffects.None, 1f);
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Rectangle((int)(x + (size.Value / 2)) + 85, (int)(y + (size.Value / 2) - 15 + 150), ContentHandler.Images["DaySetup_IconPrice"].Width, ContentHandler.Images["DaySetup_IconPrice"].Height), null, Color.White, 0f, new Vector2((int)(ContentHandler.Images["DaySetup_IconPrice"].Width / 2), (int)(ContentHandler.Images["DaySetup_IconPrice"].Height / 2)), SpriteEffects.None, 1f);
