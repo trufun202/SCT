@@ -104,6 +104,11 @@ namespace SnowConeTycoon.Shared
             });
         }
 
+        public void AddIce(int count)
+        {
+            Player.AddIce(count);
+        }
+
         public void SetWeather(DayForecast dayForecast)
         {
             DaySetupScreen.CurrentForecast = dayForecast.Forecast;
@@ -387,6 +392,10 @@ namespace SnowConeTycoon.Shared
 
                 return true;
             }, "pop", scaleX, scaleY));
+            FormDaySetup.Controls.Add(new Button(new Rectangle(1125, 1650, 190, 165), () =>
+            {
+                CurrentScreen = Screen.RewardAd;
+            }, string.Empty, scaleX, scaleY));
 
             FormOpenForBusiness = new Form(0, 0);
             FormOpenForBusiness.Controls.Add(new Button(new Rectangle(1370, 30, 151, 152), () =>

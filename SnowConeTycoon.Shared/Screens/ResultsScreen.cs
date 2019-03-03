@@ -13,7 +13,6 @@ namespace SnowConeTycoon.Shared.Screens
 {
     public class ResultsScreen
     {
-        int CurrentDay = 1;
         public Forecast CurrentForecast = Forecast.Sunny;
         public int CurrentTemperature = 100;
         Vector2 PositionPaperStart = Vector2.Zero;
@@ -248,13 +247,13 @@ namespace SnowConeTycoon.Shared.Screens
                 else if (!ForecastImage.IsDoneAnimating())
                 {
                     DayImage.Draw(spriteBatch);
-                    spriteBatch.DrawString(Defaults.Font, $"day {CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
+                    spriteBatch.DrawString(Defaults.Font, $"day {Player.CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {Player.CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
                     ForecastImage.Draw(spriteBatch);
                 }
                 else if (!TemperatureImage.IsDoneAnimating())
                 {
                     DayImage.Draw(spriteBatch);
-                    spriteBatch.DrawString(Defaults.Font, $"day {CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
+                    spriteBatch.DrawString(Defaults.Font, $"day {Player.CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {Player.CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
                     ForecastImage.Draw(spriteBatch);
                     var forecast = CurrentForecast.ToString().ToLower();
 
@@ -269,7 +268,7 @@ namespace SnowConeTycoon.Shared.Screens
                 else
                 {
                     DayImage.Draw(spriteBatch);
-                    spriteBatch.DrawString(Defaults.Font, $"day {CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
+                    spriteBatch.DrawString(Defaults.Font, $"day {Player.CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {Player.CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
                     ForecastImage.Draw(spriteBatch);
                     var forecast = CurrentForecast.ToString().ToLower();
 

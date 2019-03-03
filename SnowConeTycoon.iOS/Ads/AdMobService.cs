@@ -1,10 +1,15 @@
 ﻿using System;
 using Google.MobileAds;
+using SnowConeTycoon.Shared;
 
 public class AdMobService : RewardBasedVideoAdDelegate
 {
-    public AdMobService()
+    private SnowConeTycoonGame Game;
+    private const int ICE_REWARD_COUNT = 5;
+
+    public AdMobService(SnowConeTycoonGame SnowConeGame)
     {
+        Game = SnowConeGame;
         RewardBasedVideoAd.SharedInstance.Delegate = this;
 
         var request = Request.GetDefaultRequest();
@@ -14,7 +19,8 @@ public class AdMobService : RewardBasedVideoAdDelegate
 
     public override void DidRewardUser(RewardBasedVideoAd rewardBasedVideoAd, AdReward reward)
     {
-        Console.WriteLine("rewarded");
+        Game.AddIce(ICE_REWARD_COUNT);
+        Console.Write("ice rewarded");
     }
 
     public override void DidReceiveAd(RewardBasedVideoAd rewardBasedVideoAd)

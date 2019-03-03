@@ -31,7 +31,7 @@ namespace SnowConeTycoon.iOS
         {
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             SnowConeGame.LoadContent(Content);
-            AdMobService = new AdMobService();
+            AdMobService = new AdMobService(SnowConeGame);
         }
 
         protected override void OnDeactivated(object sender, EventArgs args)

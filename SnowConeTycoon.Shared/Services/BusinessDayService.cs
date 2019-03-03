@@ -116,7 +116,7 @@ namespace SnowConeTycoon.Shared.Services
 
             results.SnowConesSold = Utilities.GetRandomInt(potentialSoldMin, potentialSoldMax);
 
-            var syrupDiff = syrup - idealSyrup;
+            var syrupDiff = Math.Abs(syrup - idealSyrup);
 
             var promoterMin = 0f;
             var promoterMax = 0f;

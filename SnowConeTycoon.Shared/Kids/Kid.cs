@@ -91,7 +91,7 @@ namespace SnowConeTycoon.Shared.Kids
 
             if (IsLocked && !isCustomer)
             {
-                color = Color.FromNonPremultiplied(new Vector4(0.1f, 0.1f, 0.1f, 1));
+                color = Color.FromNonPremultiplied(new Vector4(0.2f, 0.2f, 0.2f, 1));
             }
 
             var effect = SpriteEffects.None;

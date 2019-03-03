@@ -10,7 +10,7 @@ namespace SnowConeTycoon.Shared.Services
 {
     public class DeviceStorageService : IStorageService
     {
-        private const string SAVEFILENAME = "SCTyc.sav";
+        private const string SAVEFILENAME = "SCTyco.sav";
 
         public DeviceStorageService()
         {

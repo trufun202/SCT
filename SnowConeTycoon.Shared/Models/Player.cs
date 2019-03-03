@@ -41,6 +41,7 @@ namespace SnowConeTycoon.Shared.Models
                 IceCount = IceCount,
                 SyrupCount = SyrupCount,
                 FlyerCount = FlyerCount,
+                CurrentDay = CurrentDay,
                 ConsecutiveDayCount = ConsecutiveDaysPlayed,
                 LastPlayed = DateTime.Now.Date,
                 DailyBonusLastReceived = DailyBonusLastReceived
@@ -58,6 +59,7 @@ namespace SnowConeTycoon.Shared.Models
             FlyerCount = gameData.FlyerCount;
             ConsecutiveDaysPlayed = gameData.ConsecutiveDayCount;
             DailyBonusLastReceived = gameData.DailyBonusLastReceived;
+            CurrentDay = gameData.CurrentDay;
 
             TimeSpan ts = DateTime.Now.Date - gameData.LastPlayed;
 
