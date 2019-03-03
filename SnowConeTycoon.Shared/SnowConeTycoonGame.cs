@@ -7,6 +7,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Input.Touch;
 using Microsoft.Xna.Framework.Media;
+using SnowConeTycoon.Shared.Animations;
 using SnowConeTycoon.Shared.Backgrounds;
 using SnowConeTycoon.Shared.Backgrounds.Effects;
 using SnowConeTycoon.Shared.Backgrounds.Effects.Components;
@@ -15,6 +16,7 @@ using SnowConeTycoon.Shared.Forms;
 using SnowConeTycoon.Shared.Handlers;
 using SnowConeTycoon.Shared.Kids;
 using SnowConeTycoon.Shared.Models;
+using SnowConeTycoon.Shared.Particles;
 using SnowConeTycoon.Shared.Screens;
 using SnowConeTycoon.Shared.ScreenTransitions;
 using SnowConeTycoon.Shared.Services;
@@ -30,6 +32,7 @@ namespace SnowConeTycoon.Shared
     /// </summary>
     public class SnowConeTycoonGame
     {
+        DeviceStorageService storageService = new DeviceStorageService();
         ContentManager Content;
         public Screen CurrentScreen = Screen.Loading;
         RenderTarget2D renderTarget;
@@ -59,7 +62,6 @@ namespace SnowConeTycoon.Shared
         IBackgroundEffect CurrentBackgroundEffect;
         FadeTransition Fade;
 
-        int CurrentDay = 1;
         int KidSwapTime = 0;
         int KidSwapTimeTotal = 500;
         bool SwappingKids = false;
@@ -76,16 +78,19 @@ namespace SnowConeTycoon.Shared
         KidHandler.KidType OriginalSelectedKidType = KidHandler.KidType.Girl;
         TimedEvent LoadingScreenEvent;
         TimedEvent LogoScreenEvent;
+        TimedEvent DailyBonusEvent;
+        TimedEvent DailyBonusIceEarnedEvent;
         bool ContentLoaded = false;
-
         IBusinessDayService businessDayService;
         IWeatherService weatherService;
-
-        bool ShowingDailyBonus = true;
+        bool ShowingDailyBonus = false;
+        ParticleEmitter IceParticleEmitter;
+        TimedEvent IceParticleTimedEvent;
+        PulseImage IceIcon;
 
         public SnowConeTycoonGame()
         {
-            businessDayService = new MockAverageBusinessDayService();
+            businessDayService = new BusinessDayService();
             weatherService = new WeatherService();
         }
 
@@ -150,6 +155,14 @@ namespace SnowConeTycoon.Shared
                 DepthFormat.Depth24);
 
             Player.Reset();
+
+            if (storageService.SaveFileExists())
+            {
+                storageService.Load();
+            }
+
+            storageService.Save();
+
             var scaleX = (double)ScreenWidth / (double)Defaults.GraphicsWidth;
             var scaleY = (double)ScreenHeight / (double)Defaults.GraphicsHeight;
 
@@ -164,7 +177,7 @@ namespace SnowConeTycoon.Shared
                     }
                 });
             },
-            true);
+            -1);
 
             LogoScreenEvent = new TimedEvent(5500,
             () =>
@@ -176,7 +189,20 @@ namespace SnowConeTycoon.Shared
                     //XnaMediaPlayer.IsRepeating = true;
                 });
             },
-            false);
+            1);
+
+            DailyBonusEvent = new TimedEvent(500,
+            () =>
+            {
+                var ts = DateTime.Now - Player.DailyBonusLastReceived;
+
+                if (ts.Days >= 0)
+                {
+                    DailyBonusScreen.Reset();
+                    ShowingDailyBonus = true;
+                }
+            },
+            1);
 
             Fade = new FadeTransition(Color.White, null);
 
@@ -188,7 +214,7 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    DaySetupScreen.Reset(CurrentDay, 100);
+                    DaySetupScreen.Reset(100);
                     CurrentScreen = Screen.DaySetup;
                 });
 
@@ -355,7 +381,7 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    OpenForBusinessScreen.Reset(businessDayService.CalculateDay(Forecast.Sunny, 0, 0, 0, 0));
+                    OpenForBusinessScreen.Reset(businessDayService.CalculateDay(weatherService.GetForecast(Player.CurrentDay), Player.ConeCount, DaySetupScreen.SyrupCount, DaySetupScreen.FlyerCount, DaySetupScreen.Price));
                     CurrentScreen = Screen.OpenForBusiness;
                 });
 
@@ -378,10 +404,10 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    CurrentDay++;
-                    var dayForecast = weatherService.GetForecast(CurrentDay);
+                    Player.CurrentDay++;
+                    var dayForecast = weatherService.GetForecast(Player.CurrentDay);
                     SetWeather(dayForecast);
-                    DaySetupScreen.Reset(CurrentDay, dayForecast.Temperature);
+                    DaySetupScreen.Reset(dayForecast.Temperature);
                     CurrentScreen = Screen.DaySetup;
                 });
 
@@ -410,6 +436,35 @@ namespace SnowConeTycoon.Shared
             }, "pop", scaleX, scaleY));
 
             FormDailyBonus = new Form(0, 0);
+            FormDailyBonus.Controls.Add(new Button(new Rectangle(850, 2000, 592, 250), () =>
+            {
+                if (DailyBonusScreen.ScreenHasLoaded())
+                {
+                    ShowingDailyBonus = false;
+
+                    DailyBonusIceEarnedEvent = new TimedEvent(250,
+                    () =>
+                        {
+                            Player.AddIce(1);
+                            ContentHandler.Sounds["Ice_Cube"].Play();
+                            IceParticleEmitter.FlowOn = true;
+                            IceIcon.Reset();
+
+                            IceParticleTimedEvent = new TimedEvent(200,
+                            () =>
+                            {
+                                IceParticleEmitter.FlowOn = false;
+                            },
+                            1);
+
+                        },
+                        Player.GetIceEarned());
+
+                    return true;
+                }
+
+                return false;
+            }, "pop", scaleX, scaleY));
 
             previousTouchCollection = TouchPanel.GetState();
         }
@@ -449,6 +504,18 @@ namespace SnowConeTycoon.Shared
             ResultsScreen = new ResultsScreen(scaleX, scaleY);
             SupplyShopScreen = new SupplyShopScreen(scaleX, scaleY);
             DailyBonusScreen = new DailyBonusScreen();
+
+            IceParticleEmitter = new ParticleEmitter(100, 1375, 110, 40, 2000, "particle_ice", 3.25f);
+            IceParticleEmitter.Gravity = 30f;
+            IceParticleEmitter.Velocity = new Vector2(1350, 1350);
+            IceParticleEmitter.SetCircularPath(30);
+
+            IceIcon = new PulseImage("TitleScreen_Ice", new Vector2(1400, 125), 1f, 1.5f, 1f);
+        }
+
+        public void OnDeactivated()
+        {
+            storageService.Save();
         }
 
         public void Update(GameTime gameTime)
@@ -473,11 +540,13 @@ namespace SnowConeTycoon.Shared
                 }
                 else if (CurrentScreen == Screen.Title)
                 {
-                    FormTitle.HandleInput(previousTouchCollection, currentTouchCollection);
-
                     if (ShowingDailyBonus)
                     {
                         FormDailyBonus.HandleInput(previousTouchCollection, currentTouchCollection);
+                    }
+                    else
+                    {
+                        FormTitle.HandleInput(previousTouchCollection, currentTouchCollection);
                     }
                 }
                 else if (CurrentScreen == Screen.CharacterSelect)
@@ -533,6 +602,11 @@ namespace SnowConeTycoon.Shared
                     CurrentBackgroundEffect?.Update(gameTime);
                     KidHandler.Update(gameTime);
                     FormTitle.Update(gameTime);
+                    DailyBonusEvent.Update(gameTime);
+                    DailyBonusIceEarnedEvent?.Update(gameTime);
+                    IceParticleEmitter.Update(gameTime);
+                    IceParticleTimedEvent?.Update(gameTime);
+                    IceIcon?.Update(gameTime);
 
                     if (ShowingDailyBonus)
                     {
@@ -641,12 +715,19 @@ namespace SnowConeTycoon.Shared
                 KidHandler.Draw(spriteBatch, (int)Kid1Position.X, (int)Kid1Position.Y);
                 spriteBatch.Draw(ContentHandler.Images["TitleScreen_Foreground"], new Rectangle(0, 0, 1536, 2732), Color.White);
                 FormTitle.Draw(spriteBatch);
-                spriteBatch.Draw(ContentHandler.Images["IconGear"], new Vector2(1380, 40), Color.White);
+                spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1268, 43), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1268, 47), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1272, 43), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1272, 47), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1270, 45), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
+                IceIcon?.Draw(spriteBatch);
                 CurrentBackgroundEffect?.Draw(spriteBatch);
+                IceParticleEmitter.Draw(spriteBatch);
 
                 if (ShowingDailyBonus)
                 {
                     DailyBonusScreen.Draw(spriteBatch);
+                    FormDailyBonus.Draw(spriteBatch);
                 }
             }
             else if (CurrentScreen == Screen.DaySetup)

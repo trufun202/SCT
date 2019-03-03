@@ -31,6 +31,7 @@ namespace SnowConeTycoon.Shared.Screens
         public void Reset(BusinessDayResult results)
         {
             Customer.Reset(results);
+            Customer.ResetScene();
             Results = results;
         }
 

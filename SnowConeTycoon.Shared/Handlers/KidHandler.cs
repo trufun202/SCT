@@ -173,7 +173,7 @@ namespace SnowConeTycoon.Shared.Handlers
             SelectedKids[SelectedKid].Draw(spriteBatch, x, y, facingAway, null);
         }
 
-        public static void DrawKid(KidType type, int index, SpriteBatch spriteBatch, int x, int y, int? size, bool facingAway = false)
+        public static void DrawKid(KidType type, int index, SpriteBatch spriteBatch, int x, int y, int? size, bool facingAway = false, bool isCustomer = false)
         {
             var kidType = "Boy";
             var kids = Boys;
@@ -184,7 +184,7 @@ namespace SnowConeTycoon.Shared.Handlers
                 kids = Girls;
             }
 
-            kids[$"{kidType}{index}"].Draw(spriteBatch, x, y, facingAway, size);
+            kids[$"{kidType}{index}"].Draw(spriteBatch, x, y, facingAway, size, isCustomer);
         }
 
         public static void MakeKidHappy(KidType type, int index)

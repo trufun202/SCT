@@ -616,14 +616,11 @@ namespace SnowConeTycoon.Android
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f060014
-			public const int ApplicationName = 2131099668;
-			
 			// aapt resource value: 0x7f060013
-			public const int Hello = 2131099667;
+			public const int ApplicationName = 2131099667;
 			
-			// aapt resource value: 0x7f060011
-			public const int app_name = 2131099665;
+			// aapt resource value: 0x7f060012
+			public const int Hello = 2131099666;
 			
 			// aapt resource value: 0x7f060001
 			public const int common_google_play_services_enable_button = 2131099649;
@@ -676,8 +673,8 @@ namespace SnowConeTycoon.Android
 			// aapt resource value: 0x7f060010
 			public const int common_signin_button_text_long = 2131099664;
 			
-			// aapt resource value: 0x7f060012
-			public const int status_bar_notification_info_overflow = 2131099666;
+			// aapt resource value: 0x7f060011
+			public const int status_bar_notification_info_overflow = 2131099665;
 			
 			static String()
 			{

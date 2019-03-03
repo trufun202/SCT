@@ -123,10 +123,14 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("ChrosGamesLogoNoCircle", content.Load<Texture2D>("ChrosGamesLogoNoCircle"));
             Images.Add("ChrosGamesLogoCircle", content.Load<Texture2D>("ChrosGamesLogoCircle"));
             Images.Add("particle", content.Load<Texture2D>("particle"));
+            Images.Add("particle_ice", content.Load<Texture2D>("particle_ice"));
             Images.Add("lock", content.Load<Texture2D>("lock"));
             Images.Add("button_locked", content.Load<Texture2D>("button_locked"));
             Images.Add("button_unlock", content.Load<Texture2D>("button_unlock"));
             Images.Add("DailyBonus_Ice", content.Load<Texture2D>("DailyBonus_Ice"));
+            Images.Add("DailyBonus_Circle", content.Load<Texture2D>("DailyBonus_Circle"));
+            Images.Add("DailyBonus_Check", content.Load<Texture2D>("DailyBonus_Check"));
+            Images.Add("TitleScreen_Ice", content.Load<Texture2D>("TitleScreen_Ice"));
 
             ///////////////////////////////////////////
             //DAY SETUP
@@ -170,6 +174,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Sounds.Add("Game Coin", content.Load<SoundEffect>("Game Coin"));
             Sounds.Add("Cash Register Fast", content.Load<SoundEffect>("Cash Register Fast"));
             Sounds.Add("Magic Wand 1", content.Load<SoundEffect>("Magic Wand 1"));
+            Sounds.Add("Ice_Cube", content.Load<SoundEffect>("Ice_Cube"));
 
             ///////////////////////////////////////////
             //SONGS

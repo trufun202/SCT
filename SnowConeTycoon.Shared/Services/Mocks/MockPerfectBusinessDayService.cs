@@ -12,7 +12,7 @@ namespace SnowConeTycoon.Shared.Services
         {
         }
 
-        public BusinessDayResult CalculateDay(Forecast forecast, int cones, int syrup, int flyers, int price)
+        public BusinessDayResult CalculateDay(DayForecast forecast, int cones, int syrup, int flyers, int price)
         {
             return new BusinessDayResult()
             {

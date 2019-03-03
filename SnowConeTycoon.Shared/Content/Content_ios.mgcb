@@ -661,6 +661,30 @@
 #begin cooper-black-80.xnb
 /copy:cooper-black-80.xnb
 
+#begin DailyBonus_Check.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:DailyBonus_Check.png
+
+#begin DailyBonus_Circle.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:DailyBonus_Circle.png
+
 #begin DailyBonus_Ice.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1513,6 +1537,12 @@
 /processorParam:Quality=Best
 /build:Happy Victory 2.wav
 
+#begin Ice_Cube.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Ice_Cube.wav
+
 #begin IconGear.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2071,6 +2101,18 @@
 /processorParam:TextureFormat=Color
 /build:particle.png
 
+#begin particle_ice.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:particle_ice.png
+
 #begin pop.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -2274,6 +2316,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:TitleScreen_Foreground.png
+
+#begin TitleScreen_Ice.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:TitleScreen_Ice.png
 
 #begin Try Again.wav
 /importer:WavImporter
