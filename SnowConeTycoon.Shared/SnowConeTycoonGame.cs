@@ -395,6 +395,7 @@ namespace SnowConeTycoon.Shared
             FormDaySetup.Controls.Add(new Button(new Rectangle(1125, 1650, 190, 165), () =>
             {
                 CurrentScreen = Screen.RewardAd;
+                return true;
             }, string.Empty, scaleX, scaleY));
 
             FormOpenForBusiness = new Form(0, 0);

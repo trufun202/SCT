@@ -6,12 +6,13 @@ namespace SnowConeTycoon.Shared.Utils
 {
     public static class Defaults
     {
-        public static bool DebugMode = true;
+        public static bool DebugMode = false;
         public static int GraphicsWidth = 1536;
         public static int GraphicsHeight = 2732;
         public static SpriteFont Font;
         public const string ListenConnectionString = "Endpoint=sb://chrosgames.servicebus.windows.net/;SharedAccessKeyName=SnowConeTycoonDefaultPolicy;SharedAccessKey=QOOEZ1UbIsiR6kLlZYlN3DsRXdYMBAvvyHGEfDjK1xs=";
         public const string NotificationHubName = "SnowConeTycoon";
+        public const string REWARD_ICE_COUNT = 5;
 
         public static Color SkyBlue
         {

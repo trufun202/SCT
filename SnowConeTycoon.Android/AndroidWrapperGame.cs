@@ -59,7 +59,8 @@ namespace SnowConeTycoon.Android
 
                 if (AdController.adRewarded)
                 {
-                    SnowConeGame.CurrentScreen = Shared.Enums.Screen.Title;
+                    //SnowConeGame.CurrentScreen = Shared.Enums.Screen.Title;
+                    SnowConeGame.AddIce(5);
                 }
                 else if (AdController.adRewardCancelled)
                 {

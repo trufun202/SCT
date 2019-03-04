@@ -5,7 +5,6 @@ using SnowConeTycoon.Shared;
 public class AdMobService : RewardBasedVideoAdDelegate
 {
     private SnowConeTycoonGame Game;
-    private const int ICE_REWARD_COUNT = 5;
 
     public AdMobService(SnowConeTycoonGame SnowConeGame)
     {
@@ -19,7 +18,7 @@ public class AdMobService : RewardBasedVideoAdDelegate
 
     public override void DidRewardUser(RewardBasedVideoAd rewardBasedVideoAd, AdReward reward)
     {
-        Game.AddIce(ICE_REWARD_COUNT);
+        Game.AddIce(Defaults.REWARD_ICE_COUNT);
         Console.Write("ice rewarded");
     }
 
