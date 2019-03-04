@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SnowConeTycoon.Android.Ads;
 using SnowConeTycoon.Shared;
+using SnowConeTycoon.Shared.Utils;
 
 namespace SnowConeTycoon.Android
 {
@@ -59,12 +60,12 @@ namespace SnowConeTycoon.Android
 
                 if (AdController.adRewarded)
                 {
-                    //SnowConeGame.CurrentScreen = Shared.Enums.Screen.Title;
-                    SnowConeGame.AddIce(5);
+                    SnowConeGame.CurrentScreen = Shared.Enums.Screen.DaySetup;
+                    SnowConeGame.AddIce(Defaults.REWARD_ICE_COUNT);
                 }
                 else if (AdController.adRewardCancelled)
                 {
-                    SnowConeGame.CurrentScreen = Shared.Enums.Screen.Title;
+                    SnowConeGame.CurrentScreen = Shared.Enums.Screen.DaySetup;
                 }
 
                 spriteBatch.End();
@@ -79,7 +80,7 @@ namespace SnowConeTycoon.Android
 
                 if (AdController.adClosed)
                 {
-                    SnowConeGame.CurrentScreen = Shared.Enums.Screen.Title;
+                    SnowConeGame.CurrentScreen = Shared.Enums.Screen.DaySetup;
                 }
 
                 spriteBatch.End();

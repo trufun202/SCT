@@ -1,6 +1,7 @@
 ﻿using System;
 using Google.MobileAds;
 using SnowConeTycoon.Shared;
+using SnowConeTycoon.Shared.Utils;
 
 public class AdMobService : RewardBasedVideoAdDelegate
 {

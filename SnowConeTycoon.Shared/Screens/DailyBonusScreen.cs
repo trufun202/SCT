@@ -164,7 +164,7 @@ namespace SnowConeTycoon.Shared.Screens
 
             if (EarnedCheckImage.IsDoneAnimating())
             {
-                spriteBatch.Draw(ContentHandler.Images["Results_Next"], new Vector2((Defaults.GraphicsWidth / 2) + 100, PaperPosition.Y + 1450), Color.White);
+                spriteBatch.Draw(ContentHandler.Images["DailyBonus_RedX"], new Vector2((Defaults.GraphicsWidth / 2) + 500, PaperPosition.Y + 100), Color.White);
             }
         }
     }

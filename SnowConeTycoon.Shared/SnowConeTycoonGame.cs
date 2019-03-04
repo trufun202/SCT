@@ -87,6 +87,7 @@ namespace SnowConeTycoon.Shared
         ParticleEmitter IceParticleEmitter;
         TimedEvent IceParticleTimedEvent;
         PulseImage IceIcon;
+        int DaysSinceAd = 0;
 
         public SnowConeTycoonGame()
         {
@@ -419,6 +420,14 @@ namespace SnowConeTycoon.Shared
                     SetWeather(dayForecast);
                     DaySetupScreen.Reset(dayForecast.Temperature);
                     CurrentScreen = Screen.DaySetup;
+
+                    DaysSinceAd++;
+
+                    if (DaysSinceAd >= Defaults.DAY_COUNT_BETWEEN_ADS)
+                    {
+                        DaysSinceAd = 0;
+                        CurrentScreen = Screen.FullScreenAd;
+                    }
                 });
 
                 return true;
@@ -446,7 +455,7 @@ namespace SnowConeTycoon.Shared
             }, "pop", scaleX, scaleY));
 
             FormDailyBonus = new Form(0, 0);
-            FormDailyBonus.Controls.Add(new Button(new Rectangle(850, 2000, 592, 250), () =>
+            FormDailyBonus.Controls.Add(new Button(new Rectangle(1275, 675, 200, 200), () =>
             {
                 if (DailyBonusScreen.ScreenHasLoaded())
                 {

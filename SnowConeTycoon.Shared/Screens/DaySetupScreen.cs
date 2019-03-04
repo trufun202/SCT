@@ -178,24 +178,24 @@ namespace SnowConeTycoon.Shared.Screens
 
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_InvIce"], new Vector2(PositionInv.X + 300, PositionInv.Y + 250), Color.White);
                 spriteBatch.DrawString(Defaults.Font, "ice", new Vector2(PositionInv.X + 500, PositionInv.Y + 250), Defaults.Cream, 0f, Vector2.Zero, fontScale, SpriteEffects.None, 1f);
-                spriteBatch.DrawString(Defaults.Font, "6", new Vector2(PositionInv.X + 1100, PositionInv.Y + 250), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("6").X, 0), fontScale, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(PositionInv.X + 1100, PositionInv.Y + 250), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), fontScale, SpriteEffects.None, 1f);
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_WatchAd"], new Vector2(PositionInv.X + 1135, PositionInv.Y + 250), Color.White);
 
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_InvCoins"], new Vector2(PositionInv.X + 290, PositionInv.Y + 400), Color.White);
                 spriteBatch.DrawString(Defaults.Font, "coins", new Vector2(PositionInv.X + 500, PositionInv.Y + 400), Defaults.Cream, 0f, Vector2.Zero, fontScale, SpriteEffects.None, 1f);
-                spriteBatch.DrawString(Defaults.Font, "345", new Vector2(PositionInv.X + 1100, PositionInv.Y + 400), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("345").X, 0), fontScale, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(PositionInv.X + 1100, PositionInv.Y + 400), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString(Player.CoinCount.ToString()).X, 0), fontScale, SpriteEffects.None, 1f);
 
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_InvCones"], new Vector2(PositionInv.X + 335, PositionInv.Y + 550), Color.White);
                 spriteBatch.DrawString(Defaults.Font, "cones", new Vector2(PositionInv.X + 500, PositionInv.Y + 550), Defaults.Cream, 0f, Vector2.Zero, fontScale, SpriteEffects.None, 1f);
-                spriteBatch.DrawString(Defaults.Font, "23", new Vector2(PositionInv.X + 1100, PositionInv.Y + 550), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("23").X, 0), fontScale, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.ConeCount.ToString(), new Vector2(PositionInv.X + 1100, PositionInv.Y + 550), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString(Player.ConeCount.ToString()).X, 0), fontScale, SpriteEffects.None, 1f);
 
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_InvSyrup"], new Vector2(PositionInv.X + 320, PositionInv.Y + 700), Color.White);
                 spriteBatch.DrawString(Defaults.Font, "syrup", new Vector2(PositionInv.X + 500, PositionInv.Y + 700), Defaults.Cream, 0f, Vector2.Zero, fontScale, SpriteEffects.None, 1f);
-                spriteBatch.DrawString(Defaults.Font, "35", new Vector2(PositionInv.X + 1100, PositionInv.Y + 700), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("35").X, 0), fontScale, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.SyrupCount.ToString(), new Vector2(PositionInv.X + 1100, PositionInv.Y + 700), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString(Player.SyrupCount.ToString()).X, 0), fontScale, SpriteEffects.None, 1f);
 
                 spriteBatch.Draw(ContentHandler.Images["DaySetup_InvFlyers"], new Vector2(PositionInv.X + 320, PositionInv.Y + 850), Color.White);
                 spriteBatch.DrawString(Defaults.Font, "flyers", new Vector2(PositionInv.X + 500, PositionInv.Y + 850), Defaults.Cream, 0f, Vector2.Zero, fontScale, SpriteEffects.None, 1f);
-                spriteBatch.DrawString(Defaults.Font, "12", new Vector2(PositionInv.X + 1100, PositionInv.Y + 850), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString("12").X, 0), fontScale, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.FlyerCount.ToString(), new Vector2(PositionInv.X + 1100, PositionInv.Y + 850), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString(Player.FlyerCount.ToString()).X, 0), fontScale, SpriteEffects.None, 1f);
             }
 
             spriteBatch.Draw(ContentHandler.Images["DaySetup_Paper"], PositionPaper, Color.White);

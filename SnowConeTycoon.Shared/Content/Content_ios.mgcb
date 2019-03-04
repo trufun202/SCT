@@ -13,6 +13,18 @@
 
 #---------------------------------- Content ---------------------------------#
 
+#begin AdReward_Modal.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:AdReward_Modal.png
+
 #begin arial-36.xnb
 /copy:arial-36.xnb
 
@@ -696,6 +708,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:DailyBonus_Ice.png
+
+#begin DailyBonus_RedX.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:DailyBonus_RedX.png
 
 #begin DaySetup_Back.png
 /importer:TextureImporter
