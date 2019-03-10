@@ -392,8 +392,16 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    OpenForBusinessScreen.Reset(businessDayService.CalculateDay(weatherService.GetForecast(Player.CurrentDay), Player.ConeCount, DaySetupScreen.SyrupCount, DaySetupScreen.FlyerCount, DaySetupScreen.Price));
-                    CurrentScreen = Screen.OpenForBusiness;
+                    if (Player.IceCount > 0)
+                    {
+                        Player.AddIce(-1);
+                        OpenForBusinessScreen.Reset(businessDayService.CalculateDay(weatherService.GetForecast(Player.CurrentDay), Player.ConeCount, DaySetupScreen.SyrupCount, DaySetupScreen.FlyerCount, DaySetupScreen.Price));
+                        CurrentScreen = Screen.OpenForBusiness;
+                    }
+                    else
+                    {
+                        //TODO show "Out of Ice!" popup, with a button to watch an ad
+                    }
                 });
 
                 return true;
@@ -452,8 +460,17 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    //TODO checkout items purchased on supply screen
-                    CurrentScreen = Screen.DaySetup;
+                    var result = SupplyShopScreen.CompleteTransaction();
+
+                    if (result == SupplyShopResult.Success)
+                    {
+                        DaySetupScreen.ResetPickerMax();
+                        CurrentScreen = Screen.DaySetup;
+                    }
+                    else
+                    {
+                        //TODO show "Not enough coins!" error modal
+                    }
                 });
 
                 return true;

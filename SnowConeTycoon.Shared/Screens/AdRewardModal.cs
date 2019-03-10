@@ -22,6 +22,7 @@ namespace SnowConeTycoon.Shared.Screens
                 Active = false;
                 return true;
             }, string.Empty, scaleX, scaleY));
+            form.Ready = true;
         }
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)

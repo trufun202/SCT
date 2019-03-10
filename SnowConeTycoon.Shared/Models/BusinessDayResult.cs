@@ -12,5 +12,6 @@ namespace SnowConeTycoon.Shared.Models
         public string DayQuote { get; set; }
         public int CoinsPrevious { get; set; }
         public int CoinsEarned { get; set; }
+        public int SyrupPerSnowCone { get; set; }
     }
 }

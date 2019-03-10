@@ -62,7 +62,7 @@ namespace SnowConeTycoon.Shared.Forms
                 if (Align == Align.Right)
                 {
                     var spacer = "  ";
-                    spriteBatch.DrawString(Defaults.Font, Text, new Vector2(Bounds.X, Bounds.Y), color, 0f, new Vector2(Defaults.Font.MeasureString(Text).X / 2, Defaults.Font.MeasureString(Text).Y / 2), Scale, SpriteEffects.None, 1f);
+                    spriteBatch.DrawString(Defaults.Font, Text, new Vector2(Bounds.X - 25, Bounds.Y), color, 0f, new Vector2(Defaults.Font.MeasureString(Text).X / 2, Defaults.Font.MeasureString(Text).Y / 2), Scale, SpriteEffects.None, 1f);
                     spriteBatch.Draw(ContentHandler.Images[Image], new Rectangle((int)(Bounds.X + (Defaults.Font.MeasureString(spacer).X / 2) + (ContentHandler.Images[Image].Width / 2) + ImagePaddingX), (int)(Bounds.Y + (ContentHandler.Images[Image].Height / 2) + ImagePaddingY),
                         (int)(ContentHandler.Images[Image].Width * Scale), (int)(ContentHandler.Images[Image].Height * Scale)), null, Color.White, 0f, new Vector2((int)(ContentHandler.Images[Image].Width / 2), (int)(ContentHandler.Images[Image].Height / 2)), SpriteEffects.None, 1f);
                 }

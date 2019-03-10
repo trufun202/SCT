@@ -275,6 +275,8 @@ namespace SnowConeTycoon.Shared.Kids
                         ParticleCircleEmitter.Position = new Vector2((int)Position.X + 660, (int)Position.Y);
                         ContentHandler.Sounds["Game Coin"].Play();
                         ShowingCoinEvent.Reset();
+                        Player.AddCones(-1);
+                        Player.AddSyrup(-Results.SyrupPerSnowCone);
                     }
                     else
                     {

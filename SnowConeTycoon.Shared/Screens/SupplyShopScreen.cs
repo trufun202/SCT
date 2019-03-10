@@ -39,6 +39,9 @@ namespace SnowConeTycoon.Shared.Screens
         ScaledImage BackButton;
         public bool DoneAnimating = false;
         int CheckoutTotal = 0;
+        NumberPicker pickerCone;
+        NumberPicker pickerSyrup;
+        NumberPicker pickerFlyer;
 
         public SupplyShopScreen(double scaleX, double scaleY)
         {
@@ -46,6 +49,10 @@ namespace SnowConeTycoon.Shared.Screens
             ScaleY = scaleY;
             CheckoutButton = new ScaledImage("SupplyShop_Checkout", new Vector2(1200, 2500), 500);
             BackButton = new ScaledImage("DaySetup_Back", new Vector2(350, 2470), 500);
+            pickerCone = new NumberPicker("DaySetup_IconCone", "cones", new Vector2(250, 450), 0, 99, ScaleX, ScaleY, false);
+            pickerSyrup = new NumberPicker("DaySetup_IconFlavor", "syrup", new Vector2(250, 725), 0, 99, ScaleX, ScaleY, false);
+            pickerFlyer = new NumberPicker("DaySetup_IconFlyer", "flyers", new Vector2(250, 1000), 0, 99, ScaleX, ScaleY, false);
+
             Reset();
         }
 
@@ -59,9 +66,9 @@ namespace SnowConeTycoon.Shared.Screens
             DoneAnimating = false;
             form = new Form(0, 0);
             form.Spacing = 10;
-            form.Controls.Add(new NumberPicker("DaySetup_IconCone", "cones", new Vector2(250, 450), 0, 8, ScaleX, ScaleY, false));
-            form.Controls.Add(new NumberPicker("DaySetup_IconFlavor", "syrup", new Vector2(250, 725), 0, 8, ScaleX, ScaleY, false));
-            form.Controls.Add(new NumberPicker("DaySetup_IconFlyer", "flyers", new Vector2(250, 1000), 0, 8, ScaleX, ScaleY, false));
+            form.Controls.Add(pickerCone);
+            form.Controls.Add(pickerSyrup);
+            form.Controls.Add(pickerFlyer);
             form.Controls.Add(new Label("------------------------------------", new Vector2(250, 1175), Defaults.Brown));
             form.Controls.Add(new Label("total", new Vector2(450, 1290), Defaults.Brown));
             form.Controls.Add(new LabelWithImage(CheckoutTotal.ToString(), new Vector2(1120, 1350), Defaults.Brown, "DaySetup_IconPrice", Align.Right, 50, -120));
@@ -81,6 +88,12 @@ namespace SnowConeTycoon.Shared.Screens
             PositionInvEnd = new Vector2(0, Defaults.GraphicsHeight - ContentHandler.Images["DaySetup_Inventory"].Height - 200);
             CheckoutButton.Reset();
             BackButton.Reset();
+            pickerCone.Value = 0;
+            pickerSyrup.Value = 0;
+            pickerFlyer.Value = 0;
+            pickerCone.Visible = false;
+            pickerSyrup.Visible = false;
+            pickerFlyer.Visible = false;
         }
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
@@ -109,6 +122,23 @@ namespace SnowConeTycoon.Shared.Screens
 
                 totalLabel.SetText(CheckoutTotal.ToString(), true);
             }
+        }
+
+        public SupplyShopResult CompleteTransaction()
+        {
+            UpdateCheckoutTotal();
+
+            if (Player.CoinCount < CheckoutTotal)
+            {
+                return SupplyShopResult.NotEnoughCoins;
+            }
+
+            Player.AddCoins(-CheckoutTotal);
+            Player.AddCones(pickerCone.Value);
+            Player.AddSyrup(pickerSyrup.Value);
+            Player.AddFlyer(pickerFlyer.Value);
+
+            return SupplyShopResult.Success;
         }
 
         public void Update(GameTime gameTime)

@@ -19,10 +19,11 @@ namespace SnowConeTycoon.Shared.Services
             var results = new BusinessDayResult()
             {
                 SnowConePrice = price,
-                CoinsPrevious = Player.CoinCount
+                CoinsPrevious = Player.CoinCount,
+                SyrupPerSnowCone = syrup
             };
 
-            results.PotentialCustomers = (int)(forecast.Temperature / (double)2);
+            results.PotentialCustomers = (int)(forecast.Temperature / (double)4);
 
             var rankLeadsMin = 0;
             var rankLeadsMax = 1;
@@ -113,6 +114,16 @@ namespace SnowConeTycoon.Shared.Services
             var potentialSoldMax = (int)(results.PotentialCustomers * basePurchaseMax);
 
             results.SnowConesSold = Utilities.GetRandomInt(potentialSoldMin, potentialSoldMax);
+
+            if (Player.ConeCount < results.SnowConesSold)
+            {
+                results.SnowConesSold = Player.ConeCount;
+            }
+
+            if (Player.SyrupCount < results.SnowConesSold * syrup)
+            {
+                results.SnowConesSold = (int)(Player.SyrupCount / (double)syrup);
+            }
 
             switch (forecast.Forecast)
             {
