@@ -47,6 +47,7 @@ namespace SnowConeTycoon.Shared
         Form FormResults;
         Form FormSupplyShop;
         Form FormDailyBonus;
+        Form FormOutOfIce;
 
         LoadingScreen LoadingScreen;
         LogoScreen LogoScreen;
@@ -55,6 +56,7 @@ namespace SnowConeTycoon.Shared
         OpenForBusinessScreen OpenForBusinessScreen;
         ResultsScreen ResultsScreen;
         SupplyShopScreen SupplyShopScreen;
+        OutOfIceModal OutOfIceModal;
 
         Dictionary<string, IBackground> Backgrounds;
         Dictionary<string, IBackgroundEffect> BackgroundEffects;
@@ -400,13 +402,21 @@ namespace SnowConeTycoon.Shared
                     }
                     else
                     {
-                        //TODO show "Out of Ice!" popup, with a button to watch an ad
+                        //show "Out of Ice!" popup, with a button to watch an ad
+                        OutOfIceModal.Active = true;
                     }
                 });
 
                 return true;
             }, "pop", scaleX, scaleY));
             FormDaySetup.Controls.Add(new Button(new Rectangle(1125, 1650, 190, 165), () =>
+            {
+                CurrentScreen = Screen.RewardAd;
+                return true;
+            }, string.Empty, scaleX, scaleY));
+
+            FormOutOfIce = new Form(0, 0);
+            FormOutOfIce.Controls.Add(new Button(new Rectangle(1125, 1475, 400, 200), () =>
             {
                 CurrentScreen = Screen.RewardAd;
                 return true;
@@ -545,6 +555,7 @@ namespace SnowConeTycoon.Shared
             ResultsScreen = new ResultsScreen(scaleX, scaleY);
             SupplyShopScreen = new SupplyShopScreen(scaleX, scaleY);
             DailyBonusScreen = new DailyBonusScreen();
+            OutOfIceModal = new OutOfIceModal(scaleX, scaleY);
 
             IceParticleEmitter = new ParticleEmitter(100, 1375, 110, 40, 2000, "particle_ice", 3.25f);
             IceParticleEmitter.Gravity = 30f;
@@ -598,6 +609,11 @@ namespace SnowConeTycoon.Shared
                 {
                     DaySetupScreen.HandleInput(previousTouchCollection, currentTouchCollection);
                     FormDaySetup.HandleInput(previousTouchCollection, currentTouchCollection);
+
+                    if (OutOfIceModal.Active)
+                    {
+                        FormOutOfIce.HandleInput(previousTouchCollection, currentTouchCollection);
+                    }
                 }
                 else if (CurrentScreen == Screen.OpenForBusiness)
                 {
@@ -676,6 +692,17 @@ namespace SnowConeTycoon.Shared
                     FormDaySetup.Update(gameTime);
 
                     FormDaySetup.Ready = DaySetupScreen.IsReady();
+
+                    if (OutOfIceModal.Active)
+                    {
+                        FormOutOfIce.Ready = true;
+                        FormOutOfIce.Update(gameTime);
+
+                        if (Player.IceCount > 0)
+                        {
+                            OutOfIceModal.Active = false;
+                        }
+                    }
                 }
                 else if (CurrentScreen == Screen.OpenForBusiness)
                 {
@@ -798,6 +825,11 @@ namespace SnowConeTycoon.Shared
                 CurrentBackgroundEffect?.Draw(spriteBatch);
                 DaySetupScreen.Draw(spriteBatch);
                 FormDaySetup.Draw(spriteBatch);
+
+                if (OutOfIceModal.Active)
+                {
+                    FormOutOfIce.Draw(spriteBatch);
+                }
             }
             else if (CurrentScreen == Screen.Results)
             {

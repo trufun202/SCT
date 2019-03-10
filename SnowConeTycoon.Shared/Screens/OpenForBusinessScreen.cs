@@ -55,6 +55,7 @@ namespace SnowConeTycoon.Shared.Screens
             Customer.Update(gameTime);
         }
 
+
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(ContentHandler.Images["OpenForBusiness_Foreground"], new Vector2(0, 0), Color.White);

@@ -158,6 +158,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("DaySetup_WatchAd", content.Load<Texture2D>("DaySetup_WatchAd"));
             Images.Add("Results_Rank", content.Load<Texture2D>("Results_Rank"));
             Images.Add("Results_Next", content.Load<Texture2D>("Results_Next"));
+            Images.Add("DaySetup_OutOfIce", content.Load<Texture2D>("DaySetup_OutOfIce"));
 
             ///////////////////////////////////////////
             //SUPPLY SHOP
@@ -167,6 +168,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("SupplyShop_Minus", content.Load<Texture2D>("SupplyShop_Minus"));
             Images.Add("SupplyShop_Paper", content.Load<Texture2D>("SupplyShop_Paper"));
             Images.Add("SupplyShop_Plus", content.Load<Texture2D>("SupplyShop_Plus"));
+            Images.Add("SupplyShop_NotEnoughCoins", content.Load<Texture2D>("SupplyShop_NotEnoughCoins"));
 
             ///////////////////////////////////////////
             //SOUNDS
