@@ -109,7 +109,8 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="iOSWrapperGame.cs" />
-    <Compile Include="Ads\AdMobService.cs" />
+    <Compile Include="Ads\AdMobRewardService.cs" />
+    <Compile Include="Ads\AdMobInterstitialService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Entitlements.plist" />

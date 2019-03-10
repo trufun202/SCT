@@ -16,7 +16,7 @@ namespace SnowConeTycoon.Shared.Services
         {
             return new BusinessDayResult()
             {
-                DayQuote = quoteService.GetQuote(OverallDayOpinion.Perfect),
+                DayQuote = quoteService.GetQuote(OverallDayOpinion.Perfect, 20),
                 SnowConePrice = 2,
                 SnowConesSold = 20,
                 PotentialCustomers = 20,

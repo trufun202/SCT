@@ -89,7 +89,7 @@ namespace SnowConeTycoon.Shared.Screens
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(ContentHandler.Images["WhiteDot"], new Rectangle(0, 0, Defaults.GraphicsWidth, Defaults.GraphicsHeight), Color.FromNonPremultiplied(new Vector4(0,0,0, 0.5f)));
+            spriteBatch.Draw(ContentHandler.Images["WhiteDot"], new Rectangle(0, 0, Defaults.GraphicsWidth, Defaults.GraphicsHeight), Color.FromNonPremultiplied(new Vector4(0,0,0, 0.75f)));
             spriteBatch.Draw(ContentHandler.Images["DaySetup_Paper"], PaperPosition, Color.White);
             spriteBatch.DrawString(Defaults.Font, "daily bonus", new Vector2(Defaults.GraphicsWidth / 2, PaperPosition.Y + 300), Defaults.Brown, 0f, Defaults.Font.MeasureString("daily bonus") / 2, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(Defaults.Font, "consecutive\n      days", new Vector2((Defaults.GraphicsWidth / 2) - 300, PaperPosition.Y + 450), Defaults.Brown, 0f, Defaults.Font.MeasureString("consecutive\n      days") / 2, 0.5f, SpriteEffects.None, 1f);

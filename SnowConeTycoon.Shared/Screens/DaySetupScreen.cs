@@ -39,6 +39,7 @@ namespace SnowConeTycoon.Shared.Screens
         NumberPicker syrupPicker;
         NumberPicker flyerPicker;
         NumberPicker pricePicker;
+        AdRewardModal adRewardModal;
 
         public int SyrupCount
         {
@@ -66,6 +67,7 @@ namespace SnowConeTycoon.Shared.Screens
 
         public DaySetupScreen(double scaleX, double scaleY)
         {
+            adRewardModal = new AdRewardModal(scaleX, scaleY);
             ScaleX = scaleX;
             ScaleY = scaleY;
             DayImage = new ScaledImage("DaySetup_DayLabel", new Vector2(300, 200), 250);
@@ -107,14 +109,29 @@ namespace SnowConeTycoon.Shared.Screens
             pricePicker.Visible = false;
         }
 
+        public void ShowIceReward()
+        {
+            adRewardModal.Active = true;
+        }
+
+        public bool IsReady()
+        {
+            return TemperatureImage.IsDoneAnimating();
+        }
+
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
         {
-            form.HandleInput(previousTouchCollection, currentTouchCollection);
+            form?.HandleInput(previousTouchCollection, currentTouchCollection);
+
+            if (adRewardModal.Active)
+            {
+                adRewardModal.HandleInput(previousTouchCollection, currentTouchCollection);
+            }
         }
 
         public void Update(GameTime gameTime)
         {
-            form.Update(gameTime);
+            form?.Update(gameTime);
 
             if (AnimatingPaper)
             {
@@ -165,6 +182,11 @@ namespace SnowConeTycoon.Shared.Screens
                     DoneAnimating = true;
                 }
             }
+
+            if (adRewardModal.Active)
+            {
+                adRewardModal.Update(gameTime);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -200,7 +222,7 @@ namespace SnowConeTycoon.Shared.Screens
 
             spriteBatch.Draw(ContentHandler.Images["DaySetup_Paper"], PositionPaper, Color.White);
             spriteBatch.DrawString(Defaults.Font, "snow cone setup", new Vector2(PositionPaper.X + 350, PositionPaper.Y + 325), Defaults.Brown);
-            form.Draw(spriteBatch);
+            form?.Draw(spriteBatch);
 
             if (ShowingInventory)
             {
@@ -250,6 +272,13 @@ namespace SnowConeTycoon.Shared.Screens
                     LetsGoButton.Draw(spriteBatch);
                     BackButton.Draw(spriteBatch);
                 }
+            }
+
+            spriteBatch.Draw(ContentHandler.Images["DaySetup_IconShop"], new Vector2(1380, 40), Color.White);
+
+            if (adRewardModal.Active)
+            {
+                adRewardModal.Draw(spriteBatch);
             }
         }
     }

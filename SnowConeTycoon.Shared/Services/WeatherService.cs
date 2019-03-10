@@ -8,9 +8,9 @@ namespace SnowConeTycoon.Shared.Services
     public class WeatherService : IWeatherService
     {
         private int TemperatureDeviation = 10;
-        private int TemperatureOffset = 60;
-        private float SinRadius = 40f;
-        private float SinPeriod = 10f;
+        private int TemperatureOffset = 70;
+        private float SinRadius = 50f;
+        private float SinPeriod = 2f;
 
         public WeatherService()
         {
@@ -20,6 +20,17 @@ namespace SnowConeTycoon.Shared.Services
         {
             var dayForecast = new DayForecast();
             dayForecast.Temperature = (int)((float)Math.Sin((day + 5) / SinPeriod) * SinRadius) + Utilities.GetRandomInt(-TemperatureDeviation, TemperatureDeviation) + TemperatureOffset;
+
+            if (dayForecast.Temperature > 107)
+            {
+                dayForecast.Temperature -= 40;
+            }
+
+            if (dayForecast.Temperature < 18)
+            {
+                dayForecast.Temperature += 60;
+            }
+
             dayForecast.Forecast = GetForecastByTemperature(dayForecast.Temperature);
 
             return dayForecast;
@@ -39,7 +50,7 @@ namespace SnowConeTycoon.Shared.Services
             {
                 return Forecast.Cloudy;
             }
-            else if (temperature >= 60)
+            else if (temperature >= 45)
             {
                 return Forecast.Rain;
             }

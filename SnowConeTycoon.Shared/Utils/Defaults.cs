@@ -12,7 +12,7 @@ namespace SnowConeTycoon.Shared.Utils
         public static SpriteFont Font;
         public const string ListenConnectionString = "Endpoint=sb://chrosgames.servicebus.windows.net/;SharedAccessKeyName=SnowConeTycoonDefaultPolicy;SharedAccessKey=QOOEZ1UbIsiR6kLlZYlN3DsRXdYMBAvvyHGEfDjK1xs=";
         public const string NotificationHubName = "SnowConeTycoon";
-        public const int REWARD_ICE_COUNT = 5;
+        public const int REWARD_ICE_COUNT = 6;
         public const int DAY_COUNT_BETWEEN_ADS = 2;
 
         public static Color SkyBlue

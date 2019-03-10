@@ -9,7 +9,8 @@ namespace SnowConeTycoon.iOS
 {
     public class iOSWrapperGame : Game
     {
-        AdMobService AdMobService;
+        AdMobRewardService AdMobRewardService;
+        AdMobInterstitialService AdMobInterstitialService;
         public SnowConeTycoonGame SnowConeGame = new SnowConeTycoonGame();
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
@@ -31,7 +32,8 @@ namespace SnowConeTycoon.iOS
         {
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             SnowConeGame.LoadContent(Content);
-            AdMobService = new AdMobService(SnowConeGame);
+            AdMobRewardService = new AdMobRewardService(SnowConeGame);
+            AdMobInterstitialService = new AdMobInterstitialService(SnowConeGame);
         }
 
         protected override void OnDeactivated(object sender, EventArgs args)
@@ -64,6 +66,9 @@ namespace SnowConeTycoon.iOS
             else if (SnowConeGame.CurrentScreen == Shared.Enums.Screen.FullScreenAd)
             {
                 spriteBatch.Begin();
+
+                AdMobInterstitialService.ShowAd();
+
                 spriteBatch.End();
             }
             else

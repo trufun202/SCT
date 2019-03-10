@@ -101,13 +101,11 @@ namespace SnowConeTycoon.Shared.Services
                     basePurchaseMin = 0.2f;
                     basePurchaseMax = 0.4f;
                     idealSyrup = Utilities.GetRandomInt(1, 2);
-                    results.DayQuote = quoteService.GetQuote(OverallDayOpinion.WeatherRain);
                     break;
                 case Forecast.Snow:
                     basePurchaseMin = 0.0f;
                     basePurchaseMax = 0.1f;
                     idealSyrup = Utilities.GetRandomInt(1, 2);
-                    results.DayQuote = quoteService.GetQuote(OverallDayOpinion.WeatherCold);
                     break;
             }
 
@@ -115,6 +113,18 @@ namespace SnowConeTycoon.Shared.Services
             var potentialSoldMax = (int)(results.PotentialCustomers * basePurchaseMax);
 
             results.SnowConesSold = Utilities.GetRandomInt(potentialSoldMin, potentialSoldMax);
+
+            switch (forecast.Forecast)
+            {
+                case Forecast.Rain:
+                    results.DayQuote = quoteService.GetQuote(OverallDayOpinion.WeatherRain, results.SnowConesSold);
+                    break;
+                case Forecast.Snow:
+                    results.DayQuote = quoteService.GetQuote(OverallDayOpinion.WeatherCold, results.SnowConesSold);
+                    break;
+                default:
+                    break;
+            }
 
             var syrupDiff = Math.Abs(syrup - idealSyrup);
 
@@ -130,7 +140,7 @@ namespace SnowConeTycoon.Shared.Services
                 promoterMax = 1f;
                 passiveMin = 0f;
                 passiveMax = 0.1f;
-                results.DayQuote = quoteService.GetQuote(OverallDayOpinion.Perfect);
+                results.DayQuote = quoteService.GetQuote(OverallDayOpinion.Perfect, results.SnowConesSold);
             }
             else if (syrupDiff == 1)
             {
@@ -139,7 +149,7 @@ namespace SnowConeTycoon.Shared.Services
                 promoterMax = 0.8f;
                 passiveMin = 0.2f;
                 passiveMax = 0.5f;
-                results.DayQuote = quoteService.GetQuote(OverallDayOpinion.JustOkay);
+                results.DayQuote = quoteService.GetQuote(OverallDayOpinion.JustOkay, results.SnowConesSold);
             }
             else if (syrupDiff == 2)
             {
@@ -148,7 +158,7 @@ namespace SnowConeTycoon.Shared.Services
                 promoterMax = 0.3f;
                 passiveMin = 0.2f;
                 passiveMax = 0.4f;
-                results.DayQuote = quoteService.GetQuote(OverallDayOpinion.TooPlain);
+                results.DayQuote = quoteService.GetQuote(OverallDayOpinion.TooPlain, results.SnowConesSold);
             }
             else if (syrupDiff >= 3)
             {
@@ -157,7 +167,7 @@ namespace SnowConeTycoon.Shared.Services
                 promoterMax = 0.1f;
                 passiveMin = 0.2f;
                 passiveMax = 0.3f;
-                results.DayQuote = quoteService.GetQuote(OverallDayOpinion.TooSweet);
+                results.DayQuote = quoteService.GetQuote(OverallDayOpinion.TooSweet, results.SnowConesSold);
             }
 
             results.NPSPromoters = Utilities.GetRandomInt((int)(results.SnowConesSold * promoterMin), (int)(results.SnowConesSold * promoterMax));

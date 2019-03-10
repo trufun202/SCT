@@ -3,11 +3,11 @@ using Google.MobileAds;
 using SnowConeTycoon.Shared;
 using SnowConeTycoon.Shared.Utils;
 
-public class AdMobService : RewardBasedVideoAdDelegate
+public class AdMobRewardService : RewardBasedVideoAdDelegate
 {
-    private SnowConeTycoonGame Game;
+    private readonly SnowConeTycoonGame Game;
 
-    public AdMobService(SnowConeTycoonGame SnowConeGame)
+    public AdMobRewardService(SnowConeTycoonGame SnowConeGame)
     {
         Game = SnowConeGame;
         RewardBasedVideoAd.SharedInstance.Delegate = this;

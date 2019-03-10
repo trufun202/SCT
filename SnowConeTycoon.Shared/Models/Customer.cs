@@ -10,6 +10,7 @@ using SnowConeTycoon.Shared.Utils;
 using static SnowConeTycoon.Shared.Handlers.KidHandler;
 using SnowConeTycoon.Shared.Extensions;
 using SnowConeTycoon.Shared.Models;
+using SnowConeTycoon.Shared.Screens;
 
 namespace SnowConeTycoon.Shared.Kids
 {
@@ -31,7 +32,6 @@ namespace SnowConeTycoon.Shared.Kids
         private int ThoughtBubbleCount = 1;
         private NPS CurrentNPS = NPS.Promoter;
         private int Step = 15;
-        private GameSpeed GameSpeed = GameSpeed.x1;
         private BezierCurveImage coinImage;
         private bool ShowingCoin = false;
         private bool AnimatingCoin = false;
@@ -51,10 +51,12 @@ namespace SnowConeTycoon.Shared.Kids
         private SnowConeTycoonGame Game;
         private TimedEvent SpeedUpEvent;
         private TimedEvent DayDoneEvent;
+        private OpenForBusinessScreen Screen;
 
-        public Customer(SnowConeTycoonGame game)
+        public Customer(SnowConeTycoonGame game, OpenForBusinessScreen screen)
         {
             Game = game;
+            Screen = screen;
             ResetScene();
         }
 
@@ -155,7 +157,24 @@ namespace SnowConeTycoon.Shared.Kids
                 ThoughtBubbleCount++;
 
                 if (ThoughtBubbleCount > 3)
+                {
                     ThoughtBubbleCount = 3;
+                    switch (CurrentNPS)
+                    {
+                        case NPS.Detractor:
+                            KidHandler.CurrentKid.MakeMad();
+                            KidHandler.MakeKidMad(KidType, KidIndex);
+                            break;
+                        case NPS.Passive:
+                            KidHandler.CurrentKid.MakeSad();
+                            KidHandler.MakeKidSad(KidType, KidIndex);
+                            break;
+                        case NPS.Promoter:
+                            KidHandler.CurrentKid.MakeHappy();
+                            KidHandler.MakeKidHappy(KidType, KidIndex);
+                            break;
+                    }
+                }
             },
             -1);
             sinTime = 0;
@@ -165,16 +184,18 @@ namespace SnowConeTycoon.Shared.Kids
             IsApproaching = true;
             IsPurchasing = false;
             IsLeaving = false;
+
+
             KidType = Transactions[TransactionIndex].KidType;
             KidIndex = Transactions[TransactionIndex].KidIndex;
-            if (GameSpeed == GameSpeed.x1)
+            if (Player.GameSpeed == GameSpeed.x1)
             {
                 coinImage = new BezierCurveImage("DaySetup_IconPrice", 0, 0);
             }
             ShowingCoinEvent = new TimedEvent(1000,
             () =>
             {
-                if (GameSpeed == GameSpeed.x1)
+                if (Player.GameSpeed == GameSpeed.x1)
                 {
                     AnimatingCoin = true;
                     ContentHandler.Sounds["Magic Wand 1"].Play();
@@ -197,7 +218,7 @@ namespace SnowConeTycoon.Shared.Kids
 
         public bool SetSpeed1x()
         {
-            if (GameSpeed == GameSpeed.x1)
+            if (Player.GameSpeed == GameSpeed.x1)
                 return false;
 
             Reset();
@@ -206,7 +227,7 @@ namespace SnowConeTycoon.Shared.Kids
             purchaseEvent.TimeTotal = 2000;
             thoughtEvent.TimeTotal = 500;
             Step = 15;
-            GameSpeed = GameSpeed.x1;
+            Player.GameSpeed = GameSpeed.x1;
             CoinScaleTimeTotal = 250;
             AnimatingCoin = false;
             ParticleCircleEmitter.Reset();
@@ -216,7 +237,7 @@ namespace SnowConeTycoon.Shared.Kids
 
         public bool SetSpeed2x()
         {
-            if (GameSpeed == GameSpeed.x2)
+            if (Player.GameSpeed == GameSpeed.x2)
                 return false;
 
             Reset();
@@ -225,7 +246,7 @@ namespace SnowConeTycoon.Shared.Kids
             thoughtEvent.TimeTotal = 10;
             ShowingCoinEvent.TimeTotal = 50;
             Step = 48;
-            GameSpeed = GameSpeed.x2;
+            Player.GameSpeed = GameSpeed.x2;
             CoinScaleTimeTotal = 25;
             AnimatingCoin = false;
             return true;
@@ -280,20 +301,20 @@ namespace SnowConeTycoon.Shared.Kids
 
                     TransactionIndex++;
 
-                    if (TransactionIndex >= Transactions.Count)
+                    if (TransactionIndex >= Transactions.Count - 1)
                     {
                         Game.GoToResultsScreen(Results);
                     }
 
-                    if (GameSpeed == GameSpeed.x2)
+                    if (Player.GameSpeed == GameSpeed.x2)
                     {
-                        GameSpeed = GameSpeed.x1;
+                        Player.GameSpeed = GameSpeed.x1;
                         SetSpeed2x();
                     }
                 }
             }
 
-            if (GameSpeed == GameSpeed.x1)
+            if (Player.GameSpeed == GameSpeed.x1)
             {
                 ParticleEmitter.Update(gameTime);
                 ParticleCircleEmitter.Update(gameTime);
@@ -325,9 +346,9 @@ namespace SnowConeTycoon.Shared.Kids
 
                         if (CoinScaleDirection == 1)
                         {
-                            if (GameSpeed == GameSpeed.x2)
+                            if (Player.GameSpeed == GameSpeed.x2)
                             {
-                                Player.AddCoins(Results.SnowConePrice);
+                                Screen.AddCoinDisplay(Results.SnowConePrice);
                                 ContentHandler.Sounds["Cash Register Fast"].Play();
                             }
 
@@ -341,7 +362,7 @@ namespace SnowConeTycoon.Shared.Kids
             {
                 coinImage.Update(gameTime);
 
-                if (GameSpeed == GameSpeed.x1)
+                if (Player.GameSpeed == GameSpeed.x1)
                 {
                     ParticleEmitter.FlowOn = true;
                     ParticleEmitter.Position = coinImage.Position;
@@ -351,7 +372,7 @@ namespace SnowConeTycoon.Shared.Kids
                         ShowingCoin = false;
                         AnimatingCoin = false;
                         ParticleEmitter.FlowOn = false;
-                        Player.AddCoins(1);
+                        Screen.AddCoinDisplay(Results.SnowConePrice);
                         ContentHandler.Sounds["Cash Register Fast"].Play();
                     }
                 }
@@ -360,15 +381,20 @@ namespace SnowConeTycoon.Shared.Kids
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            if (GameSpeed == GameSpeed.x1)
+            if (Player.GameSpeed == GameSpeed.x1)
             {
                 ParticleEmitter.Draw(spriteBatch);
                 ParticleCircleEmitter.Draw(spriteBatch);
             }
 
-            if (IsApproaching || IsPurchasing || ShowingCoin || AnimatingCoin)
+            if (IsApproaching || IsPurchasing || (ShowingCoin && Player.GameSpeed == GameSpeed.x1) || AnimatingCoin)
             {
-                KidHandler.DrawKid(KidType, KidIndex, spriteBatch, (int)Position.X, (int)Position.Y, 1300, true, true);
+                var facingAway = true;
+
+                if (Player.GameSpeed == GameSpeed.x2)
+                    facingAway = false;
+
+                KidHandler.DrawKid(KidType, KidIndex, spriteBatch, (int)Position.X, (int)Position.Y, 1300, facingAway, true);
 
                 if (ShowingCoin || AnimatingCoin)
                 {
@@ -409,7 +435,7 @@ namespace SnowConeTycoon.Shared.Kids
                     }
                 }
             }
-            else if (IsLeaving)
+            else
             {
                 KidHandler.DrawKid(KidType, KidIndex, spriteBatch, (int)Position.X, (int)Position.Y, 1300, false, true);
             }

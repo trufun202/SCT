@@ -54,8 +54,11 @@ namespace SnowConeTycoon.Shared.Services
             Quotes.Add(OverallDayOpinion.WeatherCold, snowQuotes);
         }
 
-        public string GetQuote(OverallDayOpinion opinion)
+        public string GetQuote(OverallDayOpinion opinion, int soldCount)
         {
+            if (soldCount == 0)
+                return "...";
+
             var quotes = Quotes[opinion];
 
             return quotes[Utilities.GetRandomInt(0, quotes.Count - 1)];

@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Forms;
 using SnowConeTycoon.Shared.Handlers;
 using SnowConeTycoon.Shared.Kids;
@@ -18,21 +19,30 @@ namespace SnowConeTycoon.Shared.Screens
         Customer Customer;
         BusinessDayResult Results = new BusinessDayResult();
         SnowConeTycoonGame Game;
+        int CoinDisplay = 0;
 
         public OpenForBusinessScreen(SnowConeTycoonGame game, double scaleX, double scaleY)
         {
             Game = game;
-            Customer = new Customer(game);
+            Customer = new Customer(game, this);
             ScaleX = scaleX;
             ScaleY = scaleY;
             Form = new Form(0, 0);              
+        }
+
+        public void AddCoinDisplay(int count)
+        {
+            CoinDisplay += count;
         }
 
         public void Reset(BusinessDayResult results)
         {
             Customer.Reset(results);
             Customer.ResetScene();
+            Customer.SetSpeed1x();
+            Player.GameSpeed = GameSpeed.x1;
             Results = results;
+            CoinDisplay = Player.CoinCount;
         }
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
@@ -53,17 +63,17 @@ namespace SnowConeTycoon.Shared.Screens
             spriteBatch.Draw(ContentHandler.Images["DaySetup_InvIce"], new Vector2(185, 2020), Color.White);
             spriteBatch.Draw(ContentHandler.Images["DaySetup_InvSyrup"], new Vector2(200, 2220), Color.White);
 
-            spriteBatch.DrawString(Defaults.Font, "24", new Vector2(400, 1790), Defaults.Cream);
-            spriteBatch.DrawString(Defaults.Font, "4", new Vector2(400, 1990), Defaults.Cream);
-            spriteBatch.DrawString(Defaults.Font, "16", new Vector2(400, 2210), Defaults.Cream);
+            spriteBatch.DrawString(Defaults.Font, Player.ConeCount.ToString(), new Vector2(400, 1790), Defaults.Cream);
+            spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(400, 1990), Defaults.Cream);
+            spriteBatch.DrawString(Defaults.Font, Player.SyrupCount.ToString(), new Vector2(400, 2210), Defaults.Cream);
 
             spriteBatch.Draw(ContentHandler.Images["DaySetup_IconPrice"], new Vector2(40, -15), Color.White);
 
-            spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(218, 33), Defaults.Brown);
-            spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(218, 37), Defaults.Brown);
-            spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(222, 33), Defaults.Brown);
-            spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(222, 37), Defaults.Brown);
-            spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(220, 35), Defaults.Cream);
+            spriteBatch.DrawString(Defaults.Font, CoinDisplay.ToString(), new Vector2(218, 33), Defaults.Brown);
+            spriteBatch.DrawString(Defaults.Font, CoinDisplay.ToString(), new Vector2(218, 37), Defaults.Brown);
+            spriteBatch.DrawString(Defaults.Font, CoinDisplay.ToString(), new Vector2(222, 33), Defaults.Brown);
+            spriteBatch.DrawString(Defaults.Font, CoinDisplay.ToString(), new Vector2(222, 37), Defaults.Brown);
+            spriteBatch.DrawString(Defaults.Font, CoinDisplay.ToString(), new Vector2(220, 35), Defaults.Cream);
             Customer.Draw(spriteBatch);
         }
     }

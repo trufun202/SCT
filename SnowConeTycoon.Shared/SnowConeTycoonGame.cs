@@ -107,7 +107,14 @@ namespace SnowConeTycoon.Shared
 
         public void AddIce(int count)
         {
+            CurrentScreen = Screen.DaySetup;
             Player.AddIce(count);
+            DaySetupScreen.ShowIceReward();
+        }
+
+        public void InterstitialAdDone()
+        {
+            CurrentScreen = Screen.DaySetup;
         }
 
         public void SetWeather(DayForecast dayForecast)
@@ -200,9 +207,7 @@ namespace SnowConeTycoon.Shared
             DailyBonusEvent = new TimedEvent(500,
             () =>
             {
-                var ts = DateTime.Now - Player.DailyBonusLastReceived;
-
-                if (ts.Days >= 0)
+                if (Player.ConsecutiveDaysPlayed > 0)
                 {
                     DailyBonusScreen.Reset();
                     ShowingDailyBonus = true;
@@ -614,6 +619,14 @@ namespace SnowConeTycoon.Shared
                 {
                     LogoScreenEvent.Update(gameTime);
                     LogoScreen.Update(gameTime);
+
+                    //List<int> days = new List<int>();
+                    //for (int i = 1; i < 200; i++)
+                   // {
+                     //   days.Add(weatherService.GetForecast(i).Temperature);
+                   // }
+
+                    //var a = "asdf";
                 }
                 else if (CurrentScreen == Screen.Title)
                 {
@@ -630,6 +643,12 @@ namespace SnowConeTycoon.Shared
                     if (ShowingDailyBonus)
                     {
                         DailyBonusScreen.Update(gameTime);
+                        FormDailyBonus.Ready = true;
+                        FormTitle.Ready = false;
+                    }
+                    else
+                    {
+                        FormTitle.Ready = true;
                     }
                 }
                 else if (CurrentScreen == Screen.DaySetup)
@@ -638,6 +657,8 @@ namespace SnowConeTycoon.Shared
                     CurrentBackgroundEffect?.Update(gameTime);
                     DaySetupScreen.Update(gameTime);
                     FormDaySetup.Update(gameTime);
+
+                    FormDaySetup.Ready = DaySetupScreen.IsReady();
                 }
                 else if (CurrentScreen == Screen.OpenForBusiness)
                 {
@@ -646,6 +667,7 @@ namespace SnowConeTycoon.Shared
                     KidHandler.Update(gameTime);
                     OpenForBusinessScreen.Update(gameTime);
                     FormOpenForBusiness.Update(gameTime);
+                    FormOpenForBusiness.Ready = true;
                 }
                 else if (CurrentScreen == Screen.Results)
                 {
@@ -653,6 +675,7 @@ namespace SnowConeTycoon.Shared
                     CurrentBackgroundEffect?.Update(gameTime);
                     ResultsScreen.Update(gameTime);
                     FormResults.Update(gameTime);
+                    FormResults.Ready = ResultsScreen.IsReady();
                 }
                 else if (CurrentScreen == Screen.SupplyShop)
                 {
@@ -660,6 +683,8 @@ namespace SnowConeTycoon.Shared
                     //CurrentBackgroundEffect?.Update(gameTime);
                     SupplyShopScreen.Update(gameTime);
                     FormSupplyShop.Update(gameTime);
+
+                    FormSupplyShop.Ready = SupplyShopScreen.IsReady();
                 }
                 else if (CurrentScreen == Screen.CharacterSelect)
                 {
@@ -711,6 +736,7 @@ namespace SnowConeTycoon.Shared
                     CurrentBackgroundEffect?.Update(gameTime);
                     KidHandler.Update(gameTime);
                     FormCharacterSelect.Update(gameTime);
+                    FormCharacterSelect.Ready = true;
                 }
             }
         }
@@ -755,7 +781,6 @@ namespace SnowConeTycoon.Shared
                 CurrentBackgroundEffect?.Draw(spriteBatch);
                 DaySetupScreen.Draw(spriteBatch);
                 FormDaySetup.Draw(spriteBatch);
-                spriteBatch.Draw(ContentHandler.Images["DaySetup_IconShop"], new Vector2(1380, 40), Color.White);
             }
             else if (CurrentScreen == Screen.Results)
             {

@@ -15,9 +15,11 @@ namespace SnowConeTycoon.Shared.Forms
         TimedEvent ReveilEvent;
         bool Reveiling = false;
         int ReveilIndex = 0;
+        public bool Ready = false;
 
         public Form(int x, int y)
         {
+            Ready = false;
             Controls = new List<IFormControl>();
             Position = new Vector2(x, y);
             ReveilEvent = new TimedEvent(200,
@@ -34,6 +36,7 @@ namespace SnowConeTycoon.Shared.Forms
                     else
                     {
                         Reveiling = false;
+                        Ready = true;
                     }
                 }
             }, -1);
@@ -61,9 +64,12 @@ namespace SnowConeTycoon.Shared.Forms
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
         {
-            foreach (var control in Controls)
+            if (Ready)
             {
-                control.HandleInput(previousTouchCollection, currentTouchCollection);
+                foreach (var control in Controls)
+                {
+                    control.HandleInput(previousTouchCollection, currentTouchCollection);
+                }
             }
         }
 

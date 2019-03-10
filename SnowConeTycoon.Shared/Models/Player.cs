@@ -18,6 +18,7 @@ namespace SnowConeTycoon.Shared.Models
         public static int ConsecutiveDaysPlayed { get; private set; }
         public static DateTime DailyBonusLastReceived { get; set; }
         public static int CurrentDay { get; set; }
+        public static GameSpeed GameSpeed = GameSpeed.x1;
 
         public static void Reset()
         {

@@ -64,7 +64,7 @@ namespace SnowConeTycoon.Shared.Particles
 
         public void Reset()
         {
-            FlowOn = true;
+            FlowOn = false;
             CircleTime = 0;
         }
 

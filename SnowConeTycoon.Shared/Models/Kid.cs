@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Handlers;
+using SnowConeTycoon.Shared.Models;
 using SnowConeTycoon.Shared.Particles;
 using SnowConeTycoon.Shared.Utils;
 
@@ -27,6 +28,7 @@ namespace SnowConeTycoon.Shared.Kids
         private ParticleEmitter ParticleEmitter;
         private TimedEvent ParticleEvent;
         public UnlockMechanism UnlockMechanism { get; set; }
+        private GameSpeed gameSpeed = GameSpeed.x1;
 
         public Kid(string name, string avatar, string eyes, bool locked = false, UnlockMechanism unlockMechanism = UnlockMechanism.None, int unlockValue = 0)
         {
@@ -64,6 +66,22 @@ namespace SnowConeTycoon.Shared.Kids
                 ParticleEmitter.Velocity = new Vector2(1350, 1350);
                 ParticleEmitter.SetCircularPath(300);
             }
+        }
+
+        public void SetGameSpeedx1()
+        {
+            gameSpeed = GameSpeed.x1;
+            EyeClosingEvent.TimeTotal = 3000;
+            EyeOpeningEvent.TimeTotal = 150;
+            EmotionEvent.TimeTotal = 6000;
+        }
+
+        public void SetGameSpeedx2()
+        {
+            gameSpeed = GameSpeed.x2;
+            EyeClosingEvent.TimeTotal = 3000;
+            EyeOpeningEvent.TimeTotal = 150;
+            EmotionEvent.TimeTotal = 6000;
         }
 
         public void Unlock()
@@ -156,6 +174,15 @@ namespace SnowConeTycoon.Shared.Kids
 
         public void Update(GameTime gameTime)
         {
+            if (Player.GameSpeed == GameSpeed.x1 && gameSpeed == GameSpeed.x2)
+            {
+                SetGameSpeedx1();
+            }
+            else if (Player.GameSpeed == GameSpeed.x2 && gameSpeed == GameSpeed.x1)
+            {
+                SetGameSpeedx2();
+            }
+
             if (IsBlinking)
             {
                 EyeOpeningEvent.Update(gameTime);

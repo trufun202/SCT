@@ -24,8 +24,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Forms\IFormControl.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\ContentHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Handlers\KidHandler.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Kids\IKid.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Kids\Kid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ScreenTransitions\FadeTransition.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ScreenTransitions\IScreenTransition.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)SnowConeTycoonGame.cs" />
@@ -35,7 +33,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Forms\NumberPicker.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Animations\BlindOpenImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\OpenForBusinessScreen.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Kids\Customer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\LogoScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Animations\BezierCurveImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Particles\IParticle.cs" />
@@ -53,7 +50,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Forms\LabelWithImage.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\LoadingScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\DayQuoteService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Kids\CustomerTransaction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ExtensionMethods.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\WeatherService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\Mocks\MockAverageBusinessDayService.cs" />
@@ -72,6 +68,11 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\DeviceStorageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\GameData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\BusinessDayService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\AdRewardModal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Customer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\CustomerTransaction.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Kid.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\Interfaces\IKid.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
@@ -89,5 +90,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Services\Mocks\" />
     <Folder Include="$(MSBuildThisFileDirectory)Services\Interfaces\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Models\Interfaces\" />
   </ItemGroup>
 </Project>
