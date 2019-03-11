@@ -52,6 +52,7 @@ namespace SnowConeTycoon.Shared.Kids
         private TimedEvent SpeedUpEvent;
         private TimedEvent DayDoneEvent;
         private OpenForBusinessScreen Screen;
+        bool PlayedSound = false;
 
         public Customer(SnowConeTycoonGame game, OpenForBusinessScreen screen)
         {
@@ -127,6 +128,7 @@ namespace SnowConeTycoon.Shared.Kids
                 Game.GoToResultsScreen(Results);
             }, 1);
             SetSpeed1x();
+            PlayedSound = false;
         }
 
         public void Reset(BusinessDayResult results)
@@ -240,6 +242,11 @@ namespace SnowConeTycoon.Shared.Kids
             if (Player.GameSpeed == GameSpeed.x2)
                 return false;
 
+            if (!PlayedSound)
+            {
+                PlayedSound = true;
+                ContentHandler.Sounds["Fast Forward"].Play();
+            }
             Reset();
             sinWalkEvent.TimeTotal = 50;
             purchaseEvent.TimeTotal = 100;

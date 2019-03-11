@@ -1,4 +1,6 @@
 ﻿using System;
+using SnowConeTycoon.Shared.Enums;
+
 namespace SnowConeTycoon.Shared.Models
 {
     public class BusinessDayResult
@@ -13,5 +15,6 @@ namespace SnowConeTycoon.Shared.Models
         public int CoinsPrevious { get; set; }
         public int CoinsEarned { get; set; }
         public int SyrupPerSnowCone { get; set; }
+        public OverallDayOpinion OverallDayOpinion { get; set; }
     }
 }

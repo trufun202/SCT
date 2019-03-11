@@ -202,7 +202,7 @@ namespace SnowConeTycoon.Shared
                 Fade.Reset(() =>
                 {
                     CurrentScreen = Screen.Title;
-                    //XnaMediaPlayer.Play(ContentHandler.Songs["Song1"]);
+                    //XnaMediaPlayer.Play(ContentHandler.Songs["MainTheme"]);
                     //XnaMediaPlayer.IsRepeating = true;
                 });
             },
@@ -473,7 +473,7 @@ namespace SnowConeTycoon.Shared
                 var result = SupplyShopScreen.CompleteTransaction();
                 if (result == SupplyShopResult.Success)
                 {
-                    ContentHandler.Sounds["Game Coin"].Play();
+                    ContentHandler.Sounds["Cash Register Fast"].Play();
                     Fade.Reset(() =>
                     {
                         DaySetupScreen.ResetPickerMax();

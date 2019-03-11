@@ -12,6 +12,7 @@ namespace SnowConeTycoon.Shared.Screens
     {
         public bool Active = false;
         Form form;
+        bool PlayedSound = false;
 
         public AdRewardModal(double scaleX, double scaleY)
         {
@@ -23,6 +24,11 @@ namespace SnowConeTycoon.Shared.Screens
                 return true;
             }, string.Empty, scaleX, scaleY));
             form.Ready = true;
+        }
+
+        public void Reset()
+        {
+            PlayedSound = false;
         }
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
@@ -37,6 +43,12 @@ namespace SnowConeTycoon.Shared.Screens
 
         public void Draw(SpriteBatch spriteBatch)
         {
+            if (!PlayedSound)
+            {
+                PlayedSound = true;
+                ContentHandler.Sounds["Ice_Cube"].Play();
+            }
+
             spriteBatch.Draw(ContentHandler.Images["WhiteDot"], new Rectangle(0, 0, Defaults.GraphicsWidth, Defaults.GraphicsHeight), Color.FromNonPremultiplied(new Vector4(0, 0, 0, 0.75f)));
             spriteBatch.Draw(ContentHandler.Images["AdReward_Modal"], new Rectangle((int)(Defaults.GraphicsWidth / 2), (int)(Defaults.GraphicsHeight / 2), ContentHandler.Images["AdReward_Modal"].Width, ContentHandler.Images["AdReward_Modal"].Height), null, Color.White, 0f, new Vector2((int)(ContentHandler.Images["AdReward_Modal"].Width / 2), (int)(ContentHandler.Images["AdReward_Modal"].Height / 2)), SpriteEffects.None, 1f);
             form.Draw(spriteBatch);

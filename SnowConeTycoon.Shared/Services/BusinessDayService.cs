@@ -128,10 +128,10 @@ namespace SnowConeTycoon.Shared.Services
             switch (forecast.Forecast)
             {
                 case Forecast.Rain:
-                    results.DayQuote = quoteService.GetQuote(OverallDayOpinion.WeatherRain, results.SnowConesSold);
+                    results.OverallDayOpinion = OverallDayOpinion.WeatherRain;
                     break;
                 case Forecast.Snow:
-                    results.DayQuote = quoteService.GetQuote(OverallDayOpinion.WeatherCold, results.SnowConesSold);
+                    results.OverallDayOpinion = OverallDayOpinion.WeatherCold;
                     break;
                 default:
                     break;
@@ -151,7 +151,7 @@ namespace SnowConeTycoon.Shared.Services
                 promoterMax = 1f;
                 passiveMin = 0f;
                 passiveMax = 0.1f;
-                results.DayQuote = quoteService.GetQuote(OverallDayOpinion.Perfect, results.SnowConesSold);
+                results.OverallDayOpinion = OverallDayOpinion.Perfect;
             }
             else if (syrupDiff == 1)
             {
@@ -160,7 +160,7 @@ namespace SnowConeTycoon.Shared.Services
                 promoterMax = 0.8f;
                 passiveMin = 0.2f;
                 passiveMax = 0.5f;
-                results.DayQuote = quoteService.GetQuote(OverallDayOpinion.JustOkay, results.SnowConesSold);
+                results.OverallDayOpinion = OverallDayOpinion.JustOkay;
             }
             else if (syrupDiff == 2)
             {
@@ -169,7 +169,7 @@ namespace SnowConeTycoon.Shared.Services
                 promoterMax = 0.3f;
                 passiveMin = 0.2f;
                 passiveMax = 0.4f;
-                results.DayQuote = quoteService.GetQuote(OverallDayOpinion.TooPlain, results.SnowConesSold);
+                results.OverallDayOpinion = OverallDayOpinion.TooPlain;
             }
             else if (syrupDiff >= 3)
             {
@@ -177,10 +177,11 @@ namespace SnowConeTycoon.Shared.Services
                 promoterMin = 0.0f;
                 promoterMax = 0.1f;
                 passiveMin = 0.2f;
-                passiveMax = 0.3f;
-                results.DayQuote = quoteService.GetQuote(OverallDayOpinion.TooSweet, results.SnowConesSold);
+                passiveMax = 0.3f; 
+                results.OverallDayOpinion = OverallDayOpinion.TooSweet;
             }
 
+            results.DayQuote = quoteService.GetQuote(results.OverallDayOpinion, results.SnowConesSold);
             results.NPSPromoters = Utilities.GetRandomInt((int)(results.SnowConesSold * promoterMin), (int)(results.SnowConesSold * promoterMax));
             results.NPSPassives = Utilities.GetRandomInt((int)(results.SnowConesSold * passiveMin), (int)(results.SnowConesSold * passiveMax));
             results.NPSDetractors = results.SnowConesSold - results.NPSPromoters - results.NPSPassives;

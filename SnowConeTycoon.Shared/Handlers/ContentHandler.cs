@@ -179,6 +179,14 @@ namespace SnowConeTycoon.Shared.Handlers
             Sounds.Add("Cash Register Fast", content.Load<SoundEffect>("Cash Register Fast"));
             Sounds.Add("Magic Wand 1", content.Load<SoundEffect>("Magic Wand 1"));
             Sounds.Add("Ice_Cube", content.Load<SoundEffect>("Ice_Cube"));
+            Sounds.Add("ChrosGame_Logo", content.Load<SoundEffect>("ChrosGame_Logo"));
+            Sounds.Add("Ding", content.Load<SoundEffect>("Ding"));
+            Sounds.Add("Fast Forward", content.Load<SoundEffect>("Fast Forward"));
+            Sounds.Add("kids_cheer", content.Load<SoundEffect>("kids_cheer"));
+            Sounds.Add("kids_aww", content.Load<SoundEffect>("kids_aww"));
+            Sounds.Add("kids_boo", content.Load<SoundEffect>("kids_boo"));
+            Sounds.Add("Picker_Down", content.Load<SoundEffect>("Picker_Down"));
+            Sounds.Add("Picker_Up", content.Load<SoundEffect>("Picker_Up"));
 
             ///////////////////////////////////////////
             //SONGS
@@ -186,6 +194,8 @@ namespace SnowConeTycoon.Shared.Handlers
             Songs.Add("Song1", content.Load<Song>("Song1"));
             Songs.Add("Song2", content.Load<Song>("Song2"));
             Songs.Add("Song3", content.Load<Song>("Song3"));
+            Songs.Add("MainTheme", content.Load<Song>("MainTheme"));
+            Songs.Add("OpenForBusiness", content.Load<Song>("OpenForBusiness"));
         }
     }
 }

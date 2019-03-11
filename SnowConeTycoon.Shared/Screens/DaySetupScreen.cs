@@ -121,6 +121,7 @@ namespace SnowConeTycoon.Shared.Screens
 
         public void ShowIceReward()
         {
+            adRewardModal.Reset();
             adRewardModal.Active = true;
         }
 

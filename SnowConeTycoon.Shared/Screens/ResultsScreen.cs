@@ -51,6 +51,7 @@ namespace SnowConeTycoon.Shared.Screens
         bool NPSTickerDone = false;
         bool RankDone = false;
         BusinessDayResult Results = new BusinessDayResult();
+        bool PlayedKidSound = false;
 
         public ResultsScreen(double scaleX, double scaleY)
         {
@@ -98,6 +99,7 @@ namespace SnowConeTycoon.Shared.Screens
             PromoterCount = 0;
             NPSTickerDone = false;
             TickTime = 0;
+            PlayedKidSound = false;
         }
 
         public void ResetAndSetResults(BusinessDayResult results)
@@ -193,6 +195,26 @@ namespace SnowConeTycoon.Shared.Screens
                             && PromoterCount == Results.NPSPromoters)
                         {
                             NPSTickerDone = true;
+
+                            if (!PlayedKidSound)
+                            {
+                                PlayedKidSound = true;
+                                switch (Results.OverallDayOpinion)
+                                {
+                                    case OverallDayOpinion.Perfect:
+                                        ContentHandler.Sounds["kids_cheer"].Play();
+                                        break;
+                                    case OverallDayOpinion.JustOkay:
+                                    case OverallDayOpinion.WeatherRain:
+                                        ContentHandler.Sounds["kids_aww"].Play();
+                                        break;
+                                    case OverallDayOpinion.TooSweet:
+                                    case OverallDayOpinion.TooPlain:
+                                    case OverallDayOpinion.WeatherCold:
+                                        ContentHandler.Sounds["kids_boo"].Play();
+                                        break;
+                                }
+                            }
                         }
                     }
                 }
@@ -205,7 +227,7 @@ namespace SnowConeTycoon.Shared.Screens
                 {
                     NextButton.Update(gameTime);
                 }
-                else if (NextButton.IsDoneAnimating())
+                else if (NextButton.IsDoneAnimating() && !DoneAnimating)
                 {
                     DoneAnimating = true;
                 }

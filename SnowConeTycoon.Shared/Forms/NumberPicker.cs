@@ -48,7 +48,7 @@ namespace SnowConeTycoon.Shared.Forms
                     }
                     return true;
                 },
-             "",
+             "Picker_Down",
              scaleX,
              scaleY);
 
@@ -62,7 +62,7 @@ namespace SnowConeTycoon.Shared.Forms
                  }
                  return true;
              },
-             "",
+             "Picker_Up",
              scaleX,
              scaleY);
         }
