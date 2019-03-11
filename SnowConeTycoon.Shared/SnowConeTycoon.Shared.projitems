@@ -74,6 +74,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Models\Kid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Interfaces\IKid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\OutOfIceModal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\NotEnoughCoinsModal.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

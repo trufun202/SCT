@@ -8,21 +8,29 @@ public class AdMobInterstitialService : IInterstitialDelegate
 {
     private SnowConeTycoonGame Game;
     private Interstitial interstitial;
+    public bool AdLoaded = false;
 
     public AdMobInterstitialService(SnowConeTycoonGame SnowConeGame)
+    {
+        Game = SnowConeGame;
+        LoadAd();
+    }
+
+    public void LoadAd()
     {
         interstitial = new Interstitial("ca-app-pub-7775864718817628/7572434112");
         interstitial.Delegate = this;
         interstitial.ScreenDismissed += Interstitial_ScreenDismissed;
-        Game = SnowConeGame;
 
         var request = Request.GetDefaultRequest();
         request.TestDevices = new[] { "2693502e8e082cb9db4c3b1124d2622026621f23" };
         interstitial.LoadRequest(request);
+        AdLoaded = true;
     }
 
     void Interstitial_ScreenDismissed(object sender, EventArgs e)
     {
+        AdLoaded = false;
         Game.InterstitialAdDone();
     }
 

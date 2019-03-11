@@ -913,6 +913,18 @@
 /processorParam:TextureFormat=Color
 /build:DaySetup_NumControl.png
 
+#begin DaySetup_OutOfIce.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:DaySetup_OutOfIce.png
+
 #begin DaySetup_Paper.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2238,6 +2250,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SupplyShop_Minus.png
+
+#begin SupplyShop_NotEnoughCoins.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SupplyShop_NotEnoughCoins.png
 
 #begin SupplyShop_Paper.png
 /importer:TextureImporter
