@@ -202,8 +202,8 @@ namespace SnowConeTycoon.Shared
                 Fade.Reset(() =>
                 {
                     CurrentScreen = Screen.Title;
-                    //XnaMediaPlayer.Play(ContentHandler.Songs["MainTheme"]);
-                    //XnaMediaPlayer.IsRepeating = true;
+                    XnaMediaPlayer.Play(ContentHandler.Songs["MainTheme"]);
+                    XnaMediaPlayer.IsRepeating = true;
                 });
             },
             1);
