@@ -195,6 +195,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Songs.Add("Song2", content.Load<Song>("Song2"));
             Songs.Add("Song3", content.Load<Song>("Song3"));
             Songs.Add("MainTheme", content.Load<Song>("MainTheme"));
+            Songs.Add("MainTheme2", content.Load<Song>("MainTheme2"));
             Songs.Add("OpenForBusiness", content.Load<Song>("OpenForBusiness"));
         }
     }
