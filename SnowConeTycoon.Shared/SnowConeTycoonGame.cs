@@ -47,6 +47,8 @@ namespace SnowConeTycoon.Shared
         Form FormResults;
         Form FormSupplyShop;
         Form FormDailyBonus;
+        Form FormOutOfIce;
+        Form FormNotEnoughCoins;
 
         LoadingScreen LoadingScreen;
         LogoScreen LogoScreen;
@@ -55,6 +57,8 @@ namespace SnowConeTycoon.Shared
         OpenForBusinessScreen OpenForBusinessScreen;
         ResultsScreen ResultsScreen;
         SupplyShopScreen SupplyShopScreen;
+        OutOfIceModal OutOfIceModal;
+        NotEnoughCoinsModal NotEnoughCoinsModal;
 
         Dictionary<string, IBackground> Backgrounds;
         Dictionary<string, IBackgroundEffect> BackgroundEffects;
@@ -198,7 +202,7 @@ namespace SnowConeTycoon.Shared
                 Fade.Reset(() =>
                 {
                     CurrentScreen = Screen.Title;
-                    //XnaMediaPlayer.Play(ContentHandler.Songs["Song1"]);
+                    //XnaMediaPlayer.Play(ContentHandler.Songs["MainTheme"]);
                     //XnaMediaPlayer.IsRepeating = true;
                 });
             },
@@ -390,15 +394,31 @@ namespace SnowConeTycoon.Shared
             }, "pop", scaleX, scaleY));
             FormDaySetup.Controls.Add(new Button(new Rectangle(925, 2375, 592, 250), () =>
             {
-                Fade.Reset(() =>
+                if (Player.IceCount > 0)
                 {
-                    OpenForBusinessScreen.Reset(businessDayService.CalculateDay(weatherService.GetForecast(Player.CurrentDay), Player.ConeCount, DaySetupScreen.SyrupCount, DaySetupScreen.FlyerCount, DaySetupScreen.Price));
-                    CurrentScreen = Screen.OpenForBusiness;
-                });
+                    Fade.Reset(() =>
+                    {
+                        Player.AddIce(-1);
+                        OpenForBusinessScreen.Reset(businessDayService.CalculateDay(weatherService.GetForecast(Player.CurrentDay), Player.ConeCount, DaySetupScreen.SyrupCount, DaySetupScreen.FlyerCount, DaySetupScreen.Price));
+                        CurrentScreen = Screen.OpenForBusiness;
+                    });
+                }
+                else
+                {
+                    //show "Out of Ice!" popup, with a button to watch an ad
+                    OutOfIceModal.Active = true;
+                }
 
                 return true;
             }, "pop", scaleX, scaleY));
             FormDaySetup.Controls.Add(new Button(new Rectangle(1125, 1650, 190, 165), () =>
+            {
+                CurrentScreen = Screen.RewardAd;
+                return true;
+            }, string.Empty, scaleX, scaleY));
+
+            FormOutOfIce = new Form(0, 0);
+            FormOutOfIce.Controls.Add(new Button(new Rectangle(950, 1350, 500, 300), () =>
             {
                 CurrentScreen = Screen.RewardAd;
                 return true;
@@ -450,14 +470,32 @@ namespace SnowConeTycoon.Shared
             }, "pop", scaleX, scaleY));
             FormSupplyShop.Controls.Add(new Button(new Rectangle(925, 2375, 592, 250), () =>
             {
-                Fade.Reset(() =>
+                var result = SupplyShopScreen.CompleteTransaction();
+                if (result == SupplyShopResult.Success)
                 {
-                    //TODO checkout items purchased on supply screen
-                    CurrentScreen = Screen.DaySetup;
-                });
+                    ContentHandler.Sounds["Cash Register Fast"].Play();
+                    Fade.Reset(() =>
+                    {
+                        DaySetupScreen.ResetPickerMax();
+                        CurrentScreen = Screen.DaySetup;
+                    });
+                }
+                else
+                {
+                    //show "Not enough coins!" error modal
+                    NotEnoughCoinsModal.Active = true;
+                }
 
                 return true;
-            }, "pop", scaleX, scaleY));
+            }, "", scaleX, scaleY));
+
+            FormNotEnoughCoins = new Form(0, 0);
+            FormNotEnoughCoins.Controls.Add(new Button(new Rectangle(1125, 1175, 200, 200),
+            () =>
+            {
+                NotEnoughCoinsModal.Active = false;
+                return true;
+            }, string.Empty, scaleX, scaleY));
 
             FormDailyBonus = new Form(0, 0);
             FormDailyBonus.Controls.Add(new Button(new Rectangle(1275, 675, 200, 200), () =>
@@ -480,7 +518,6 @@ namespace SnowConeTycoon.Shared
                                 IceParticleEmitter.FlowOn = false;
                             },
                             1);
-
                         },
                         Player.GetIceEarned());
 
@@ -528,6 +565,8 @@ namespace SnowConeTycoon.Shared
             ResultsScreen = new ResultsScreen(scaleX, scaleY);
             SupplyShopScreen = new SupplyShopScreen(scaleX, scaleY);
             DailyBonusScreen = new DailyBonusScreen();
+            OutOfIceModal = new OutOfIceModal(scaleX, scaleY);
+            NotEnoughCoinsModal = new NotEnoughCoinsModal(scaleX, scaleY);
 
             IceParticleEmitter = new ParticleEmitter(100, 1375, 110, 40, 2000, "particle_ice", 3.25f);
             IceParticleEmitter.Gravity = 30f;
@@ -581,6 +620,11 @@ namespace SnowConeTycoon.Shared
                 {
                     DaySetupScreen.HandleInput(previousTouchCollection, currentTouchCollection);
                     FormDaySetup.HandleInput(previousTouchCollection, currentTouchCollection);
+
+                    if (OutOfIceModal.Active)
+                    {
+                        FormOutOfIce.HandleInput(previousTouchCollection, currentTouchCollection);
+                    }
                 }
                 else if (CurrentScreen == Screen.OpenForBusiness)
                 {
@@ -596,6 +640,12 @@ namespace SnowConeTycoon.Shared
                 {
                     SupplyShopScreen.HandleInput(previousTouchCollection, currentTouchCollection);
                     FormSupplyShop.HandleInput(previousTouchCollection, currentTouchCollection);
+
+                    if (NotEnoughCoinsModal.Active)
+                    {
+                        FormNotEnoughCoins.Ready = true;
+                        FormNotEnoughCoins.HandleInput(previousTouchCollection, currentTouchCollection);
+                    }
                 }
 
                 previousTouchCollection = currentTouchCollection;
@@ -659,6 +709,17 @@ namespace SnowConeTycoon.Shared
                     FormDaySetup.Update(gameTime);
 
                     FormDaySetup.Ready = DaySetupScreen.IsReady();
+
+                    if (OutOfIceModal.Active)
+                    {
+                        FormOutOfIce.Ready = true;
+                        FormOutOfIce.Update(gameTime);
+
+                        if (Player.IceCount > 0)
+                        {
+                            OutOfIceModal.Active = false;
+                        }
+                    }
                 }
                 else if (CurrentScreen == Screen.OpenForBusiness)
                 {
@@ -685,6 +746,12 @@ namespace SnowConeTycoon.Shared
                     FormSupplyShop.Update(gameTime);
 
                     FormSupplyShop.Ready = SupplyShopScreen.IsReady();
+
+                    if (NotEnoughCoinsModal.Active)
+                    {
+                        FormSupplyShop.Update(gameTime);
+                        NotEnoughCoinsModal.Update(gameTime);
+                    }
                 }
                 else if (CurrentScreen == Screen.CharacterSelect)
                 {
@@ -781,6 +848,12 @@ namespace SnowConeTycoon.Shared
                 CurrentBackgroundEffect?.Draw(spriteBatch);
                 DaySetupScreen.Draw(spriteBatch);
                 FormDaySetup.Draw(spriteBatch);
+
+                if (OutOfIceModal.Active)
+                {
+                    OutOfIceModal.Draw(spriteBatch);
+                    FormOutOfIce.Draw(spriteBatch);
+                }
             }
             else if (CurrentScreen == Screen.Results)
             {
@@ -795,6 +868,12 @@ namespace SnowConeTycoon.Shared
                 //CurrentBackgroundEffect?.Draw(spriteBatch);
                 SupplyShopScreen.Draw(spriteBatch);
                 FormSupplyShop.Draw(spriteBatch);
+
+                if (NotEnoughCoinsModal.Active)
+                {
+                    NotEnoughCoinsModal.Draw(spriteBatch);
+                    FormNotEnoughCoins.Draw(spriteBatch);
+                }
             }
             else if (CurrentScreen == Screen.CharacterSelect)
             {

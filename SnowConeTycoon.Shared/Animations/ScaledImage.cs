@@ -16,6 +16,7 @@ namespace SnowConeTycoon.Shared.Animations
         float Scale = 20f;
         Vector2 ScaleStart = new Vector2(20, 1);
         Vector2 ScaleEnd = new Vector2(1, 1);
+        bool PlayedSound = false;
         
         public ScaledImage(string imageName, Vector2 position, int scaleTimeTotal = 500)
         {
@@ -30,10 +31,17 @@ namespace SnowConeTycoon.Shared.Animations
         {
             ScaleTime = 0;
             Scale = 20;
+            PlayedSound = false;
         }
 
         public void Update(GameTime gameTime)
         {
+            if (!PlayedSound)
+            {
+                PlayedSound = true;
+                ContentHandler.Sounds["Swoosh"].Play();
+            }
+
             ScaleTime += gameTime.ElapsedGameTime.Milliseconds;
 
             var amt = ScaleTime / (float)ScaleTimeTotal;

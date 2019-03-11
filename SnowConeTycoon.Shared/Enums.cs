@@ -18,6 +18,12 @@ namespace SnowConeTycoon.Shared.Enums
         FullScreenAd
     }
 
+    public enum SupplyShopResult
+    {
+        Success,
+        NotEnoughCoins
+    }
+
     public enum OverallDayOpinion
     {
         Perfect,

@@ -144,16 +144,25 @@ namespace SnowConeTycoon.Shared.Models
         public static void AddIce(int count)
         {
             IceCount += count;
+
+            if (IceCount < 0)
+                IceCount = 0;
         }
 
         public static void AddSyrup(int count)
         {
             SyrupCount += count;
+
+            if (SyrupCount < 0)
+                SyrupCount = 0;
         }
 
         public static void AddFlyer(int count)
         {
             FlyerCount += count;
+
+            if (FlyerCount < 0)
+                FlyerCount = 0;
         }
 
         public static void SetCoins(int count)

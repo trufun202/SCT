@@ -21,6 +21,7 @@ namespace SnowConeTycoon.Shared.Screens
         int DayStatTime = 0;
         int DayStatTimeTotal = 200;
         ScaledImage EarnedCheckImage;
+        bool PlayedDing = false;
 
         public DailyBonusScreen()
         {
@@ -36,6 +37,7 @@ namespace SnowConeTycoon.Shared.Screens
             ShowingDayStats = 0;
             DayStatTime = 0;
             EarnedCheckImage = new ScaledImage("DailyBonus_Check", new Vector2((Defaults.GraphicsWidth / 2) - 370, PaperPositionEnd.Y + 480 + (Player.ConsecutiveDaysPlayed * 150)));
+            PlayedDing = false;
         }
 
         public bool ScreenHasLoaded()
@@ -84,6 +86,15 @@ namespace SnowConeTycoon.Shared.Screens
             if (ShowingDayStats > 5)
             {
                 EarnedCheckImage.Update(gameTime);
+            }
+
+            if (EarnedCheckImage.IsDoneAnimating())
+            {
+                if (!PlayedDing)
+                {
+                    PlayedDing = true;
+                    ContentHandler.Sounds["Ding"].Play();
+                }
             }
         }
 

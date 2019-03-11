@@ -4,6 +4,7 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using SnowConeTycoon.Shared.Handlers;
 
 namespace SnowConeTycoon.Shared.Forms
 {
@@ -28,6 +29,7 @@ namespace SnowConeTycoon.Shared.Forms
                 if (Reveiling)
                 {
                     Controls[ReveilIndex].Visible = true;
+                    ContentHandler.Sounds["Swoosh"].Play();
 
                     if (ReveilIndex < Controls.Count - 1)
                     {

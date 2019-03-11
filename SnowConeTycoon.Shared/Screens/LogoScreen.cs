@@ -52,6 +52,7 @@ namespace SnowConeTycoon.Shared.Screens
                 {
                     AnimatingLogo = false;
                     AnimatingCircle = true;
+                    ContentHandler.Sounds["ChrosGame_Logo"].Play();
                 }
             }
             else if (AnimatingCircle)

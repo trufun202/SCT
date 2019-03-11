@@ -67,6 +67,11 @@ namespace SnowConeTycoon.iOS
             {
                 spriteBatch.Begin();
 
+                if (!AdMobInterstitialService.AdLoaded)
+                {
+                    AdMobInterstitialService.LoadAd();
+                }
+
                 AdMobInterstitialService.ShowAd();
 
                 spriteBatch.End();

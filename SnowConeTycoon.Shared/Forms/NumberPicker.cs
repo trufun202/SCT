@@ -14,8 +14,8 @@ namespace SnowConeTycoon.Shared.Forms
         private int IconWidth = 200;
         private int LabelWidth = 450;
         private Vector2 Position;
-        private int Min;
-        private int Max;
+        public int Min;
+        public int Max;
         public int Value;
         public Rectangle Bounds { get; set; }
         Button LessButton;
@@ -48,7 +48,7 @@ namespace SnowConeTycoon.Shared.Forms
                     }
                     return true;
                 },
-             "",
+             "Picker_Down",
              scaleX,
              scaleY);
 
@@ -62,7 +62,7 @@ namespace SnowConeTycoon.Shared.Forms
                  }
                  return true;
              },
-             "",
+             "Picker_Up",
              scaleX,
              scaleY);
         }

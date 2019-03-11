@@ -646,6 +646,12 @@
 /processorParam:TextureFormat=Color
 /build:CharacterSelectScreen_Foreground.png
 
+#begin ChrosGame_Logo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:ChrosGame_Logo.wav
+
 #begin ChrosGamesLogoCircle.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -901,6 +907,18 @@
 /processorParam:TextureFormat=Color
 /build:DaySetup_LetsGo.png
 
+#begin DaySetup_LetsGo.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:DaySetup_LetsGo.png
+
 #begin DaySetup_NumControl.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -912,6 +930,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:DaySetup_NumControl.png
+
+#begin DaySetup_OutOfIce.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:DaySetup_OutOfIce.png
 
 #begin DaySetup_Paper.png
 /importer:TextureImporter
@@ -960,6 +990,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:debugbox.png
+
+#begin Ding.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Ding.wav
 
 #begin Eyes_Closed1.png
 /importer:TextureImporter
@@ -1068,6 +1104,12 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Eyes_Open7.png
+
+#begin Fast Forward.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Fast Forward.wav
 
 #begin Game Coin.wav
 /importer:WavImporter
@@ -1603,6 +1645,24 @@
 /processorParam:TextureFormat=Color
 /build:IconSnowCone.png
 
+#begin kids_aww.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:kids_aww.wav
+
+#begin kids_boo.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:kids_boo.wav
+
+#begin kids_cheer.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:kids_cheer.wav
+
 #begin Loading_Bar01.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -1728,6 +1788,12 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Magic Wand 1.wav
+
+#begin MainTheme.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:MainTheme.mp3
 
 #begin mouth_happy1.png
 /importer:TextureImporter
@@ -2101,6 +2167,12 @@
 /processorParam:TextureFormat=Color
 /build:nps_promoter.png
 
+#begin OpenForBusiness.mp3
+/importer:Mp3Importer
+/processor:SongProcessor
+/processorParam:Quality=Best
+/build:OpenForBusiness.mp3
+
 #begin OpenForBusiness_Foreground.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2136,6 +2208,24 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:particle_ice.png
+
+#begin Picker_Down.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Picker_Down.wav
+
+#begin Picker_Up.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Picker_Up.wav
+
+#begin pop.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:pop.wav
 
 #begin pop.wav
 /importer:WavImporter
@@ -2238,6 +2328,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:SupplyShop_Minus.png
+
+#begin SupplyShop_NotEnoughCoins.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SupplyShop_NotEnoughCoins.png
 
 #begin SupplyShop_Paper.png
 /importer:TextureImporter

@@ -107,10 +107,21 @@ namespace SnowConeTycoon.Shared.Screens
             syrupPicker.Visible = false;
             flyerPicker.Visible = false;
             pricePicker.Visible = false;
+            syrupPicker.Value = 0;
+            flyerPicker.Value = 0;
+            pricePicker.Value = 1;
+            ResetPickerMax();
+        }
+
+        public void ResetPickerMax()
+        {
+            syrupPicker.Max = Player.SyrupCount;
+            flyerPicker.Max = Player.FlyerCount;
         }
 
         public void ShowIceReward()
         {
+            adRewardModal.Reset();
             adRewardModal.Active = true;
         }
 
