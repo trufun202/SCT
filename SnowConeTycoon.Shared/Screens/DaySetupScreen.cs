@@ -39,6 +39,7 @@ namespace SnowConeTycoon.Shared.Screens
         NumberPicker syrupPicker;
         NumberPicker flyerPicker;
         NumberPicker pricePicker;
+        Label lineLabel;
         AdRewardModal adRewardModal;
 
         public int SyrupCount
@@ -75,9 +76,10 @@ namespace SnowConeTycoon.Shared.Screens
             TemperatureImage = new ScaledImage("DaySetup_DayLabel", new Vector2(1200, 200), 250);
             LetsGoButton = new ScaledImage("DaySetup_LetsGo", new Vector2(1200, 2500), 500);
             BackButton = new ScaledImage("DaySetup_Back", new Vector2(350, 2470), 500);
-            syrupPicker = new NumberPicker("DaySetup_IconFlavor", "syrup", new Vector2(250, 550), 0, 10, ScaleX, ScaleY, false);
-            flyerPicker = new NumberPicker("DaySetup_IconFlyer", "flyers", new Vector2(250, 800), 0, 10, ScaleX, ScaleY, false);
-            pricePicker = new NumberPicker("DaySetup_IconPrice", "price", new Vector2(250, 1200), 1, 10, ScaleX, ScaleY, false);
+            syrupPicker = new NumberPicker("DaySetup_IconFlavor", "squirts", new Vector2(250, 550), 0, 6, ScaleX, ScaleY, false);
+            lineLabel = new Label("---------------------------------", new Vector2(250, 750), Defaults.Brown);
+            flyerPicker = new NumberPicker("DaySetup_IconFlyer", "flyers", new Vector2(250, 950), 0, 10, ScaleX, ScaleY, false);
+            pricePicker = new NumberPicker("DaySetup_IconPrice", "price", new Vector2(250, 1200), 1, 6, ScaleX, ScaleY, false);
         }
 
         public void Reset(int temperature)
@@ -86,8 +88,8 @@ namespace SnowConeTycoon.Shared.Screens
             DoneAnimating = false;
             form = new Form(0, 0);
             form.Controls.Add(syrupPicker);
+            form.Controls.Add(lineLabel);
             form.Controls.Add(flyerPicker);
-            form.Controls.Add(new Label("---------------------------------", new Vector2(250, 1000), Defaults.Brown));
             form.Controls.Add(pricePicker);
 
             AnimatingPaper = true;
@@ -107,6 +109,7 @@ namespace SnowConeTycoon.Shared.Screens
             syrupPicker.Visible = false;
             flyerPicker.Visible = false;
             pricePicker.Visible = false;
+            lineLabel.Visible = false;
             syrupPicker.Value = 0;
             flyerPicker.Value = 0;
             pricePicker.Value = 1;
@@ -115,8 +118,8 @@ namespace SnowConeTycoon.Shared.Screens
 
         public void ResetPickerMax()
         {
-            syrupPicker.Max = Player.SyrupCount;
-            flyerPicker.Max = Player.FlyerCount;
+            syrupPicker.Max = Player.SyrupCount < 6 ? Player.SyrupCount : 6;
+            flyerPicker.Max = Player.FlyerCount < 30 ? Player.FlyerCount : 30;
         }
 
         public void ShowIceReward()

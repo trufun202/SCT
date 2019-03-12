@@ -79,6 +79,8 @@ namespace SnowConeTycoon.Shared.Services
             var basePurchaseMax = 0f;
             var idealSyrup = 0;
 
+            Player.AddFlyer(-flyers);
+
             results.DayQuote = string.Empty;
 
             switch (forecast.Forecast)
