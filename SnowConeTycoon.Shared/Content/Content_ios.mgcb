@@ -1789,12 +1789,6 @@
 /processorParam:Quality=Best
 /build:Magic Wand 1.wav
 
-#begin MainTheme.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:MainTheme.mp3
-
 #begin mouth_happy1.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2167,12 +2161,6 @@
 /processorParam:TextureFormat=Color
 /build:nps_promoter.png
 
-#begin OpenForBusiness.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:OpenForBusiness.mp3
-
 #begin OpenForBusiness_Foreground.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2257,29 +2245,17 @@
 /processorParam:TextureFormat=Color
 /build:Results_Rank.png
 
-#begin Song1.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
+#begin SCTMainTheme.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Song1.mp3
+/build:SCTMainTheme.wav
 
-#begin Song2.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
+#begin SCTOpenForBusiness.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
 /processorParam:Quality=Best
-/build:Song2.mp3
-
-#begin Song3.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Song3.mp3
-
-#begin Summer Breeze.mp3
-/importer:Mp3Importer
-/processor:SongProcessor
-/processorParam:Quality=Best
-/build:Summer Breeze.mp3
+/build:SCTOpenForBusiness.wav
 
 #begin SupplyShop_Background.png
 /importer:TextureImporter

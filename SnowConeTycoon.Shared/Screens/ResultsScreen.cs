@@ -202,9 +202,9 @@ namespace SnowConeTycoon.Shared.Screens
                                 switch (Results.OverallDayOpinion)
                                 {
                                     case OverallDayOpinion.Perfect:
-                                        ContentHandler.Sounds["kids_cheer"].Play();
-                                        break;
                                     case OverallDayOpinion.JustOkay:
+                                        ContentHandler.Sounds["kids_cheer"].Play();
+                                        break;                                    
                                     case OverallDayOpinion.WeatherRain:
                                         ContentHandler.Sounds["kids_aww"].Play();
                                         break;
