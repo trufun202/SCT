@@ -73,7 +73,7 @@ namespace SnowConeTycoon.Shared.Forms
             }
         }
 
-        public bool HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
+        public bool HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection, GameTime gameTime)
         {
             return false;
         }

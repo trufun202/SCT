@@ -26,6 +26,8 @@ namespace SnowConeTycoon.Shared.Forms
         int TimeScaleIconTotal = 250;
         public bool Visible { get;set;}
         float IconScale = 1.0f;
+        TimedEvent holdEventInc;
+        TimedEvent holdEventDec;
 
         public NumberPicker(string icon, string label, Vector2 position, int min, int max, double scaleX, double scaleY, bool visible)
         {
@@ -37,6 +39,30 @@ namespace SnowConeTycoon.Shared.Forms
             Max = max;
             Value = min;
             Bounds = new Rectangle((int)position.X + IconWidth + LabelWidth, (int)position.Y, ContentHandler.Images["DaySetup_NumControl"].Width, ContentHandler.Images["DaySetup_NumControl"].Height);
+
+            holdEventDec = new TimedEvent(1000, () =>
+            {
+                Value -= 10;
+
+                if (Value < Min)
+                {
+                    Value = Min;
+                }
+                holdEventInc.Time = 0;
+                holdEventDec.TimeTotal = 250;
+            }, -1);
+
+            holdEventInc = new TimedEvent(1000, () =>
+            {
+                Value += 10;
+
+                if (Value > Max)
+                {
+                    Value = Max;
+                }
+                holdEventInc.Time = 0;
+                holdEventInc.TimeTotal = 250;
+            }, -1);
 
             LessButton = new Button(new Rectangle((int)position.X + IconWidth + LabelWidth, (int)position.Y, Bounds.Height, Bounds.Height),
              () =>
@@ -81,19 +107,44 @@ namespace SnowConeTycoon.Shared.Forms
             }
         }
 
-        public bool HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
+        public bool HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection, GameTime gameTime)
         {
             if (Visible)
             {
-                if (LessButton.HandleInput(previousTouchCollection, currentTouchCollection))
+                if (LessButton.HandleInput(previousTouchCollection, currentTouchCollection, gameTime))
                 {
                     ScalingIconUp = true;
                     return true;
                 }
 
-                if (MoreButton.HandleInput(previousTouchCollection, currentTouchCollection))
+                if (currentTouchCollection.Count > 0 && (currentTouchCollection[0].State == TouchLocationState.Moved || currentTouchCollection[0].State == TouchLocationState.Pressed))
+                {
+                    if (LessButton.Bounds.Contains((int)currentTouchCollection[0].Position.X, (int)currentTouchCollection[0].Position.Y))
+                    {
+                        holdEventDec.Update(gameTime);
+                    }
+                    else
+                    {
+                        holdEventDec.TimeTotal = 1000;
+                        holdEventDec.Time = 0;
+                    }
+
+                    if (MoreButton.Bounds.Contains((int)currentTouchCollection[0].Position.X, (int)currentTouchCollection[0].Position.Y))
+                    {
+                        holdEventInc.Update(gameTime);
+                    }
+                    else
+                    {
+                        holdEventInc.TimeTotal = 1000;
+                        holdEventInc.Time = 0;
+                    }
+                }
+
+                if (MoreButton.HandleInput(previousTouchCollection, currentTouchCollection, gameTime))
                 {
                     ScalingIconUp = true;
+                    holdEventInc.Update(gameTime);
+
                     return true;
                 }
             }
