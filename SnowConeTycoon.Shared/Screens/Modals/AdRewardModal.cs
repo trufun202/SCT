@@ -31,9 +31,9 @@ namespace SnowConeTycoon.Shared.Screens
             PlayedSound = false;
         }
 
-        public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
+        public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection, GameTime gameTime)
         {
-            form.HandleInput(previousTouchCollection, currentTouchCollection);
+            form.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
         }
 
         public void Update(GameTime gameTime)

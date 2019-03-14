@@ -68,13 +68,14 @@
     <Compile Include="$(MSBuildThisFileDirectory)Services\DeviceStorageService.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\GameData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Services\BusinessDayService.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Screens\AdRewardModal.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Customer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\CustomerTransaction.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Kid.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\Interfaces\IKid.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Screens\OutOfIceModal.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Screens\NotEnoughCoinsModal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\Modals\AdRewardModal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\Modals\NoSyrupModal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\Modals\NotEnoughCoinsModal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\Modals\OutOfIceModal.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />
@@ -93,5 +94,6 @@
     <Folder Include="$(MSBuildThisFileDirectory)Services\Interfaces\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\" />
     <Folder Include="$(MSBuildThisFileDirectory)Models\Interfaces\" />
+    <Folder Include="$(MSBuildThisFileDirectory)Screens\Modals\" />
   </ItemGroup>
 </Project>

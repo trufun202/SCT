@@ -133,13 +133,13 @@ namespace SnowConeTycoon.Shared.Screens
             return TemperatureImage.IsDoneAnimating();
         }
 
-        public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
+        public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection, GameTime gameTime)
         {
-            form?.HandleInput(previousTouchCollection, currentTouchCollection);
+            form?.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
 
             if (adRewardModal.Active)
             {
-                adRewardModal.HandleInput(previousTouchCollection, currentTouchCollection);
+                adRewardModal.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
             }
         }
 

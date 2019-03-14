@@ -17,5 +17,6 @@ namespace SnowConeTycoon.Shared.Models
         public DateTime LastPlayed { get; set; }
         public DateTime DailyBonusLastReceived { get; set; }
         public int CurrentDay { get; set; }
+        public int SoldCount { get; set; }
     }
 }

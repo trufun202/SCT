@@ -907,7 +907,7 @@
 /processorParam:TextureFormat=Color
 /build:DaySetup_LetsGo.png
 
-#begin DaySetup_LetsGo.png
+#begin DaySetup_NoSyrup.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -917,7 +917,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:DaySetup_LetsGo.png
+/build:DaySetup_NoSyrup.png
 
 #begin DaySetup_NumControl.png
 /importer:TextureImporter
@@ -2161,6 +2161,12 @@
 /processorParam:TextureFormat=Color
 /build:nps_promoter.png
 
+#begin Oops.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Oops.wav
+
 #begin OpenForBusiness_Foreground.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2208,12 +2214,6 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:Picker_Up.wav
-
-#begin pop.wav
-/importer:WavImporter
-/processor:SoundEffectProcessor
-/processorParam:Quality=Best
-/build:pop.wav
 
 #begin pop.wav
 /importer:WavImporter

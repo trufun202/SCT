@@ -45,7 +45,8 @@ namespace SnowConeTycoon.Shared.Models
                 CurrentDay = CurrentDay,
                 ConsecutiveDayCount = ConsecutiveDaysPlayed,
                 LastPlayed = DateTime.Now.Date,
-                DailyBonusLastReceived = DailyBonusLastReceived
+                DailyBonusLastReceived = DailyBonusLastReceived,
+                SoldCount = SoldCount
             };
         }
 
@@ -61,6 +62,7 @@ namespace SnowConeTycoon.Shared.Models
             ConsecutiveDaysPlayed = gameData.ConsecutiveDayCount;
             DailyBonusLastReceived = gameData.DailyBonusLastReceived;
             CurrentDay = gameData.CurrentDay;
+            SoldCount = gameData.SoldCount;
 
             TimeSpan ts = DateTime.Now.Date - gameData.LastPlayed;
 

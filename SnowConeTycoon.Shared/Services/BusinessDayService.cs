@@ -72,12 +72,12 @@ namespace SnowConeTycoon.Shared.Services
                     break;
             }
 
-            results.PotentialCustomers += Utilities.GetRandomInt(rankLeadsMin, rankLeadsMax);
+            results.PotentialCustomers += Utilities.GetRandomInt(rankLeadsMin, rankLeadsMax) + flyers;  //each flyer gives you 1 guaranteed lead
 
-            var soldCount = flyers;  //as a base, they'll get 1 purchase per flyer
             var basePurchaseMin = 0f;
             var basePurchaseMax = 0f;
             var idealSyrup = 0;
+            var idealPrice = 0;
 
             Player.AddFlyer(-flyers);
 
@@ -89,31 +89,63 @@ namespace SnowConeTycoon.Shared.Services
                     basePurchaseMin = 0.8f;
                     basePurchaseMax = 0.9f;
                     idealSyrup = Utilities.GetRandomInt(3, 4);
+                    idealPrice = Utilities.GetRandomInt(3, 5);
                     break;
                 case Forecast.Cloudy:
                     basePurchaseMin = 0.6f;
                     basePurchaseMax = 0.7f;
                     idealSyrup = Utilities.GetRandomInt(2, 3);
+                    idealPrice = Utilities.GetRandomInt(1, 3);
                     break;
                 case Forecast.PartlyCloudy:
                     basePurchaseMin = 0.7f;
                     basePurchaseMax = 0.8f;
                     idealSyrup = Utilities.GetRandomInt(2, 4);
+                    idealPrice = Utilities.GetRandomInt(2, 4);
                     break;
                 case Forecast.Rain:
                     basePurchaseMin = 0.2f;
                     basePurchaseMax = 0.4f;
                     idealSyrup = Utilities.GetRandomInt(1, 2);
+                    idealPrice = Utilities.GetRandomInt(1, 2);
                     break;
                 case Forecast.Snow:
                     basePurchaseMin = 0.0f;
                     basePurchaseMax = 0.1f;
                     idealSyrup = Utilities.GetRandomInt(1, 2);
+                    idealPrice = Utilities.GetRandomInt(1, 1);
                     break;
             }
 
             var potentialSoldMin = (int)(results.PotentialCustomers * basePurchaseMin);
             var potentialSoldMax = (int)(results.PotentialCustomers * basePurchaseMax);
+
+            var priceDiff = price - idealPrice;  //3 - 5 = -2
+
+            if (priceDiff == 1)
+            {
+                //a little pricey
+                potentialSoldMin = (int)(potentialSoldMin * 0.75f);
+                potentialSoldMax = (int)(potentialSoldMax * 0.75f);
+            }
+            else if (priceDiff == 2)
+            {
+                //pretty pricey
+                potentialSoldMin = (int)(potentialSoldMin * 0.5f);
+                potentialSoldMax = (int)(potentialSoldMax * 0.5f);
+            }
+            else if (priceDiff == 3)
+            {
+                //quite pricey
+                potentialSoldMin = (int)(potentialSoldMin * 0.25f);
+                potentialSoldMax = (int)(potentialSoldMax * 0.25f);
+            }
+            else
+            {
+                //way too damn expensive!
+                potentialSoldMin = (int)(potentialSoldMin * 0.1f);
+                potentialSoldMax = (int)(potentialSoldMax * 0.1f);
+            }
 
             results.SnowConesSold = Utilities.GetRandomInt(potentialSoldMin, potentialSoldMax);
 

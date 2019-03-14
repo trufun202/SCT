@@ -96,9 +96,9 @@ namespace SnowConeTycoon.Shared.Screens
             pickerFlyer.Visible = false;
         }
 
-        public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
+        public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection, GameTime gameTime)
         {
-            form.HandleInput(previousTouchCollection, currentTouchCollection);
+            form.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
             UpdateCheckoutTotal();
         }
 

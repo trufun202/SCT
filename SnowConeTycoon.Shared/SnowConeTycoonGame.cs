@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -49,6 +50,7 @@ namespace SnowConeTycoon.Shared
         Form FormDailyBonus;
         Form FormOutOfIce;
         Form FormNotEnoughCoins;
+        Form FormNoSyrup;
 
         LoadingScreen LoadingScreen;
         LogoScreen LogoScreen;
@@ -59,6 +61,7 @@ namespace SnowConeTycoon.Shared
         SupplyShopScreen SupplyShopScreen;
         OutOfIceModal OutOfIceModal;
         NotEnoughCoinsModal NotEnoughCoinsModal;
+        NoSyrupModal NoSyrupModal;
 
         Dictionary<string, IBackground> Backgrounds;
         Dictionary<string, IBackgroundEffect> BackgroundEffects;
@@ -92,6 +95,8 @@ namespace SnowConeTycoon.Shared
         TimedEvent IceParticleTimedEvent;
         PulseImage IceIcon;
         int DaysSinceAd = 0;
+        SoundEffectInstance songMainTheme;
+        SoundEffectInstance songOpenForBusiness;
 
         public SnowConeTycoonGame()
         {
@@ -105,6 +110,8 @@ namespace SnowConeTycoon.Shared
             {
                 ResultsScreen.ResetAndSetResults(results);
                 CurrentScreen = Screen.Results;
+                songOpenForBusiness.Stop();
+                songMainTheme.Play();
                 //CurrentScreen = Screen.SupplyShop;
             });
         }
@@ -113,12 +120,14 @@ namespace SnowConeTycoon.Shared
         {
             CurrentScreen = Screen.DaySetup;
             Player.AddIce(count);
+            songMainTheme.Resume();
             DaySetupScreen.ShowIceReward();
         }
 
         public void InterstitialAdDone()
         {
             CurrentScreen = Screen.DaySetup;
+            songMainTheme.Resume();
         }
 
         public void SetWeather(DayForecast dayForecast)
@@ -191,6 +200,11 @@ namespace SnowConeTycoon.Shared
                     if (ContentLoaded)
                     {
                         CurrentScreen = Screen.Logo;
+
+                        songMainTheme = ContentHandler.Sounds["SCTMainTheme"].CreateInstance();
+                        songOpenForBusiness = ContentHandler.Sounds["SCTOpenForBusiness"].CreateInstance();
+                        songMainTheme.IsLooped = true;
+                        songOpenForBusiness.IsLooped = true;
                     }
                 });
             },
@@ -204,7 +218,8 @@ namespace SnowConeTycoon.Shared
                     CurrentScreen = Screen.Title;
                     //XnaMediaPlayer.Play(ContentHandler.Songs["MainTheme2"]);
                     //XnaMediaPlayer.IsRepeating = true;
-                    ContentHandler.Sounds["SCTMainTheme"].Play();
+                    songOpenForBusiness.Stop();
+                    songMainTheme.Play();
                 });
             },
             1);
@@ -258,14 +273,8 @@ namespace SnowConeTycoon.Shared
             FormTitle.Controls.Add(new Button(new Rectangle(30, 2144, 1485, 205), () =>
             {
                 CurrentScreen = Screen.RewardAd;
-
-                //Fade.Reset(() =>
-                //{
-                //   ResultsScreen.ResetAndSetResults(businessDayService.CalculateDay(Forecast.Sunny, 0, 0, 0, 2));
-                //    CurrentScreen = Screen.Results;
-                //    //CurrentScreen = Screen.SupplyShop;
-                //});
-
+                songMainTheme.Pause();
+                //TODO maybe watch an add to earn coins???
                 return true;
             }, "pop", scaleX, scaleY));
             /////////////////////////
@@ -395,26 +404,39 @@ namespace SnowConeTycoon.Shared
             }, "pop", scaleX, scaleY));
             FormDaySetup.Controls.Add(new Button(new Rectangle(925, 2375, 592, 250), () =>
             {
-                if (Player.IceCount > 0)
+                if (Player.IceCount > 0 && DaySetupScreen.SyrupCount > 0)
                 {
                     Fade.Reset(() =>
                     {
+                        songMainTheme.Stop();
+                        songOpenForBusiness.Play();
                         Player.AddIce(-1);
                         OpenForBusinessScreen.Reset(businessDayService.CalculateDay(weatherService.GetForecast(Player.CurrentDay), Player.ConeCount, DaySetupScreen.SyrupCount, DaySetupScreen.FlyerCount, DaySetupScreen.Price));
                         CurrentScreen = Screen.OpenForBusiness;
                     });
                 }
-                else
+                else if (Player.IceCount <= 0)
                 {
                     //show "Out of Ice!" popup, with a button to watch an ad
                     OutOfIceModal.Active = true;
+                    ContentHandler.Sounds["Oops"].Play();
+                    return false;
+                }
+                else
+                {
+                    //tell the player to add some syrup!
+                    //TODO this means the player can get stuck...if they're out of money and syrup, they can't play the game...hmmmmmmmm
+                    NoSyrupModal.Active = true;
+                    ContentHandler.Sounds["Oops"].Play();
+                    return false;
                 }
 
                 return true;
-            }, "pop", scaleX, scaleY));
+            }, "Ice_Cube", scaleX, scaleY));
             FormDaySetup.Controls.Add(new Button(new Rectangle(1125, 1650, 190, 165), () =>
             {
                 CurrentScreen = Screen.RewardAd;
+                songMainTheme.Pause();
                 return true;
             }, string.Empty, scaleX, scaleY));
 
@@ -422,6 +444,7 @@ namespace SnowConeTycoon.Shared
             FormOutOfIce.Controls.Add(new Button(new Rectangle(950, 1350, 500, 300), () =>
             {
                 CurrentScreen = Screen.RewardAd;
+                songMainTheme.Pause();
                 return true;
             }, string.Empty, scaleX, scaleY));
 
@@ -453,6 +476,7 @@ namespace SnowConeTycoon.Shared
                     {
                         DaysSinceAd = 0;
                         CurrentScreen = Screen.FullScreenAd;
+                        songMainTheme.Pause();
                     }
                 });
 
@@ -485,6 +509,7 @@ namespace SnowConeTycoon.Shared
                 {
                     //show "Not enough coins!" error modal
                     NotEnoughCoinsModal.Active = true;
+                    ContentHandler.Sounds["Oops"].Play();
                 }
 
                 return true;
@@ -495,6 +520,14 @@ namespace SnowConeTycoon.Shared
             () =>
             {
                 NotEnoughCoinsModal.Active = false;
+                return true;
+            }, string.Empty, scaleX, scaleY));
+
+            FormNoSyrup = new Form(0, 0);
+            FormNoSyrup.Controls.Add(new Button(new Rectangle(1125, 1175, 200, 200),
+            () =>
+            {
+                NoSyrupModal.Active = false;
                 return true;
             }, string.Empty, scaleX, scaleY));
 
@@ -568,6 +601,7 @@ namespace SnowConeTycoon.Shared
             DailyBonusScreen = new DailyBonusScreen();
             OutOfIceModal = new OutOfIceModal(scaleX, scaleY);
             NotEnoughCoinsModal = new NotEnoughCoinsModal(scaleX, scaleY);
+            NoSyrupModal = new NoSyrupModal(scaleX, scaleY);
 
             IceParticleEmitter = new ParticleEmitter(100, 1375, 110, 40, 2000, "particle_ice", 3.25f);
             IceParticleEmitter.Gravity = 30f;
@@ -606,46 +640,50 @@ namespace SnowConeTycoon.Shared
                 {
                     if (ShowingDailyBonus)
                     {
-                        FormDailyBonus.HandleInput(previousTouchCollection, currentTouchCollection);
+                        FormDailyBonus.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
                     }
                     else
                     {
-                        FormTitle.HandleInput(previousTouchCollection, currentTouchCollection);
+                        FormTitle.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
                     }
                 }
                 else if (CurrentScreen == Screen.CharacterSelect)
                 {
-                    FormCharacterSelect.HandleInput(previousTouchCollection, currentTouchCollection);
+                    FormCharacterSelect.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
                 }
                 else if (CurrentScreen == Screen.DaySetup)
                 {
-                    DaySetupScreen.HandleInput(previousTouchCollection, currentTouchCollection);
-                    FormDaySetup.HandleInput(previousTouchCollection, currentTouchCollection);
+                    DaySetupScreen.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
+                    FormDaySetup.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
 
                     if (OutOfIceModal.Active)
                     {
-                        FormOutOfIce.HandleInput(previousTouchCollection, currentTouchCollection);
+                        FormOutOfIce.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
+                    }
+                    else if (NoSyrupModal.Active)
+                    {
+                        FormNoSyrup.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
                     }
                 }
                 else if (CurrentScreen == Screen.OpenForBusiness)
                 {
-                    OpenForBusinessScreen.HandleInput(previousTouchCollection, currentTouchCollection);
-                    FormOpenForBusiness.HandleInput(previousTouchCollection, currentTouchCollection);
+                    OpenForBusinessScreen.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
+                    FormOpenForBusiness.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
                 }
                 else if (CurrentScreen == Screen.Results)
                 {
                     ResultsScreen.HandleInput(previousTouchCollection, currentTouchCollection);
-                    FormResults.HandleInput(previousTouchCollection, currentTouchCollection);
+                    FormResults.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
                 }
                 else if (CurrentScreen == Screen.SupplyShop)
                 {
-                    SupplyShopScreen.HandleInput(previousTouchCollection, currentTouchCollection);
-                    FormSupplyShop.HandleInput(previousTouchCollection, currentTouchCollection);
+                    SupplyShopScreen.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
+                    FormSupplyShop.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
 
                     if (NotEnoughCoinsModal.Active)
                     {
                         FormNotEnoughCoins.Ready = true;
-                        FormNotEnoughCoins.HandleInput(previousTouchCollection, currentTouchCollection);
+                        FormNotEnoughCoins.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
                     }
                 }
 
@@ -720,6 +758,11 @@ namespace SnowConeTycoon.Shared
                         {
                             OutOfIceModal.Active = false;
                         }
+                    }
+                    else if (NoSyrupModal.Active)
+                    {
+                        FormNoSyrup.Ready = true;
+                        FormNoSyrup.Update(gameTime);
                     }
                 }
                 else if (CurrentScreen == Screen.OpenForBusiness)
@@ -854,6 +897,11 @@ namespace SnowConeTycoon.Shared
                 {
                     OutOfIceModal.Draw(spriteBatch);
                     FormOutOfIce.Draw(spriteBatch);
+                }
+                else if (NoSyrupModal.Active)
+                {
+                    NoSyrupModal.Draw(spriteBatch);
+                    FormNoSyrup.Draw(spriteBatch);
                 }
             }
             else if (CurrentScreen == Screen.Results)

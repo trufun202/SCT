@@ -27,7 +27,7 @@ namespace SnowConeTycoon.Shared.Screens
             Customer = new Customer(game, this);
             ScaleX = scaleX;
             ScaleY = scaleY;
-            Form = new Form(0, 0);              
+            Form = new Form(0, 0);
         }
 
         public void AddCoinDisplay(int count)
@@ -37,6 +37,7 @@ namespace SnowConeTycoon.Shared.Screens
 
         public void Reset(BusinessDayResult results)
         {
+            Customer = new Customer(Game, this);
             Customer.Reset(results);
             Customer.ResetScene();
             Customer.SetSpeed1x();
@@ -45,16 +46,15 @@ namespace SnowConeTycoon.Shared.Screens
             CoinDisplay = Player.CoinCount;
         }
 
-        public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
+        public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection, GameTime gameTime)
         {
-            Form.HandleInput(previousTouchCollection, currentTouchCollection);
+            Form.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
         }
 
         public void Update(GameTime gameTime)
         {
             Customer.Update(gameTime);
         }
-
 
         public void Draw(SpriteBatch spriteBatch)
         {

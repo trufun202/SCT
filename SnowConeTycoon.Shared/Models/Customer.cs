@@ -306,9 +306,8 @@ namespace SnowConeTycoon.Shared.Kids
 
                 if (Position.Y > Defaults.GraphicsHeight - 700)
                 {
-                    Reset();
-
                     TransactionIndex++;
+                    Reset();
 
                     if (TransactionIndex >= Transactions.Count - 1)
                     {

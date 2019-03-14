@@ -64,13 +64,13 @@ namespace SnowConeTycoon.Shared.Forms
             return true;
         }
 
-        public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
+        public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection, GameTime gameTime)
         {
             if (Ready)
             {
                 foreach (var control in Controls)
                 {
-                    control.HandleInput(previousTouchCollection, currentTouchCollection);
+                    control.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
                 }
             }
         }

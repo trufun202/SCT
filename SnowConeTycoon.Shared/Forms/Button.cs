@@ -33,7 +33,7 @@ namespace SnowConeTycoon.Shared.Forms
             this.rectangle = rectangle;
         }
 
-        public bool HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
+        public bool HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection, GameTime gameTime)
         {
             if (Visible)
             {

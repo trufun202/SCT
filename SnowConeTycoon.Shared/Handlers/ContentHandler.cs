@@ -159,6 +159,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("Results_Rank", content.Load<Texture2D>("Results_Rank"));
             Images.Add("Results_Next", content.Load<Texture2D>("Results_Next"));
             Images.Add("DaySetup_OutOfIce", content.Load<Texture2D>("DaySetup_OutOfIce"));
+            Images.Add("DaySetup_NoSyrup", content.Load<Texture2D>("DaySetup_NoSyrup"));
 
             ///////////////////////////////////////////
             //SUPPLY SHOP
@@ -187,6 +188,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Sounds.Add("kids_boo", content.Load<SoundEffect>("kids_boo"));
             Sounds.Add("Picker_Down", content.Load<SoundEffect>("Picker_Down"));
             Sounds.Add("Picker_Up", content.Load<SoundEffect>("Picker_Up"));
+            Sounds.Add("Oops", content.Load<SoundEffect>("Oops"));
 
             ///////////////////////////////////////////
             //SONGS
