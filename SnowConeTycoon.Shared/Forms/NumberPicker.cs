@@ -117,7 +117,8 @@ namespace SnowConeTycoon.Shared.Forms
                     return true;
                 }
 
-                if (currentTouchCollection.Count > 0 && (currentTouchCollection[0].State == TouchLocationState.Moved || currentTouchCollection[0].State == TouchLocationState.Pressed))
+                if (previousTouchCollection.Count > 0 && (previousTouchCollection[0].State == TouchLocationState.Moved || previousTouchCollection[0].State == TouchLocationState.Pressed) &&
+                    currentTouchCollection.Count > 0 && (currentTouchCollection[0].State == TouchLocationState.Moved || currentTouchCollection[0].State == TouchLocationState.Pressed))
                 {
                     if (LessButton.Bounds.Contains((int)currentTouchCollection[0].Position.X, (int)currentTouchCollection[0].Position.Y))
                     {
@@ -138,6 +139,13 @@ namespace SnowConeTycoon.Shared.Forms
                         holdEventInc.TimeTotal = 1000;
                         holdEventInc.Time = 0;
                     }
+                }
+                else
+                {
+                    holdEventDec.TimeTotal = 1000;
+                    holdEventDec.Time = 0;
+                    holdEventInc.TimeTotal = 1000;
+                    holdEventInc.Time = 0;
                 }
 
                 if (MoreButton.HandleInput(previousTouchCollection, currentTouchCollection, gameTime))
