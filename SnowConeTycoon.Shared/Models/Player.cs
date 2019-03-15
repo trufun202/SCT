@@ -104,28 +104,91 @@ namespace SnowConeTycoon.Shared.Models
             }
         }
 
+        private static int GetRankMin(Rank rank)
+        {
+            switch (rank)
+            {
+                case Rank.Lousy:
+                    return 10;
+                case Rank.Dabbling:
+                    return 30;
+                case Rank.Aspiring:
+                    return 70;
+                case Rank.Novice:
+                    return 130;
+                case Rank.Experienced:
+                    return 210;
+                case Rank.Skilled:
+                    return 310;
+                case Rank.Excellent:
+                    return 430;
+                case Rank.Professional:
+                    return 570;
+                case Rank.Veteran:
+                    return 730;
+                default:
+                    return -1;
+            }
+        }
+
         public static Rank GetRank()
         {
-            if (SoldCount <= 10)
+            if (SoldCount <= GetRankMin(Rank.Lousy))
                 return Rank.Lousy;
-            else if (SoldCount <= 30)
+            else if (SoldCount <= GetRankMin(Rank.Dabbling))
                 return Rank.Dabbling;
-            else if (SoldCount <= 70)
+            else if (SoldCount <= GetRankMin(Rank.Aspiring))
                 return Rank.Aspiring;
-            else if (SoldCount <= 130)
+            else if (SoldCount <= GetRankMin(Rank.Novice))
                 return Rank.Novice;
-            else if (SoldCount <= 210)
+            else if (SoldCount <= GetRankMin(Rank.Experienced))
                 return Rank.Experienced;
-            else if (SoldCount <= 310)
+            else if (SoldCount <= GetRankMin(Rank.Skilled))
                 return Rank.Skilled;
-            else if (SoldCount <= 430)
+            else if (SoldCount <= GetRankMin(Rank.Excellent))
                 return Rank.Excellent;
-            else if (SoldCount <= 570)
+            else if (SoldCount <= GetRankMin(Rank.Professional))
                 return Rank.Professional;
-            else if (SoldCount <= 730)
+            else if (SoldCount <= GetRankMin(Rank.Veteran))
                 return Rank.Veteran;
             else
                 return Rank.Tycoon;
+        }
+
+        public static Rank GetNextRank()
+        { 
+            if (SoldCount <= GetRankMin(Rank.Lousy))
+                return Rank.Dabbling;
+            else if (SoldCount <= GetRankMin(Rank.Dabbling))
+                return Rank.Aspiring;
+            else if (SoldCount <= GetRankMin(Rank.Aspiring))
+                return Rank.Novice;
+            else if (SoldCount <= GetRankMin(Rank.Novice))
+                return Rank.Experienced;
+            else if (SoldCount <= GetRankMin(Rank.Experienced))
+                return Rank.Skilled;
+            else if (SoldCount <= GetRankMin(Rank.Skilled))
+                return Rank.Excellent;
+            else if (SoldCount <= GetRankMin(Rank.Excellent))
+                return Rank.Professional;
+            else if (SoldCount <= GetRankMin(Rank.Professional))
+                return Rank.Veteran;
+            else
+                return Rank.Tycoon;
+        }
+
+        public static double GetNextRankPercentage()
+        {
+            var rank = GetRank();
+
+            if (rank == Rank.Tycoon)
+            {
+                return 0;
+            }
+            else
+            { 
+                return SoldCount / (double)GetRankMin(GetNextRank());
+            }
         }
 
         public static void AddSold(int count)

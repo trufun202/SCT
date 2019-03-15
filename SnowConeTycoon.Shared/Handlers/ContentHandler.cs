@@ -158,6 +158,8 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("DaySetup_WatchAd", content.Load<Texture2D>("DaySetup_WatchAd"));
             Images.Add("Results_Rank", content.Load<Texture2D>("Results_Rank"));
             Images.Add("Results_Next", content.Load<Texture2D>("Results_Next"));
+            Images.Add("Results_RankBarOff", content.Load<Texture2D>("Results_RankBarOff"));
+            Images.Add("Results_RankBarOn", content.Load<Texture2D>("Results_RankBarOn"));
             Images.Add("DaySetup_OutOfIce", content.Load<Texture2D>("DaySetup_OutOfIce"));
             Images.Add("DaySetup_NoSyrup", content.Load<Texture2D>("DaySetup_NoSyrup"));
 
