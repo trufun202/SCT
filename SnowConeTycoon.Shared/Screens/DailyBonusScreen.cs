@@ -167,15 +167,15 @@ namespace SnowConeTycoon.Shared.Screens
                 spriteBatch.DrawString(Defaults.Font, "5                  10", new Vector2((Defaults.GraphicsWidth / 2) - 250, PaperPosition.Y + 1200), Defaults.Brown);
             }
 
-            if (ShowingDayStats > 5)
-            {
-                EarnedCheckImage.Draw(spriteBatch);
-                spriteBatch.DrawString(Defaults.Font, "see you tomorrow to keep your streak!", new Vector2((Defaults.GraphicsWidth / 2), PaperPosition.Y + 1400), Defaults.Brown, 0f, Defaults.Font.MeasureString("see you tomorrow to keep your streak!") / 2, 0.5f, SpriteEffects.None, 1f);
-            }
-
             if (EarnedCheckImage.IsDoneAnimating())
             {
                 spriteBatch.Draw(ContentHandler.Images["DailyBonus_RedX"], new Vector2((Defaults.GraphicsWidth / 2) + 500, PaperPosition.Y + 100), Color.White);
+            }
+
+            if (ShowingDayStats > 5)
+            {
+                spriteBatch.DrawString(Defaults.Font, "see you tomorrow to keep your streak!", new Vector2((Defaults.GraphicsWidth / 2), PaperPosition.Y + 1400), Defaults.Brown, 0f, Defaults.Font.MeasureString("see you tomorrow to keep your streak!") / 2, 0.5f, SpriteEffects.None, 1f);
+                EarnedCheckImage.Draw(spriteBatch);
             }
         }
     }
