@@ -362,6 +362,7 @@ namespace SnowConeTycoon.Shared
                     {
                         SelectedKidIndex = KidHandler.SelectedKidIndex;
                         CurrentScreen = Screen.Title;
+                        KidHandler.SelectKid(SelectedKidType, SelectedKidIndex);
                     });
                 }
                 return true;
@@ -585,6 +586,9 @@ namespace SnowConeTycoon.Shared
 
             ContentHandler.Init(Content);
             KidHandler.Init();
+            SelectedKidType = Player.KidType;
+            SelectedKidIndex = Player.KidIndex;
+            KidHandler.SelectKid(SelectedKidType, SelectedKidIndex);
 
             Backgrounds = new Dictionary<string, IBackground>();
             Backgrounds.Add("cloudy", new BackgroundCloudy());
