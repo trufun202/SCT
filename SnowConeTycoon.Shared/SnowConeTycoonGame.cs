@@ -99,7 +99,7 @@ namespace SnowConeTycoon.Shared
         int DaysSinceAd = 0;
         SoundEffectInstance songMainTheme;
         SoundEffectInstance songOpenForBusiness;
-
+        bool IsFirstTimePlaying = false;
         public SnowConeTycoonGame()
         {
             businessDayService = new BusinessDayService();
@@ -118,10 +118,11 @@ namespace SnowConeTycoon.Shared
             });
         }
 
-        public void AddIce(int count)
+        public void AddReward(int iceCount, int coinCount)
         {
             CurrentScreen = Screen.DaySetup;
-            Player.AddIce(count);
+            Player.AddIce(iceCount);
+            Player.AddCoins(coinCount);
             songMainTheme.Resume();
             DaySetupScreen.ShowIceReward();
         }
@@ -187,6 +188,17 @@ namespace SnowConeTycoon.Shared
             if (storageService.SaveFileExists())
             {
                 storageService.Load();
+            }
+            else
+            {
+                IsFirstTimePlaying = true;
+            }
+
+            if (Player.KidType == KidHandler.KidType.Boy && Player.KidIndex == 0)
+            {
+                //if it defaults to boy0, set it to girl1
+                Player.KidType = KidHandler.KidType.Girl;
+                Player.KidIndex = 1;
             }
 
             storageService.Save();
