@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Handlers;
+using SnowConeTycoon.Shared.Models;
 using SnowConeTycoon.Shared.Utils;
 
 namespace SnowConeTycoon.Shared.Backgrounds.Effects.Components
@@ -15,6 +17,7 @@ namespace SnowConeTycoon.Shared.Backgrounds.Effects.Components
         private int Speed = 0;
         private int SpeedMin = 750;
         private int SpeedMax = 2000;
+        GameSpeed gameSpeed = GameSpeed.x1;
 
         public Raindrop()
         {
@@ -34,6 +37,21 @@ namespace SnowConeTycoon.Shared.Backgrounds.Effects.Components
 
         public void Update(GameTime gameTime)
         {
+            if (gameSpeed == GameSpeed.x1 && Player.GameSpeed == GameSpeed.x2)
+            {
+                gameSpeed = Player.GameSpeed;
+                SpeedMin = 7500;
+                SpeedMax = 20000;
+                Speed = Utilities.GetRandomInt(SpeedMin, SpeedMax);
+            }
+            else if (gameSpeed == GameSpeed.x2 && Player.GameSpeed == GameSpeed.x1)
+            {
+                gameSpeed = Player.GameSpeed;
+                SpeedMin = 750;
+                SpeedMax = 2000;
+                Speed = Utilities.GetRandomInt(SpeedMin, SpeedMax);
+            }
+
             Position += Direction * Speed * (float)gameTime.ElapsedGameTime.TotalSeconds;
 
             if (Position.Y > Defaults.GraphicsHeight)

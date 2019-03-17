@@ -620,7 +620,7 @@ namespace SnowConeTycoon.Shared
             CoinParticleEmitter.SetCircularPath(30);
 
             IceIcon = new PulseImage("TitleScreen_Ice", new Vector2(1400, 125), 1f, 1.5f, 1f);
-            CoinIcon = new PulseImage("DaySetup_IconPrice", new Vector2(75, 75), 1f, 1.5f, 1f);
+            CoinIcon = new PulseImage("DaySetup_IconPrice", new Vector2(95, 95), 1f, 1.5f, 1f);
         }
 
         public void OnDeactivated()
@@ -885,11 +885,11 @@ namespace SnowConeTycoon.Shared
                 KidHandler.Draw(spriteBatch, (int)Kid1Position.X, (int)Kid1Position.Y);
                 spriteBatch.Draw(ContentHandler.Images["TitleScreen_Foreground"], new Rectangle(0, 0, 1536, 2732), Color.White);
                 FormTitle.Draw(spriteBatch);
-                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(168, 43), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
-                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(168, 47), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
-                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(172, 43), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
-                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(172, 47), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
-                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(170, 45), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(208, 43), Defaults.Brown, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(208, 47), Defaults.Brown, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(212, 43), Defaults.Brown, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(212, 47), Defaults.Brown, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(210, 45), Defaults.Cream, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1268, 43), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1268, 47), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1272, 43), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);

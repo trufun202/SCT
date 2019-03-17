@@ -1,7 +1,9 @@
 ﻿using System;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Handlers;
+using SnowConeTycoon.Shared.Models;
 using SnowConeTycoon.Shared.Utils;
 
 namespace SnowConeTycoon.Shared.Backgrounds.Effects.Components
@@ -26,6 +28,7 @@ namespace SnowConeTycoon.Shared.Backgrounds.Effects.Components
         private int OffsetXMax = 15;
         private Vector2 PositionStart;
         private Vector2 PositionEnd;
+        GameSpeed gameSpeed = GameSpeed.x1;
 
         public SnowFlake()
         {
@@ -55,6 +58,21 @@ namespace SnowConeTycoon.Shared.Backgrounds.Effects.Components
 
         public void Update(GameTime gameTime)
         {
+            if (gameSpeed == GameSpeed.x1 && Player.GameSpeed == GameSpeed.x2)
+            {
+                gameSpeed = Player.GameSpeed;
+                SpeedMin = 600;
+                SpeedMax = 3000;
+                Speed = Utilities.GetRandomInt(SpeedMin, SpeedMax);
+            }
+            else if (gameSpeed == GameSpeed.x2 && Player.GameSpeed == GameSpeed.x1)
+            {
+                gameSpeed = Player.GameSpeed;
+                SpeedMin = 100;
+                SpeedMax = 600;
+                Speed = Utilities.GetRandomInt(SpeedMin, SpeedMax);
+            }
+
             if (XDirection == 1)
             {
                 Time += gameTime.ElapsedGameTime.Milliseconds;

@@ -31,44 +31,44 @@ namespace SnowConeTycoon.Shared.Services
             switch (Player.GetRank())
             {
                 case Rank.Lousy:
-                    rankLeadsMin = 0;
-                    rankLeadsMax = 1;
-                    break;
-                case Rank.Dabbling:
                     rankLeadsMin = 1;
                     rankLeadsMax = 4;
                     break;
-                case Rank.Aspiring:
+                case Rank.Dabbling:
                     rankLeadsMin = 2;
                     rankLeadsMax = 6;
                     break;
-                case Rank.Novice:
+                case Rank.Aspiring:
                     rankLeadsMin = 3;
                     rankLeadsMax = 8;
                     break;
-                case Rank.Experienced:
+                case Rank.Novice:
                     rankLeadsMin = 4;
                     rankLeadsMax = 10;
                     break;
-                case Rank.Skilled:
+                case Rank.Experienced:
                     rankLeadsMin = 5;
                     rankLeadsMax = 12;
                     break;
-                case Rank.Excellent:
+                case Rank.Skilled:
                     rankLeadsMin = 6;
                     rankLeadsMax = 14;
                     break;
-                case Rank.Professional:
+                case Rank.Excellent:
                     rankLeadsMin = 7;
                     rankLeadsMax = 16;
                     break;
-                case Rank.Veteran:
+                case Rank.Professional:
                     rankLeadsMin = 8;
                     rankLeadsMax = 18;
                     break;
-                case Rank.Tycoon:
+                case Rank.Veteran:
                     rankLeadsMin = 10;
                     rankLeadsMax = 20;
+                    break;
+                case Rank.Tycoon:
+                    rankLeadsMin = 12;
+                    rankLeadsMax = 24;
                     break;
             }
 
@@ -125,36 +125,36 @@ namespace SnowConeTycoon.Shared.Services
             if (priceDiff == 1)
             {
                 //a little pricey
-                potentialSoldMin = (int)(potentialSoldMin * 0.75f);
-                potentialSoldMax = (int)(potentialSoldMax * 0.75f);
+                potentialSoldMin = (int)(potentialSoldMin * 0.90f);
+                potentialSoldMax = (int)(potentialSoldMax * 0.90f);
             }
             else if (priceDiff == 2)
             {
                 //pretty pricey
-                potentialSoldMin = (int)(potentialSoldMin * 0.5f);
-                potentialSoldMax = (int)(potentialSoldMax * 0.5f);
+                potentialSoldMin = (int)(potentialSoldMin * 0.7f);
+                potentialSoldMax = (int)(potentialSoldMax * 0.7f);
             }
             else if (priceDiff == 3)
             {
                 //quite pricey
-                potentialSoldMin = (int)(potentialSoldMin * 0.25f);
-                potentialSoldMax = (int)(potentialSoldMax * 0.25f);
+                potentialSoldMin = (int)(potentialSoldMin * 0.4f);
+                potentialSoldMax = (int)(potentialSoldMax * 0.4f);
             }
             else
             {
                 //way too damn expensive!
-                potentialSoldMin = (int)(potentialSoldMin * 0.1f);
-                potentialSoldMax = (int)(potentialSoldMax * 0.1f);
+                potentialSoldMin = (int)(potentialSoldMin * 0.25f);
+                potentialSoldMax = (int)(potentialSoldMax * 0.25f);
             }
 
             results.SnowConesSold = Utilities.GetRandomInt(potentialSoldMin, potentialSoldMax);
 
-            if (Player.ConeCount < results.SnowConesSold)
+            if (results.SnowConesSold > Player.ConeCount)
             {
                 results.SnowConesSold = Player.ConeCount;
             }
 
-            if (Player.SyrupCount < results.SnowConesSold * syrup)
+            if (results.SnowConesSold * syrup > Player.SyrupCount)
             {
                 results.SnowConesSold = (int)(Player.SyrupCount / (double)syrup);
             }

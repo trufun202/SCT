@@ -104,7 +104,7 @@ namespace SnowConeTycoon.Shared.Screens
             spriteBatch.Draw(ContentHandler.Images["DaySetup_Paper"], PaperPosition, Color.White);
             spriteBatch.DrawString(Defaults.Font, "daily bonus", new Vector2(Defaults.GraphicsWidth / 2, PaperPosition.Y + 300), Defaults.Brown, 0f, Defaults.Font.MeasureString("daily bonus") / 2, 1f, SpriteEffects.None, 1f);
             spriteBatch.DrawString(Defaults.Font, "consecutive\n      days", new Vector2((Defaults.GraphicsWidth / 2) - 300, PaperPosition.Y + 450), Defaults.Brown, 0f, Defaults.Font.MeasureString("consecutive\n      days") / 2, 0.5f, SpriteEffects.None, 1f);
-            spriteBatch.Draw(ContentHandler.Images["DailyBonus_Ice"], new Vector2((Defaults.GraphicsWidth / 2) + 250, PaperPosition.Y + 375), Color.White);
+            spriteBatch.Draw(ContentHandler.Images["DailyBonus_IceAndCoins"], new Vector2((Defaults.GraphicsWidth / 2) + 255, PaperPosition.Y + 315), Color.White);
             spriteBatch.DrawString(Defaults.Font, "--------------------------------", new Vector2(Defaults.GraphicsWidth / 2, PaperPosition.Y + 550), Defaults.Brown, 0f, Defaults.Font.MeasureString("--------------------------------") / 2, 1f, SpriteEffects.None, 1f);
 
             if (ShowingDayStats > 0)
