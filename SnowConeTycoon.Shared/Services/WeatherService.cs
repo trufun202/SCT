@@ -19,16 +19,27 @@ namespace SnowConeTycoon.Shared.Services
         public DayForecast GetForecast(int day)
         {
             var dayForecast = new DayForecast();
-            dayForecast.Temperature = (int)((float)Math.Sin((day + 5) / SinPeriod) * SinRadius) + Utilities.GetRandomInt(-TemperatureDeviation, TemperatureDeviation) + TemperatureOffset;
 
-            if (dayForecast.Temperature > 107)
+            var sunnyDayStart = Utilities.GetRandomInt(4, 5);
+
+            if (day <= sunnyDayStart)
             {
-                dayForecast.Temperature -= 40;
+                //make the first few days sunny for newbies
+                dayForecast.Temperature = Utilities.GetRandomInt(85, 102);
             }
-
-            if (dayForecast.Temperature < 18)
+            else
             {
-                dayForecast.Temperature += 60;
+                dayForecast.Temperature = (int)((float)Math.Sin((day + 5) / SinPeriod) * SinRadius) + Utilities.GetRandomInt(-TemperatureDeviation, TemperatureDeviation) + TemperatureOffset;
+
+                if (dayForecast.Temperature > 107)
+                {
+                    dayForecast.Temperature -= 40;
+                }
+
+                if (dayForecast.Temperature < 18)
+                {
+                    dayForecast.Temperature += 60;
+                }
             }
 
             dayForecast.Forecast = GetForecastByTemperature(dayForecast.Temperature);

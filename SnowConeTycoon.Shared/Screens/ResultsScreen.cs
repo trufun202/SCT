@@ -199,20 +199,28 @@ namespace SnowConeTycoon.Shared.Screens
                             if (!PlayedKidSound)
                             {
                                 PlayedKidSound = true;
-                                switch (Results.OverallDayOpinion)
+
+                                if (Results.SnowConesSold == 0)
                                 {
-                                    case OverallDayOpinion.Perfect:
-                                    case OverallDayOpinion.JustOkay:
-                                        ContentHandler.Sounds["kids_cheer"].Play();
-                                        break;                                    
-                                    case OverallDayOpinion.WeatherRain:
-                                        ContentHandler.Sounds["kids_aww"].Play();
-                                        break;
-                                    case OverallDayOpinion.TooSweet:
-                                    case OverallDayOpinion.TooPlain:
-                                    case OverallDayOpinion.WeatherCold:
-                                        ContentHandler.Sounds["kids_boo"].Play();
-                                        break;
+                                    ContentHandler.Sounds["kids_aww"].Play();
+                                }
+                                else
+                                {
+                                    switch (Results.OverallDayOpinion)
+                                    {
+                                        case OverallDayOpinion.Perfect:
+                                        case OverallDayOpinion.JustOkay:
+                                            ContentHandler.Sounds["kids_cheer"].Play();
+                                            break;
+                                        case OverallDayOpinion.WeatherRain:
+                                            ContentHandler.Sounds["kids_aww"].Play();
+                                            break;
+                                        case OverallDayOpinion.TooSweet:
+                                        case OverallDayOpinion.TooPlain:
+                                        case OverallDayOpinion.WeatherCold:
+                                            ContentHandler.Sounds["kids_boo"].Play();
+                                            break;
+                                    }
                                 }
                             }
                         }

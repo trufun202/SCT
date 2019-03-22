@@ -259,7 +259,9 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
-                    DaySetupScreen.Reset(100);
+                    var dayForecast = weatherService.GetForecast(Player.CurrentDay);
+                    SetWeather(dayForecast);
+                    DaySetupScreen.Reset(dayForecast.Temperature);
                     CurrentScreen = Screen.DaySetup;
                 });
 

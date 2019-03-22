@@ -12,7 +12,7 @@ namespace SnowConeTycoon.Shared.Services
         {
             var perfectQuotes = new List<string>();
             perfectQuotes.Add("yummy yummy!");
-            perfectQuotes.Add("perfect!");
+            perfectQuotes.Add("tasty!");
             perfectQuotes.Add("sooo goooood!");
             perfectQuotes.Add("mmmmmm!");
 
