@@ -2473,6 +2473,12 @@
 /processorParam:Quality=Best
 /build:Try Again.wav
 
+#begin Unlock.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:Unlock.wav
+
 #begin Visitor.xnb
 /copy:Visitor.xnb
 

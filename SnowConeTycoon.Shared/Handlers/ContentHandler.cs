@@ -192,6 +192,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Sounds.Add("Picker_Down", content.Load<SoundEffect>("Picker_Down"));
             Sounds.Add("Picker_Up", content.Load<SoundEffect>("Picker_Up"));
             Sounds.Add("Oops", content.Load<SoundEffect>("Oops"));
+            Sounds.Add("Unlock", content.Load<SoundEffect>("Unlock"));
 
             ///////////////////////////////////////////
             //SONGS

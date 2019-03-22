@@ -367,20 +367,21 @@ namespace SnowConeTycoon.Shared
                 if (KidHandler.CurrentKid.IsLocked)
                 {
                     KidHandler.CurrentKid.Unlock();
-                    //TODO play sound
-                    return false; //so the default sound doesn't play
+                    ContentHandler.Sounds["Unlock"].Play(1.0f, 0, 0);
+                    return false;
                 }
                 else
                 {
                     Fade.Reset(() =>
                     {
+                        ContentHandler.Sounds["pop"].Play();
                         SelectedKidIndex = KidHandler.SelectedKidIndex;
                         CurrentScreen = Screen.Title;
                         KidHandler.SelectKid(SelectedKidType, SelectedKidIndex);
                     });
                 }
                 return true;
-            }, "pop", scaleX, scaleY));
+            }, "", scaleX, scaleY));
             ///////////////////
             ///CANCEL BUTTON
             ///////////////////
@@ -1007,7 +1008,7 @@ namespace SnowConeTycoon.Shared
 
                 if (KidHandler.CurrentKid.IsLocked)
                 {
-                    if (KidHandler.CurrentKid.UnlockMechanism == UnlockMechanism.Purchase && Player.CoinCount >= 0)//KidHandler.CurrentKid.UnlockPrice)
+                    if (KidHandler.CurrentKid.UnlockMechanism == UnlockMechanism.Purchase && Player.CoinCount >= KidHandler.CurrentKid.UnlockPrice)
                     {
                         spriteBatch.Draw(ContentHandler.Images["button_unlock"], new Vector2(30, 1926), Color.White);
                     }
