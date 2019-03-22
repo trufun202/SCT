@@ -22,10 +22,12 @@ namespace SnowConeTycoon.Shared.Models
 
         public static void Reset()
         {
-            CoinCount = 10;
-            ConeCount = 10;
-            IceCount = 10;
-            SyrupCount = 10;
+            SelectedKidType = KidType.Girl;
+            SelectedKidIndex = 1;
+            CoinCount = 70;
+            ConeCount = 70;
+            IceCount = 7;
+            SyrupCount = 70;
             ConsecutiveDaysPlayed = 1;
             CurrentDay = 1;
             DailyBonusLastReceived = DateTime.Now.Date;

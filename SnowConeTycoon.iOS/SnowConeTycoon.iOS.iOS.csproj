@@ -120,6 +120,7 @@
   <ItemGroup>
     <BundleResource Include="Default.png" />
     <BundleResource Include="Icon-App-60x60%403x.png" />
+    <BundleResource Include="SplashScreen.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Content\" />

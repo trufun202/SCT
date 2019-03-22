@@ -113,10 +113,8 @@ namespace SnowConeTycoon.Shared.Handlers
             Girls.Add("Girl40", new Kid("Kayley", "GirlAvatar_40", "Eyes_Open7", true, UnlockMechanism.Sales, 301));
 
             SelectedKidType = KidType.Girl;
-            SelectKid(KidType.Girl, 1);
+            SelectedKidIndex = 1;
 
-            Player.KidType = SelectedKidType;
-            Player.KidIndex = 1;
             //SelectKid(KidType.Boy, Utilities.GetRandomInt(1, 20));
             //SelectKid(KidType.Girl, Utilities.GetRandomInt(1, 40));
         }
@@ -136,6 +134,9 @@ namespace SnowConeTycoon.Shared.Handlers
                     SelectedKid = $"Girl{index}";
                     break;
             }
+
+            Player.KidType = type;
+            Player.KidIndex = index;
         }
 
         public static IKid CurrentKid

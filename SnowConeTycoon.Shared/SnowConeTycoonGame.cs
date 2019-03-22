@@ -92,12 +92,14 @@ namespace SnowConeTycoon.Shared
         IWeatherService weatherService;
         bool ShowingDailyBonus = false;
         ParticleEmitter IceParticleEmitter;
+        ParticleEmitter CoinParticleEmitter;
         TimedEvent IceParticleTimedEvent;
         PulseImage IceIcon;
+        PulseImage CoinIcon;
         int DaysSinceAd = 0;
         SoundEffectInstance songMainTheme;
         SoundEffectInstance songOpenForBusiness;
-
+        bool IsFirstTimePlaying = false;
         public SnowConeTycoonGame()
         {
             businessDayService = new BusinessDayService();
@@ -116,10 +118,11 @@ namespace SnowConeTycoon.Shared
             });
         }
 
-        public void AddIce(int count)
+        public void AddReward(int iceCount, int coinCount)
         {
             CurrentScreen = Screen.DaySetup;
-            Player.AddIce(count);
+            Player.AddIce(iceCount);
+            Player.AddCoins(coinCount);
             songMainTheme.Resume();
             DaySetupScreen.ShowIceReward();
         }
@@ -185,6 +188,17 @@ namespace SnowConeTycoon.Shared
             if (storageService.SaveFileExists())
             {
                 storageService.Load();
+            }
+            else
+            {
+                IsFirstTimePlaying = true;
+            }
+
+            if (Player.KidType == KidHandler.KidType.Boy && Player.KidIndex == 0)
+            {
+                //if it defaults to boy0, set it to girl1
+                Player.KidType = KidHandler.KidType.Girl;
+                Player.KidIndex = 1;
             }
 
             storageService.Save();
@@ -360,6 +374,7 @@ namespace SnowConeTycoon.Shared
                     {
                         SelectedKidIndex = KidHandler.SelectedKidIndex;
                         CurrentScreen = Screen.Title;
+                        KidHandler.SelectKid(SelectedKidType, SelectedKidIndex);
                     });
                 }
                 return true;
@@ -541,15 +556,19 @@ namespace SnowConeTycoon.Shared
                     DailyBonusIceEarnedEvent = new TimedEvent(250,
                     () =>
                         {
+                            Player.AddCoins(10);
                             Player.AddIce(1);
+                            ContentHandler.Sounds["Game Coin"].Play();
                             ContentHandler.Sounds["Ice_Cube"].Play();
                             IceParticleEmitter.FlowOn = true;
+                            CoinParticleEmitter.FlowOn = true;
                             IceIcon.Reset();
 
                             IceParticleTimedEvent = new TimedEvent(200,
                             () =>
                             {
                                 IceParticleEmitter.FlowOn = false;
+                                CoinParticleEmitter.FlowOn = false;
                             },
                             1);
                         },
@@ -579,6 +598,9 @@ namespace SnowConeTycoon.Shared
 
             ContentHandler.Init(Content);
             KidHandler.Init();
+            SelectedKidType = Player.KidType;
+            SelectedKidIndex = Player.KidIndex;
+            KidHandler.SelectKid(SelectedKidType, SelectedKidIndex);
 
             Backgrounds = new Dictionary<string, IBackground>();
             Backgrounds.Add("cloudy", new BackgroundCloudy());
@@ -608,7 +630,13 @@ namespace SnowConeTycoon.Shared
             IceParticleEmitter.Velocity = new Vector2(1350, 1350);
             IceParticleEmitter.SetCircularPath(30);
 
+            CoinParticleEmitter = new ParticleEmitter(100, 100, 110, 40, 2000, "particle", 3.25f);
+            CoinParticleEmitter.Gravity = 30f;
+            CoinParticleEmitter.Velocity = new Vector2(1350, 1350);
+            CoinParticleEmitter.SetCircularPath(30);
+
             IceIcon = new PulseImage("TitleScreen_Ice", new Vector2(1400, 125), 1f, 1.5f, 1f);
+            CoinIcon = new PulseImage("DaySetup_IconPrice", new Vector2(95, 95), 1f, 1.5f, 1f);
         }
 
         public void OnDeactivated()
@@ -727,7 +755,9 @@ namespace SnowConeTycoon.Shared
                     DailyBonusIceEarnedEvent?.Update(gameTime);
                     IceParticleEmitter.Update(gameTime);
                     IceParticleTimedEvent?.Update(gameTime);
+                    CoinParticleEmitter.Update(gameTime);
                     IceIcon?.Update(gameTime);
+                    CoinIcon?.Update(gameTime);
 
                     if (ShowingDailyBonus)
                     {
@@ -871,14 +901,22 @@ namespace SnowConeTycoon.Shared
                 KidHandler.Draw(spriteBatch, (int)Kid1Position.X, (int)Kid1Position.Y);
                 spriteBatch.Draw(ContentHandler.Images["TitleScreen_Foreground"], new Rectangle(0, 0, 1536, 2732), Color.White);
                 FormTitle.Draw(spriteBatch);
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(208, 43), Defaults.Brown, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(208, 47), Defaults.Brown, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(212, 43), Defaults.Brown, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(212, 47), Defaults.Brown, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 1f);
+                spriteBatch.DrawString(Defaults.Font, Player.CoinCount.ToString(), new Vector2(210, 45), Defaults.Cream, 0f, new Vector2(0, 0), 1f, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1268, 43), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1268, 47), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1272, 43), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1272, 47), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1270, 45), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
                 IceIcon?.Draw(spriteBatch);
+                CoinIcon?.Draw(spriteBatch);
+
                 CurrentBackgroundEffect?.Draw(spriteBatch);
                 IceParticleEmitter.Draw(spriteBatch);
+                CoinParticleEmitter.Draw(spriteBatch);
 
                 if (ShowingDailyBonus)
                 {

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Handlers;
+using SnowConeTycoon.Shared.Models;
 using SnowConeTycoon.Shared.Utils;
 
 namespace SnowConeTycoon.Shared.Backgrounds
@@ -16,6 +18,7 @@ namespace SnowConeTycoon.Shared.Backgrounds
         int rotationTime = 0;
         int rotationTimeTotal = 8000;
         int rotationDirection = 1;
+        GameSpeed gameSpeed = GameSpeed.x1;
 
         public BackgroundSunny()
         {
@@ -29,6 +32,17 @@ namespace SnowConeTycoon.Shared.Backgrounds
 
         public void Update(GameTime gameTime)
         {
+            if (gameSpeed == GameSpeed.x1 && Player.GameSpeed == GameSpeed.x2)
+            {
+                gameSpeed = Player.GameSpeed;
+                rotationTimeTotal = 3000;
+            }
+            else if (gameSpeed == GameSpeed.x2 && Player.GameSpeed == GameSpeed.x1)
+            {
+                gameSpeed = Player.GameSpeed;
+                rotationTimeTotal = 8000;
+            }
+
             rotationTime += gameTime.ElapsedGameTime.Milliseconds;
 
             if (rotationTime >= rotationTimeTotal)

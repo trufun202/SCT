@@ -61,7 +61,7 @@ namespace SnowConeTycoon.Android
                 if (AdController.adRewarded)
                 {
                     SnowConeGame.CurrentScreen = Shared.Enums.Screen.DaySetup;
-                    SnowConeGame.AddIce(Defaults.REWARD_ICE_COUNT);
+                    SnowConeGame.AddReward(Defaults.REWARD_ICE_COUNT, Defaults.REWARD_COIN_COUNT);
                 }
                 else if (AdController.adRewardCancelled)
                 {

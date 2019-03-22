@@ -19,7 +19,7 @@ public class AdMobRewardService : RewardBasedVideoAdDelegate
 
     public override void DidRewardUser(RewardBasedVideoAd rewardBasedVideoAd, AdReward reward)
     {
-        Game.AddIce(Defaults.REWARD_ICE_COUNT);
+        Game.AddReward(Defaults.REWARD_ICE_COUNT, Defaults.REWARD_COIN_COUNT);
         Console.Write("ice rewarded");
     }
 

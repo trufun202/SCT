@@ -4,7 +4,9 @@ using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using SnowConeTycoon.Shared.Backgrounds.Effects;
+using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Handlers;
+using SnowConeTycoon.Shared.Models;
 using SnowConeTycoon.Shared.Utils;
 
 namespace SnowConeTycoon.Shared.Backgrounds
@@ -16,6 +18,7 @@ namespace SnowConeTycoon.Shared.Backgrounds
         private int BackgroundWidth;
         private Vector2 Direction = new Vector2(-1, 0);
         private Vector2 Speed = new Vector2(30, 0);
+        GameSpeed gameSpeed = GameSpeed.x1;
 
         public BackgroundRainy()
         {
@@ -33,7 +36,18 @@ namespace SnowConeTycoon.Shared.Backgrounds
 
         public void Update(GameTime gameTime)
         {
-            if(Paralax1Pos.X < -BackgroundWidth)
+            if (gameSpeed == GameSpeed.x1 && Player.GameSpeed == GameSpeed.x2)
+            {
+                gameSpeed = Player.GameSpeed;
+                Speed = new Vector2(300, 0);
+            }
+            else if (gameSpeed == GameSpeed.x2 && Player.GameSpeed == GameSpeed.x1)
+            {
+                gameSpeed = Player.GameSpeed;
+                Speed = new Vector2(30, 0);
+            }
+
+            if (Paralax1Pos.X < -BackgroundWidth)
             {
                 Paralax1Pos.X = Paralax2Pos.X + BackgroundWidth;
             }
