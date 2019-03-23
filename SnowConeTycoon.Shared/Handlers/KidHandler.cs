@@ -229,5 +229,35 @@ namespace SnowConeTycoon.Shared.Handlers
 
             kids[$"{kidType}{index}"].MakeSad();
         }
+
+        public static UnlockResult GetUnlock()
+        {
+            var result = new UnlockResult()
+            {
+                Unlocked = false
+            };
+
+            for (int i = 1; i <= Boys.Count; i++)
+            {
+                var boy = Boys["Boy" + i];
+                var girl = Girls["Girl" + i];
+
+                if (girl.IsLocked && girl.UnlockMechanism == UnlockMechanism.Sales && girl.UnlockPrice <= Player.SoldCount)
+                {
+                    result.Unlocked = true;
+                    result.KidType = KidType.Girl;
+                    result.KidIndex = i - 1;
+                }
+
+                if (boy.IsLocked && boy.UnlockMechanism == UnlockMechanism.Sales && boy.UnlockPrice <= Player.SoldCount)
+                {
+                    result.Unlocked = true;
+                    result.KidType = KidType.Boy;
+                    result.KidIndex = i - 1;
+                }
+            }
+
+            return result;
+        }
     }
 }

@@ -367,7 +367,7 @@ namespace SnowConeTycoon.Shared
                 if (KidHandler.CurrentKid.IsLocked)
                 {
                     KidHandler.CurrentKid.Unlock();
-                    ContentHandler.Sounds["Unlock"].Play(1.0f, 0, 0);
+                    ContentHandler.Sounds["Unlock"].Play();
                     return false;
                 }
                 else
