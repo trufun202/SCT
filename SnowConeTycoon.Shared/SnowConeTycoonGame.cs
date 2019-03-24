@@ -183,6 +183,7 @@ namespace SnowConeTycoon.Shared
                 graphics.GraphicsDevice.PresentationParameters.BackBufferFormat,
                 DepthFormat.Depth24);
 
+            KidHandler.Init();
             Player.Reset();
 
             if (storageService.SaveFileExists())
@@ -290,23 +291,15 @@ namespace SnowConeTycoon.Shared
             {
                 CurrentScreen = Screen.RewardAd;
                 songMainTheme.Pause();
-                //TODO maybe watch an add to earn coins???
                 return true;
             }, "pop", scaleX, scaleY));
             /////////////////////////
-            //SETTINGS
+            //ICE
             /////////////////////////
-            FormTitle.Controls.Add(new Button(new Rectangle(1370, 30, 151, 152), () =>
+            FormTitle.Controls.Add(new Button(new Rectangle(1325, 30, 172, 172), () =>
             {
-                Fade.Reset(() =>
-                {
-                    OriginalSelectedKidIndex = SelectedKidIndex;
-                    OriginalSelectedKidType = SelectedKidType;
-                    KidHandler.SelectedKidIndex = SelectedKidIndex;
-                    KidHandler.SelectedKidType = SelectedKidType;
-                    CurrentScreen = Screen.CharacterSelect;
-                });
-
+                CurrentScreen = Screen.RewardAd;
+                songMainTheme.Pause();
                 return true;
             }, "pop", scaleX, scaleY));
 
@@ -480,25 +473,30 @@ namespace SnowConeTycoon.Shared
             FormResults = new Form(0, 0);
             FormResults.Controls.Add(new Button(new Rectangle(925, 2375, 592, 250), () =>
             {
-                Fade.Reset(() =>
+                if (ResultsScreen.IsReady())
                 {
-                    Player.CurrentDay++;
-                    var dayForecast = weatherService.GetForecast(Player.CurrentDay);
-                    SetWeather(dayForecast);
-                    DaySetupScreen.Reset(dayForecast.Temperature);
-                    CurrentScreen = Screen.DaySetup;
-
-                    DaysSinceAd++;
-
-                    if (DaysSinceAd >= Defaults.DAY_COUNT_BETWEEN_ADS)
+                    Fade.Reset(() =>
                     {
-                        DaysSinceAd = 0;
-                        CurrentScreen = Screen.FullScreenAd;
-                        songMainTheme.Pause();
-                    }
-                });
+                        Player.CurrentDay++;
+                        var dayForecast = weatherService.GetForecast(Player.CurrentDay);
+                        SetWeather(dayForecast);
+                        DaySetupScreen.Reset(dayForecast.Temperature);
+                        CurrentScreen = Screen.DaySetup;
 
-                return true;
+                        DaysSinceAd++;
+
+                        if (DaysSinceAd >= Defaults.DAY_COUNT_BETWEEN_ADS)
+                        {
+                            DaysSinceAd = 0;
+                            CurrentScreen = Screen.FullScreenAd;
+                            songMainTheme.Pause();
+                        }
+                    });
+
+                    return true;
+                }
+
+                return false;
             }, "pop", scaleX, scaleY));
 
             FormSupplyShop = new Form(0, 0);
@@ -600,7 +598,7 @@ namespace SnowConeTycoon.Shared
             var scaleY = (double)ScreenHeight / (double)Defaults.GraphicsHeight;
 
             ContentHandler.Init(Content);
-            KidHandler.Init();
+
             SelectedKidType = Player.KidType;
             SelectedKidIndex = Player.KidIndex;
             KidHandler.SelectKid(SelectedKidType, SelectedKidIndex);
@@ -703,7 +701,7 @@ namespace SnowConeTycoon.Shared
                 }
                 else if (CurrentScreen == Screen.Results)
                 {
-                    ResultsScreen.HandleInput(previousTouchCollection, currentTouchCollection);
+                    ResultsScreen.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
                     FormResults.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
                 }
                 else if (CurrentScreen == Screen.SupplyShop)

@@ -61,7 +61,7 @@ namespace SnowConeTycoon.Shared.Kids
 
             if (locked)
             {
-                ParticleEmitter = new ParticleEmitter(100, (int)(Defaults.GraphicsWidth / 2), (int)(Defaults.GraphicsHeight / 2), 40, 1000);
+                ParticleEmitter = new ParticleEmitter(500, (int)(Defaults.GraphicsWidth / 2), (int)(Defaults.GraphicsHeight / 2), 40, 1000);
                 ParticleEmitter.Gravity = 20f;
                 ParticleEmitter.Velocity = new Vector2(1350, 1350);
                 ParticleEmitter.SetCircularPath(300);
@@ -88,6 +88,7 @@ namespace SnowConeTycoon.Shared.Kids
         {
             if (IsLocked)
             {
+                MakeHappy();
                 ParticleEmitter.FlowOn = true;
                 ParticleEvent = new TimedEvent(1000, () =>
                 {

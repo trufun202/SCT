@@ -31,24 +31,6 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("Loading_Bar07", content.Load<Texture2D>("Loading_Bar07"));
             Images.Add("Loading_Bar08", content.Load<Texture2D>("Loading_Bar08"));
             Images.Add("SupplyShop_Background", content.Load<Texture2D>("SupplyShop_Background"));
-        }
-
-        public static void Init(ContentManager content)
-        {
-            Sounds = new Dictionary<string, SoundEffect>();
-            Songs = new Dictionary<string, Song>();
-
-            //////////////////////////
-            // BACKGROUNDS
-            //////////////////////////
-            Images.Add("TitleScreen_Background", content.Load<Texture2D>("TitleScreen_Background"));
-            Images.Add("TitleScreen_Foreground", content.Load<Texture2D>("TitleScreen_Foreground"));
-            Images.Add("Background_Hills", content.Load<Texture2D>("Background_Hills"));
-            Images.Add("Background_HillsDark", content.Load<Texture2D>("Background_HillsDark"));
-            Images.Add("Background_Clouds", content.Load<Texture2D>("Background_Clouds"));
-            Images.Add("Background_ClearClouds", content.Load<Texture2D>("Background_ClearClouds"));
-            Images.Add("Background_Sun", content.Load<Texture2D>("Background_Sun"));
-            Images.Add("CharacterSelectScreen_Foreground", content.Load<Texture2D>("CharacterSelectScreen_Foreground"));
 
             //////////////////////////
             // AVATARS
@@ -99,6 +81,24 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("mouth_sad6", content.Load<Texture2D>("mouth_sad6"));
             Images.Add("mouth_sad7", content.Load<Texture2D>("mouth_sad7"));
             Images.Add("mouth_sad8", content.Load<Texture2D>("mouth_sad8"));
+        }
+
+        public static void Init(ContentManager content)
+        {
+            Sounds = new Dictionary<string, SoundEffect>();
+            Songs = new Dictionary<string, Song>();
+
+            //////////////////////////
+            // BACKGROUNDS
+            //////////////////////////
+            Images.Add("TitleScreen_Background", content.Load<Texture2D>("TitleScreen_Background"));
+            Images.Add("TitleScreen_Foreground", content.Load<Texture2D>("TitleScreen_Foreground"));
+            Images.Add("Background_Hills", content.Load<Texture2D>("Background_Hills"));
+            Images.Add("Background_HillsDark", content.Load<Texture2D>("Background_HillsDark"));
+            Images.Add("Background_Clouds", content.Load<Texture2D>("Background_Clouds"));
+            Images.Add("Background_ClearClouds", content.Load<Texture2D>("Background_ClearClouds"));
+            Images.Add("Background_Sun", content.Load<Texture2D>("Background_Sun"));
+            Images.Add("CharacterSelectScreen_Foreground", content.Load<Texture2D>("CharacterSelectScreen_Foreground"));
 
             //////////////////////////
             // MISC
@@ -163,6 +163,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("Results_RankBarOn", content.Load<Texture2D>("Results_RankBarOn"));
             Images.Add("DaySetup_OutOfIce", content.Load<Texture2D>("DaySetup_OutOfIce"));
             Images.Add("DaySetup_NoSyrup", content.Load<Texture2D>("DaySetup_NoSyrup"));
+            Images.Add("UnlockModal", content.Load<Texture2D>("UnlockModal"));
 
             ///////////////////////////////////////////
             //SUPPLY SHOP

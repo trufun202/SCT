@@ -34,7 +34,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Boys.Add("Boy2", new Kid("Walter", "BoyAvatar_16", "Eyes_Open5"));
             Boys.Add("Boy3", new Kid("Chad", "BoyAvatar_02", "Eyes_Open1", true, UnlockMechanism.Purchase, 10));
             Boys.Add("Boy4", new Kid("Jake", "BoyAvatar_04", "Eyes_Open4", true, UnlockMechanism.Purchase, 20));
-            Boys.Add("Boy5", new Kid("Victor", "BoyAvatar_22", "Eyes_Open3", true, UnlockMechanism.Sales, 12));
+            Boys.Add("Boy5", new Kid("Victor", "BoyAvatar_22", "Eyes_Open3", true, UnlockMechanism.Sales, 6));
             Boys.Add("Boy6", new Kid("Trevor", "BoyAvatar_30", "Eyes_Open4", true, UnlockMechanism.Sales, 14));
             Boys.Add("Boy7", new Kid("Greyson", "BoyAvatar_26", "Eyes_Open2", true, UnlockMechanism.Sales, 26));
             Boys.Add("Boy8", new Kid("Tommy", "BoyAvatar_08", "Eyes_Open6", true, UnlockMechanism.Purchase, 25));
@@ -75,7 +75,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Girls.Add("Girl2", new Kid("Shana", "GirlAvatar_15", "Eyes_Open1"));
             Girls.Add("Girl3", new Kid("Maya", "GirlAvatar_03", "Eyes_Open2", true, UnlockMechanism.Purchase, 10));
             Girls.Add("Girl4", new Kid("London", "GirlAvatar_04", "Eyes_Open6", true, UnlockMechanism.Purchase, 25));
-            Girls.Add("Girl5", new Kid("Navea", "GirlAvatar_18", "Eyes_Open7", true, UnlockMechanism.Sales, 10));
+            Girls.Add("Girl5", new Kid("Navea", "GirlAvatar_18", "Eyes_Open7", true, UnlockMechanism.Sales, 5));
             Girls.Add("Girl6", new Kid("Kaley", "GirlAvatar_26", "Eyes_Open4", true, UnlockMechanism.Sales, 36));
             Girls.Add("Girl7", new Kid("Beelz", "GirlAvatar_31", "Eyes_Open3", true, UnlockMechanism.Sales, 20));
             Girls.Add("Girl8", new Kid("Abby", "GirlAvatar_08", "Eyes_Open7", true, UnlockMechanism.Sales, 40));
@@ -117,6 +117,52 @@ namespace SnowConeTycoon.Shared.Handlers
 
             //SelectKid(KidType.Boy, Utilities.GetRandomInt(1, 20));
             //SelectKid(KidType.Girl, Utilities.GetRandomInt(1, 40));
+        }
+
+        public static List<int> GetBoyLocks()
+        { 
+            var locks = new List<int>();
+
+            foreach(var boy in Boys)
+            {
+                locks.Add(boy.Value.IsLocked ? 1 : 0);
+            }
+
+            return locks;
+        }
+
+        public static List<int> GetGirlLocks()
+        {
+            var locks = new List<int>();
+
+            foreach (var girl in Girls)
+            {
+                locks.Add(girl.Value.IsLocked ? 1: 0);
+            }
+
+            return locks;
+        }
+
+        public static void SetBoyLocks(List<int> locks)
+        {
+            int index = 0;
+
+            foreach (var boy in Boys)
+            {
+                boy.Value.IsLocked = locks[index] == 1 ? true : false;
+                index++;
+            }
+        }
+
+        public static void SetGirlLocks(List<int> locks)
+        {
+            int index = 0;
+
+            foreach (var girl in Girls)
+            {
+                girl.Value.IsLocked = locks[index] == 1 ? true : false;
+                index++;
+            }
         }
 
         public static void SelectKid(KidType type, int index)
@@ -174,6 +220,34 @@ namespace SnowConeTycoon.Shared.Handlers
             SelectedKids[SelectedKid].Draw(spriteBatch, x, y, facingAway, null);
         }
 
+        public static string GetKidName(KidType type, int index)
+        {
+            var kidType = "Boy";
+            var kids = Boys;
+
+            if (type == KidType.Girl)
+            {
+                kidType = "Girl";
+                kids = Girls;
+            }
+
+            return kids[$"{kidType}{index}"].GetName();
+        }
+
+        public static void UpdateKid(KidType type, int index, GameTime gameTime)
+        {
+            var kidType = "Boy";
+            var kids = Boys;
+
+            if (type == KidType.Girl)
+            {
+                kidType = "Girl";
+                kids = Girls;
+            }
+
+            kids[$"{kidType}{index}"].Update(gameTime);
+        }
+
         public static void DrawKid(KidType type, int index, SpriteBatch spriteBatch, int x, int y, int? size, bool facingAway = false, bool isCustomer = false)
         {
             var kidType = "Boy";
@@ -186,6 +260,20 @@ namespace SnowConeTycoon.Shared.Handlers
             }
 
             kids[$"{kidType}{index}"].Draw(spriteBatch, x, y, facingAway, size, isCustomer);
+        }
+
+        public static void UnlockKid(KidType type, int index)
+        {
+            var kidType = "Boy";
+            var kids = Boys;
+
+            if (type == KidType.Girl)
+            {
+                kidType = "Girl";
+                kids = Girls;
+            }
+
+            kids[$"{kidType}{index}"].Unlock();
         }
 
         public static void MakeKidHappy(KidType type, int index)
@@ -246,14 +334,16 @@ namespace SnowConeTycoon.Shared.Handlers
                 {
                     result.Unlocked = true;
                     result.KidType = KidType.Girl;
-                    result.KidIndex = i - 1;
+                    result.KidIndex = i;
+                    return result;
                 }
 
                 if (boy.IsLocked && boy.UnlockMechanism == UnlockMechanism.Sales && boy.UnlockPrice <= Player.SoldCount)
                 {
                     result.Unlocked = true;
                     result.KidType = KidType.Boy;
-                    result.KidIndex = i - 1;
+                    result.KidIndex = i;
+                    return result;
                 }
             }
 

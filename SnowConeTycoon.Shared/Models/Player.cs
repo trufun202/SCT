@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO.IsolatedStorage;
 using SnowConeTycoon.Shared.Enums;
+using SnowConeTycoon.Shared.Handlers;
 using static SnowConeTycoon.Shared.Handlers.KidHandler;
 
 namespace SnowConeTycoon.Shared.Models
@@ -48,7 +49,9 @@ namespace SnowConeTycoon.Shared.Models
                 ConsecutiveDayCount = ConsecutiveDaysPlayed,
                 LastPlayed = DateTime.Now.Date,
                 DailyBonusLastReceived = DailyBonusLastReceived,
-                SoldCount = SoldCount
+                SoldCount = SoldCount,
+                BoyLocks = KidHandler.GetBoyLocks(),
+                GirlLocks = KidHandler.GetGirlLocks()
             };
         }
 
@@ -65,6 +68,19 @@ namespace SnowConeTycoon.Shared.Models
             DailyBonusLastReceived = gameData.DailyBonusLastReceived;
             CurrentDay = gameData.CurrentDay;
             SoldCount = gameData.SoldCount;
+
+            var boyLocks = gameData.BoyLocks;
+            var girlLocks = gameData.GirlLocks;
+
+            if (boyLocks != null && boyLocks.Count > 0)
+            {
+                KidHandler.SetBoyLocks(boyLocks);
+            }
+
+            if (girlLocks != null && girlLocks.Count > 0)
+            {
+                KidHandler.SetGirlLocks(girlLocks);
+            }
 
             TimeSpan ts = DateTime.Now.Date - gameData.LastPlayed;
 

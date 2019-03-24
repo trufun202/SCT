@@ -60,6 +60,10 @@ namespace SnowConeTycoon.Shared.Screens
         {
             spriteBatch.Draw(ContentHandler.Images["OpenForBusiness_Foreground"], new Vector2(0, 0), Color.White);
 
+            var kidName = $"{KidHandler.CurrentKid.GetName()}'s Snow Cones";
+
+            spriteBatch.DrawString(Defaults.Font, kidName, new Vector2(Defaults.GraphicsWidth / 2, 470), Defaults.Cream, -0.06f, Defaults.Font.MeasureString(kidName) / 2, 1f, SpriteEffects.None, 1f);
+
             spriteBatch.Draw(ContentHandler.Images["DaySetup_InvCones"], new Vector2(210, 1820), Color.White);
             spriteBatch.Draw(ContentHandler.Images["DaySetup_InvSyrup"], new Vector2(200, 2000), Color.White);
 

@@ -7,6 +7,7 @@ using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Forms;
 using SnowConeTycoon.Shared.Handlers;
 using SnowConeTycoon.Shared.Models;
+using SnowConeTycoon.Shared.Screens.Modals;
 using SnowConeTycoon.Shared.Utils;
 
 namespace SnowConeTycoon.Shared.Screens
@@ -52,6 +53,8 @@ namespace SnowConeTycoon.Shared.Screens
         bool RankDone = false;
         BusinessDayResult Results = new BusinessDayResult();
         bool PlayedKidSound = false;
+        UnlockModal unlockModal;
+        bool PlayedUnlockSound = false;
 
         public ResultsScreen(double scaleX, double scaleY)
         {
@@ -66,6 +69,7 @@ namespace SnowConeTycoon.Shared.Screens
             PassiveImage = new PulseImage("nps_passive", new Vector2((Defaults.GraphicsWidth / 2) + 20, ContentHandler.Images["DaySetup_Paper"].Height - 590), 1, 2.5f, 2f, 250);
             PromoterImage = new PulseImage("nps_promoter", new Vector2((Defaults.GraphicsWidth / 2) + 350, ContentHandler.Images["DaySetup_Paper"].Height - 590), 1, 2.5f, 2f, 250);
             RankImage = new PulseImage("Results_Rank", new Vector2((Defaults.GraphicsWidth / 2) + 275, ContentHandler.Images["DaySetup_Paper"].Height + 630), 0.5f, 1.25f, 1f, 250);
+            unlockModal = new UnlockModal(scaleX, scaleY);
         }
 
         public void Reset()
@@ -100,6 +104,7 @@ namespace SnowConeTycoon.Shared.Screens
             NPSTickerDone = false;
             TickTime = 0;
             PlayedKidSound = false;
+            PlayedUnlockSound = false;
         }
 
         public void ResetAndSetResults(BusinessDayResult results)
@@ -111,15 +116,29 @@ namespace SnowConeTycoon.Shared.Screens
 
             Player.AddCoins(results.CoinsEarned);
             Player.AddSold(results.SnowConesSold);
+
+            unlockModal.Active = false;
+
+            var unlockResult = KidHandler.GetUnlock();
+
+            if (unlockResult.Unlocked)
+            {
+                unlockModal.SetKid(unlockResult.KidType, unlockResult.KidIndex);
+                KidHandler.UnlockKid(unlockResult.KidType, unlockResult.KidIndex);
+            }
         }
 
         public bool IsReady()
         {
-            return RankDone;
+            return RankDone && !unlockModal.Active;
         }
 
-        public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection)
+        public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection, GameTime gameTime)
         {
+            if (unlockModal.Active)
+            {
+                unlockModal.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
+            }
         }
 
         public void Update(GameTime gameTime)
@@ -234,6 +253,16 @@ namespace SnowConeTycoon.Shared.Screens
                 else if (RankDone)
                 {
                     NextButton.Update(gameTime);
+
+                    if (unlockModal.Active)
+                    {
+                        if (!PlayedUnlockSound)
+                        {
+                            PlayedUnlockSound = true;
+                            ContentHandler.Sounds["Unlock"].Play();
+                        }
+                        unlockModal.Update(gameTime);
+                    }
                 }
                 else if (NextButton.IsDoneAnimating() && !DoneAnimating)
                 {
@@ -359,6 +388,11 @@ namespace SnowConeTycoon.Shared.Screens
                     if (NPSTickerDone && RankDone)
                     {
                         NextButton.Draw(spriteBatch);
+
+                        if (unlockModal.Active)
+                        {
+                            unlockModal.Draw(spriteBatch);
+                        }
                     }
                 }
             }

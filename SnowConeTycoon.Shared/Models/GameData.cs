@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using static SnowConeTycoon.Shared.Handlers.KidHandler;
 
 namespace SnowConeTycoon.Shared.Models
@@ -18,5 +19,7 @@ namespace SnowConeTycoon.Shared.Models
         public DateTime DailyBonusLastReceived { get; set; }
         public int CurrentDay { get; set; }
         public int SoldCount { get; set; }
+        public List<int> BoyLocks { get; set; }
+        public List<int> GirlLocks { get; set; }
     }
 }
