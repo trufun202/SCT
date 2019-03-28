@@ -200,6 +200,7 @@ namespace SnowConeTycoon.Shared.Handlers
             ///////////////////////////////////////////
             Sounds.Add("SCTMainTheme", content.Load<SoundEffect>("SCTMainTheme"));
             Sounds.Add("SCTOpenForBusiness", content.Load<SoundEffect>("SCTOpenForBusiness"));
+            Sounds.Add("CreditsSong", content.Load<SoundEffect>("CreditsSong"));
         }
     }
 }

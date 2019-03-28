@@ -679,6 +679,12 @@
 #begin cooper-black-80.xnb
 /copy:cooper-black-80.xnb
 
+#begin CreditsSong.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:CreditsSong.wav
+
 #begin DailyBonus_Check.png
 /importer:TextureImporter
 /processor:TextureProcessor

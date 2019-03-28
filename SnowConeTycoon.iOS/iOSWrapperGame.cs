@@ -56,6 +56,11 @@ namespace SnowConeTycoon.iOS
             {
                 spriteBatch.Begin();
 
+                if (!AdMobRewardService.AdReady)
+                {
+                    AdMobRewardService.Reset();
+                }
+
                 if (RewardBasedVideoAd.SharedInstance.IsReady)
                 {
                     RewardBasedVideoAd.SharedInstance.PresentFromRootViewController(Services.GetService(typeof(UIViewController)) as UIViewController);
