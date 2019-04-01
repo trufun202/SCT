@@ -115,7 +115,7 @@ namespace SnowConeTycoon.Shared.Screens
             Results = results;
 
             Player.AddCoins(results.CoinsEarned);
-            Player.AddSold(results.SnowConesSold);
+            Player.AddSold(results.NPSPromoters); //clb switching to NPS promoters only instead of pure sold count...making it harder to progress
 
             unlockModal.Active = false;
 
