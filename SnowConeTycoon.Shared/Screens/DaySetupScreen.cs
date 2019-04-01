@@ -7,6 +7,7 @@ using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Forms;
 using SnowConeTycoon.Shared.Handlers;
 using SnowConeTycoon.Shared.Models;
+using SnowConeTycoon.Shared.Screens.Modals;
 using SnowConeTycoon.Shared.Utils;
 
 namespace SnowConeTycoon.Shared.Screens
@@ -41,6 +42,7 @@ namespace SnowConeTycoon.Shared.Screens
         NumberPicker pricePicker;
         Label lineLabel;
         AdRewardModal adRewardModal;
+        TutorialModal tutorialModal;
 
         public int SyrupCount
         {
@@ -80,6 +82,7 @@ namespace SnowConeTycoon.Shared.Screens
             lineLabel = new Label("---------------------------------", new Vector2(250, 750), Defaults.Brown);
             flyerPicker = new NumberPicker("DaySetup_IconFlyer", "flyers", new Vector2(250, 950), 0, 10, ScaleX, ScaleY, false);
             pricePicker = new NumberPicker("DaySetup_IconPrice", "price", new Vector2(250, 1200), 1, 6, ScaleX, ScaleY, false);
+            tutorialModal = new TutorialModal(scaleX, scaleY);
         }
 
         public void Reset(int temperature)
@@ -114,6 +117,11 @@ namespace SnowConeTycoon.Shared.Screens
             flyerPicker.Value = 0;
             pricePicker.Value = 1;
             ResetPickerMax();
+
+            if (Player.IsFirstTimePlaying)
+            {
+                tutorialModal.Show(TutorialType.DaySetup, 1);
+            }
         }
 
         public void ResetPickerMax()
@@ -140,6 +148,11 @@ namespace SnowConeTycoon.Shared.Screens
             if (adRewardModal.Active)
             {
                 adRewardModal.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
+            }
+
+            if (tutorialModal.Active)
+            {
+                tutorialModal.HandleInput(previousTouchCollection, currentTouchCollection);
             }
         }
 
@@ -201,6 +214,11 @@ namespace SnowConeTycoon.Shared.Screens
             {
                 adRewardModal.Update(gameTime);
             }
+
+            if (tutorialModal.Active)
+            {
+                tutorialModal.Update(gameTime);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -253,7 +271,7 @@ namespace SnowConeTycoon.Shared.Screens
                 else if (!TemperatureImage.IsDoneAnimating())
                 {
                     DayImage.Draw(spriteBatch);
-                    spriteBatch.DrawString(Defaults.Font, $"{Player.CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {Player.CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
+                    spriteBatch.DrawString(Defaults.Font, $"day {Player.CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {Player.CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
                     ForecastImage.Draw(spriteBatch);
                     var forecast = CurrentForecast.ToString().ToLower();
 
@@ -285,10 +303,49 @@ namespace SnowConeTycoon.Shared.Screens
                     spriteBatch.DrawString(Defaults.Font, degrees, TemperatureImage.Position, Defaults.Brown, -0.1f, new Vector2(Defaults.Font.MeasureString(degrees).X / 2, (Defaults.Font.MeasureString(degrees).Y / 2) + 50), 0.6f, SpriteEffects.None, 1f);
                     LetsGoButton.Draw(spriteBatch);
                     BackButton.Draw(spriteBatch);
+
+                    spriteBatch.Draw(ContentHandler.Images["DaySetup_IconShop"], new Vector2(1380, 40), Color.White);
+
+                    if (tutorialModal.Active)
+                    {
+                        tutorialModal.Draw(spriteBatch);
+                    }
                 }
             }
 
-            spriteBatch.Draw(ContentHandler.Images["DaySetup_IconShop"], new Vector2(1380, 40), Color.White);
+            if (tutorialModal.Active)
+            {
+                switch(tutorialModal.Step)
+                {
+                    case 1:
+                        spriteBatch.Draw(ContentHandler.Images["DaySetup_IconShop"], new Vector2(1380, 40), Color.White);
+                        break;
+                    case 2:
+                        DayImage.Draw(spriteBatch);
+                        spriteBatch.DrawString(Defaults.Font, $"day {Player.CurrentDay}", DayImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"day {Player.CurrentDay}") / 2, 0.6f, SpriteEffects.None, 1f);
+                        ForecastImage.Draw(spriteBatch);
+                        var forecast = CurrentForecast.ToString().ToLower();
+
+                        if (CurrentForecast == Forecast.PartlyCloudy)
+                        {
+                            forecast = "partly cloudy";
+                        }
+
+                        spriteBatch.DrawString(Defaults.Font, forecast, ForecastImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString(forecast) / 2, 0.6f, SpriteEffects.None, 1f);
+                        TemperatureImage.Draw(spriteBatch);
+                        spriteBatch.DrawString(Defaults.Font, $"{Temperature}", TemperatureImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"{Temperature}") / 2, 0.6f, SpriteEffects.None, 1f);
+
+                        var degrees = "          o";
+                        spriteBatch.DrawString(Defaults.Font, degrees, TemperatureImage.Position, Defaults.Brown, -0.1f, new Vector2(Defaults.Font.MeasureString(degrees).X / 2, (Defaults.Font.MeasureString(degrees).Y / 2) + 50), 0.6f, SpriteEffects.None, 1f);
+                        break;
+                    case 3:
+                        LetsGoButton.Draw(spriteBatch);
+                        break;
+                    case 4:
+                        spriteBatch.Draw(ContentHandler.Images["DaySetup_WatchAd"], new Vector2(PositionInv.X + 1135, PositionInv.Y + 250), Color.White);
+                        break;
+                }
+            }
 
             if (adRewardModal.Active)
             {

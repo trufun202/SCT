@@ -20,6 +20,7 @@ namespace SnowConeTycoon.Shared.Models
         public static DateTime DailyBonusLastReceived { get; set; }
         public static int CurrentDay { get; set; }
         public static GameSpeed GameSpeed = GameSpeed.x1;
+        public static bool IsFirstTimePlaying { get; set; }
 
         public static void Reset()
         {
@@ -32,6 +33,7 @@ namespace SnowConeTycoon.Shared.Models
             ConsecutiveDaysPlayed = 1;
             CurrentDay = 1;
             DailyBonusLastReceived = DateTime.Now.Date;
+            IsFirstTimePlaying = true;
         }
 
         public static GameData ToGameData()

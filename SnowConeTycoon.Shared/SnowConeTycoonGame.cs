@@ -102,7 +102,6 @@ namespace SnowConeTycoon.Shared
         SoundEffectInstance songMainTheme;
         SoundEffectInstance songOpenForBusiness;
         SoundEffectInstance songCredits;
-        bool IsFirstTimePlaying = false;
         public SnowConeTycoonGame()
         {
             businessDayService = new BusinessDayService();
@@ -225,10 +224,11 @@ namespace SnowConeTycoon.Shared
             if (storageService.SaveFileExists())
             {
                 storageService.Load();
+                Player.IsFirstTimePlaying = true;
             }
             else
             {
-                IsFirstTimePlaying = true;
+                Player.IsFirstTimePlaying = true;
             }
 
             if (Player.KidType == KidHandler.KidType.Boy && Player.KidIndex == 0)

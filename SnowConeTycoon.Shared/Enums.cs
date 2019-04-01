@@ -19,6 +19,14 @@ namespace SnowConeTycoon.Shared.Enums
         Credits
     }
 
+    public enum TutorialType
+    {
+        DaySetup,
+        SupplyShop,
+        OpenForBusiness,
+        Results
+    }
+
     public enum SupplyShopResult
     {
         Success,
