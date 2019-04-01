@@ -57,15 +57,15 @@ namespace SnowConeTycoon.Shared.Screens.Modals
                             break;
                         case 3:
                             ArrowEffects = SpriteEffects.FlipVertically;
-                            StartPosition = new Vector2(900, 2050);
-                            EndPosition = new Vector2(1000, 2150);
+                            StartPosition = new Vector2(900, 2000);
+                            EndPosition = new Vector2(1000, 2100);
                             PaperPosition = new Vector2(Defaults.GraphicsWidth / 2, (Defaults.GraphicsHeight / 2) - 500);
-                            PaperText = "each time your stand\n\nis open, you use\n\none ice.";
+                            PaperText = "opening your snow\n\ncone stand will cost\n\nyou one ice.";
                             break;
                         case 4:
                             ArrowEffects = SpriteEffects.None;
-                            StartPosition = new Vector2(700, 1800);
-                            EndPosition = new Vector2(800, 1700);
+                            StartPosition = new Vector2(700, 1900);
+                            EndPosition = new Vector2(800, 1800);
                             PaperPosition = new Vector2(Defaults.GraphicsWidth / 2, (Defaults.GraphicsHeight / 2) - 500);
                             PaperText = "tap here to watch\n\nan ad and earn more\n\ncoins and ice!";
                             break;
