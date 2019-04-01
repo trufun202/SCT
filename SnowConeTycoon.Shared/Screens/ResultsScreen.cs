@@ -121,7 +121,7 @@ namespace SnowConeTycoon.Shared.Screens
 
             var unlockResult = KidHandler.GetUnlock();
 
-            if (unlockResult.Unlocked)
+            if (unlockResult.Unlocked && results.SnowConesSold > 0)
             {
                 unlockModal.SetKid(unlockResult.KidType, unlockResult.KidIndex);
                 KidHandler.UnlockKid(unlockResult.KidType, unlockResult.KidIndex);

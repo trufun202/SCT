@@ -78,6 +78,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Screens\Modals\OutOfIceModal.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Models\UnlockResult.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\Modals\UnlockModal.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\CreditsScreen.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

@@ -15,7 +15,8 @@ namespace SnowConeTycoon.Shared.Enums
         OpenForBusiness,
         Results,
         RewardAd,
-        FullScreenAd
+        FullScreenAd,
+        Credits
     }
 
     public enum SupplyShopResult

@@ -122,7 +122,7 @@ namespace SnowConeTycoon.Shared.Services
 
             var priceDiff = price - idealPrice;  //3 - 5 = -2
 
-            if (priceDiff == 1)
+            if (price <= idealPrice || priceDiff == 1)
             {
                 //a little pricey
                 potentialSoldMin = (int)(potentialSoldMin * 0.90f);
