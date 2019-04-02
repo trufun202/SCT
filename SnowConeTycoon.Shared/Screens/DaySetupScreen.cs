@@ -138,7 +138,7 @@ namespace SnowConeTycoon.Shared.Screens
 
         public bool IsReady()
         {
-            return TemperatureImage.IsDoneAnimating();
+            return TemperatureImage.IsDoneAnimating() && !tutorialModal.Active;
         }
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection, GameTime gameTime)

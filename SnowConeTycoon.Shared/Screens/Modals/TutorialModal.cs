@@ -45,7 +45,7 @@ namespace SnowConeTycoon.Shared.Screens.Modals
                             ArrowEffects = SpriteEffects.None;
                             StartPosition = new Vector2(1000, 300);
                             EndPosition = new Vector2(1100, 200);
-                            PaperPosition = new Vector2(Defaults.GraphicsWidth / 2, (Defaults.GraphicsHeight / 2) - 100);
+                            PaperPosition = new Vector2(Defaults.GraphicsWidth / 2, (Defaults.GraphicsHeight / 2));
                             PaperText = "tap here to get\nmore supplies\n\nyou'll need cones,\nsyrup, and flyers\n\nflyers bring in more\ncustomers.";
                             break;
                         case 2:
@@ -57,16 +57,16 @@ namespace SnowConeTycoon.Shared.Screens.Modals
                             break;
                         case 3:
                             ArrowEffects = SpriteEffects.FlipVertically;
-                            StartPosition = new Vector2(900, 2050);
-                            EndPosition = new Vector2(1000, 2150);
-                            PaperPosition = new Vector2(Defaults.GraphicsWidth / 2, (Defaults.GraphicsHeight / 2) - 500);
-                            PaperText = "each time your stand\n\nis open, you use\n\none ice.";
+                            StartPosition = new Vector2(900, 2000);
+                            EndPosition = new Vector2(1000, 2100);
+                            PaperPosition = new Vector2(Defaults.GraphicsWidth / 2, (Defaults.GraphicsHeight / 2) - 100);
+                            PaperText = "opening your snow\n\ncone stand will cost\n\nyou one ice.";
                             break;
                         case 4:
                             ArrowEffects = SpriteEffects.None;
-                            StartPosition = new Vector2(700, 1800);
-                            EndPosition = new Vector2(800, 1700);
-                            PaperPosition = new Vector2(Defaults.GraphicsWidth / 2, (Defaults.GraphicsHeight / 2) - 500);
+                            StartPosition = new Vector2(750, 1900);
+                            EndPosition = new Vector2(850, 1800);
+                            PaperPosition = new Vector2(Defaults.GraphicsWidth / 2, (Defaults.GraphicsHeight / 2) - 300);
                             PaperText = "tap here to watch\n\nan ad and earn more\n\ncoins and ice!";
                             break;
                         default:
@@ -96,11 +96,6 @@ namespace SnowConeTycoon.Shared.Screens.Modals
         {
             if (Active)
             {
-                if (!PlayedSound)
-                {
-                    PlayedSound = true;
-                    ContentHandler.Sounds["Ding"].Play();
-                }
                 Time += gameTime.ElapsedGameTime.Milliseconds;
 
                 if (Time >= TimeTotal)
@@ -124,7 +119,13 @@ namespace SnowConeTycoon.Shared.Screens.Modals
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            var paperScale =7;
+            if (!PlayedSound)
+            {
+                PlayedSound = true;
+                ContentHandler.Sounds["Ding"].Play();
+            }
+
+            var paperScale = 7;
             spriteBatch.Draw(ContentHandler.Images["WhiteDot"], new Rectangle(0, 0, Defaults.GraphicsWidth, Defaults.GraphicsHeight), Color.FromNonPremultiplied(new Vector4(0, 0, 0, 0.75f)));
             spriteBatch.Draw(ContentHandler.Images["Tutorial_Arrow"], new Rectangle((int)Position.X, (int)Position.Y, ContentHandler.Images["Tutorial_Arrow"].Width, ContentHandler.Images["Tutorial_Arrow"].Height), null, Color.White, 0f, Vector2.Zero, ArrowEffects, 1f);
             spriteBatch.Draw(ContentHandler.Images["Tutorial_Paper"], new Rectangle((int)PaperPosition.X, (int)PaperPosition.Y, ContentHandler.Images["Tutorial_Paper"].Width * paperScale, ContentHandler.Images["Tutorial_Paper"].Height * paperScale), null, Color.White, 0f, new Vector2(ContentHandler.Images["Tutorial_Paper"].Width / 2, ContentHandler.Images["Tutorial_Paper"].Height / 2), SpriteEffects.None, 1f);

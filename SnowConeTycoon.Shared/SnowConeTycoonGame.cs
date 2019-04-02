@@ -224,7 +224,7 @@ namespace SnowConeTycoon.Shared
             if (storageService.SaveFileExists())
             {
                 storageService.Load();
-                Player.IsFirstTimePlaying = true;
+                Player.IsFirstTimePlaying = false;
             }
             else
             {
@@ -279,10 +279,13 @@ namespace SnowConeTycoon.Shared
             DailyBonusEvent = new TimedEvent(500,
             () =>
             {
-                if (Player.ConsecutiveDaysPlayed > 0)
+                var ts = DateTime.Now - Player.DailyBonusLastReceived;
+
+                if (Player.ConsecutiveDaysPlayed > 0 && ts.Days >= 1)
                 {
                     DailyBonusScreen.Reset();
                     ShowingDailyBonus = true;
+                    Player.DailyBonusLastReceived = DateTime.Now;
                 }
             },
             1);
