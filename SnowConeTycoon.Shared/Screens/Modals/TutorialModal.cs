@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Handlers;
+using SnowConeTycoon.Shared.Models;
 using SnowConeTycoon.Shared.Utils;
 
 namespace SnowConeTycoon.Shared.Screens.Modals
@@ -23,6 +24,8 @@ namespace SnowConeTycoon.Shared.Screens.Modals
         private string PaperText = string.Empty;
         private bool PlayedSound = false;
         private SpriteEffects ArrowEffects = SpriteEffects.None;
+        private int TutorialCount = 0;
+        private int TutorialCountTotal = 2;
 
         public TutorialModal(double scaleX, double scaleY)
         {
@@ -71,6 +74,13 @@ namespace SnowConeTycoon.Shared.Screens.Modals
                             break;
                         default:
                             Active = false;
+
+                            TutorialCount++;
+
+                            if (TutorialCount >= TutorialCountTotal)
+                            {
+                                Player.IsFirstTimePlaying = false;
+                            }
                             break;
                     }
                     break;

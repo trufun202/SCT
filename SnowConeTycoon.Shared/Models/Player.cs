@@ -96,8 +96,8 @@ namespace SnowConeTycoon.Shared.Models
             }
             else
             {
-                //it's been greater than 1 day since they played, so reset back to 1
-                ConsecutiveDaysPlayed = 1;
+                //it's been greater than 1 day since they played, so reset back to 0
+                ConsecutiveDaysPlayed = 0;
             }
 
             if (ConsecutiveDaysPlayed > 5)
