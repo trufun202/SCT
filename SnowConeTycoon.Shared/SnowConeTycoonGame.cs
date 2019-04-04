@@ -102,6 +102,8 @@ namespace SnowConeTycoon.Shared
         SoundEffectInstance songMainTheme;
         SoundEffectInstance songOpenForBusiness;
         SoundEffectInstance songCredits;
+        public bool ShowRateGame = false;
+
         public SnowConeTycoonGame()
         {
             businessDayService = new BusinessDayService();
@@ -117,6 +119,12 @@ namespace SnowConeTycoon.Shared
                 songOpenForBusiness.Stop();
                 songMainTheme.Play();
                 //CurrentScreen = Screen.SupplyShop;
+
+                //if more than 1 day and not showing an ad, ask them to rate the game
+                if (Player.CurrentDay > 1 && Player.CurrentDay % 2 != 0)
+                {
+                    ShowRateGame = true;
+                }
             });
         }
 

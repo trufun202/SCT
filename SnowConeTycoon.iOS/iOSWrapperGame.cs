@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using SnowConeTycoon.Shared;
 using Google.MobileAds;
 using UIKit;
+using StoreKit;
 
 namespace SnowConeTycoon.iOS
 {
@@ -46,6 +47,14 @@ namespace SnowConeTycoon.iOS
         {
             base.Update(gameTime);
             SnowConeGame.Update(gameTime);
+
+            if (SnowConeGame.ShowRateGame)
+            {
+                SnowConeGame.ShowRateGame = false;
+
+                // Request a review from the user
+                SKStoreReviewController.RequestReview();
+            }
         }
 
         protected override void Draw(GameTime gameTime)
