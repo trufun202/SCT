@@ -287,7 +287,7 @@ namespace SnowConeTycoon.Shared
             DailyBonusEvent = new TimedEvent(500,
             () =>
             {
-                var ts = DateTime.Now - Player.DailyBonusLastReceived;
+                var ts = DateTime.Now.Date - Player.DailyBonusLastReceived.Date;
 
                 if (Player.ConsecutiveDaysPlayed > 0 && ts.Days >= 1)
                 {
@@ -323,6 +323,8 @@ namespace SnowConeTycoon.Shared
             {
                 Fade.Reset(() =>
                 {
+                    SelectedKidType = Player.KidType;
+                    SelectedKidIndex = Player.KidIndex;
                     OriginalSelectedKidIndex = SelectedKidIndex;
                     OriginalSelectedKidType = SelectedKidType;
                     KidHandler.SelectedKidIndex = SelectedKidIndex;
@@ -410,9 +412,18 @@ namespace SnowConeTycoon.Shared
             {
                 if (KidHandler.CurrentKid.IsLocked)
                 {
-                    KidHandler.CurrentKid.Unlock();
-                    ContentHandler.Sounds["Unlock"].Play();
-                    return false;
+                    if (KidHandler.CurrentKid.UnlockMechanism == UnlockMechanism.Purchase
+                        && Player.CoinCount >= KidHandler.CurrentKid.UnlockPrice)
+                    {
+                        Player.AddCoins(KidHandler.CurrentKid.UnlockPrice * -1);
+                        KidHandler.CurrentKid.Unlock();
+                        ContentHandler.Sounds["Unlock"].Play();
+                        return false;
+                    }
+                    else if (KidHandler.CurrentKid.UnlockMechanism == UnlockMechanism.Purchase)
+                    {
+                        ContentHandler.Sounds["Oops"].Play();
+                    }
                 }
                 else
                 {

@@ -79,9 +79,9 @@ namespace SnowConeTycoon.Shared.Kids
         public void SetGameSpeedx2()
         {
             gameSpeed = GameSpeed.x2;
-            EyeClosingEvent.TimeTotal = 3000;
-            EyeOpeningEvent.TimeTotal = 150;
-            EmotionEvent.TimeTotal = 6000;
+            EyeClosingEvent.TimeTotal = 1000;
+            EyeOpeningEvent.TimeTotal = 50;
+            EmotionEvent.TimeTotal = 2000;
         }
 
         public void Unlock()

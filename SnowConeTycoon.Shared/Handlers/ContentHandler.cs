@@ -166,6 +166,7 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("DaySetup_OutOfIce", content.Load<Texture2D>("DaySetup_OutOfIce"));
             Images.Add("DaySetup_NoSyrup", content.Load<Texture2D>("DaySetup_NoSyrup"));
             Images.Add("UnlockModal", content.Load<Texture2D>("UnlockModal"));
+            Images.Add("FastForwardIcon", content.Load<Texture2D>("FastForwardIcon"));
 
             ///////////////////////////////////////////
             //SUPPLY SHOP
