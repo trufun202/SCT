@@ -120,12 +120,21 @@ namespace SnowConeTycoon.Shared
                 songMainTheme.Play();
                 //CurrentScreen = Screen.SupplyShop;
 
+                var dayCount = 3;
+#if ANDROID
+                dayCount = 4;
+#endif
                 //if more than 1 day and not showing an ad, ask them to rate the game
-                if (Player.CurrentDay > 1 && Player.CurrentDay % 2 != 0)
+                if (Player.CurrentDay > 1 && Player.CurrentDay % dayCount == 0 && !Player.RatedApp)
                 {
                     ShowRateGame = true;
                 }
             });
+        }
+
+        public void SetPlayerRatedApp()
+        {
+            Player.RatedApp = true;
         }
 
         public void CancelReward()

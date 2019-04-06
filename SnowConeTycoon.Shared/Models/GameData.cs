@@ -21,5 +21,6 @@ namespace SnowConeTycoon.Shared.Models
         public int SoldCount { get; set; }
         public List<int> BoyLocks { get; set; }
         public List<int> GirlLocks { get; set; }
+        public bool RatedApp { get; set; }
     }
 }

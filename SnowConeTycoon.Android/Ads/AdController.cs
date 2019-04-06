@@ -51,7 +51,7 @@ namespace SnowConeTycoon.Android.Ads
             interstitialHandle.AdListener = null;
             ListeningRegular listening = new ListeningRegular();
             interstitialHandle.AdListener = listening;
-            interstitialHandle.LoadAd(new AdRequest.Builder().Build());
+            interstitialHandle.LoadAd(new AdRequest.Builder().AddTestDevice(global::Android.Provider.Settings.Secure.GetString(AndroidWrapperGame.Activity.ContentResolver, global::Android.Provider.Settings.Secure.AndroidId)).Build());
         }
         /*********************************************************************************************
          * Function Name : ShowRegularAd
@@ -74,9 +74,9 @@ namespace SnowConeTycoon.Android.Ads
         {
             ListeningReward listening = new ListeningReward();                                          // create a pointer to our listen class      
             rewardHandle = MobileAds.GetRewardedVideoAdInstance(AndroidWrapperGame.Activity);                        // initialize the handle      
-            rewardHandle.UserId = appID;                                                                // set the App ID      
+            rewardHandle.UserId = appID;                                                              // set the App ID      
             rewardHandle.RewardedVideoAdListener = listening;                                           // point to the rewards Listen class      
-            rewardHandle.LoadAd(rewardAdId, new AdRequest.Builder().Build());                                 // load the first one      
+            rewardHandle.LoadAd(rewardAdId, new AdRequest.Builder().AddTestDevice(global::Android.Provider.Settings.Secure.GetString(AndroidWrapperGame.Activity.ContentResolver, global::Android.Provider.Settings.Secure.AndroidId)).Build());                                 // load the first one      
         }
         /*********************************************************************************************
          * Function Name : ShowRewardAd
@@ -114,6 +114,11 @@ namespace SnowConeTycoon.Android.Ads
         public override void OnAdOpened()
         {
             base.OnAdOpened();
+        }
+
+        public override void OnAdFailedToLoad(int errorCode)
+        {
+            base.OnAdFailedToLoad(errorCode);
         }
     }
     /*********************************************************************************************

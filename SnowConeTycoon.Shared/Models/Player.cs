@@ -21,6 +21,7 @@ namespace SnowConeTycoon.Shared.Models
         public static int CurrentDay { get; set; }
         public static GameSpeed GameSpeed = GameSpeed.x1;
         public static bool IsFirstTimePlaying { get; set; }
+        public static bool RatedApp { get; set; }
 
         public static void Reset()
         {
@@ -34,6 +35,7 @@ namespace SnowConeTycoon.Shared.Models
             CurrentDay = 1;
             DailyBonusLastReceived = DateTime.Now.Date;
             IsFirstTimePlaying = true;
+            RatedApp = false;
         }
 
         public static GameData ToGameData()
@@ -53,7 +55,8 @@ namespace SnowConeTycoon.Shared.Models
                 DailyBonusLastReceived = DailyBonusLastReceived,
                 SoldCount = SoldCount,
                 BoyLocks = KidHandler.GetBoyLocks(),
-                GirlLocks = KidHandler.GetGirlLocks()
+                GirlLocks = KidHandler.GetGirlLocks(),
+                RatedApp = RatedApp
             };
         }
 
@@ -70,6 +73,7 @@ namespace SnowConeTycoon.Shared.Models
             DailyBonusLastReceived = gameData.DailyBonusLastReceived;
             CurrentDay = gameData.CurrentDay;
             SoldCount = gameData.SoldCount;
+            RatedApp = gameData.RatedApp;
 
             var boyLocks = gameData.BoyLocks;
             var girlLocks = gameData.GirlLocks;
