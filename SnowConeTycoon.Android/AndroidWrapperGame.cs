@@ -11,10 +11,32 @@ namespace SnowConeTycoon.Android
 {
     public class AndroidWrapperGame : Game
     {
-        public SnowConeTycoonGame SnowConeGame = new SnowConeTycoonGame();
+        public static SnowConeTycoonGame SnowConeGame = new SnowConeTycoonGame();
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
         AlertDialog.Builder dialog;
+        public static bool RewardAdLoaded
+        {
+            get
+            {
+                return SnowConeGame.RewardAdLoaded;
+            }
+            set
+            {
+                SnowConeGame.RewardAdLoaded = value;
+            }
+        }
+        public static bool InterstitialAdLoaded
+        {
+            get
+            {
+                return SnowConeGame.InterstitialAdLoaded;
+            }
+            set
+            {
+                SnowConeGame.InterstitialAdLoaded = value;
+            }
+        }
 
         public AndroidWrapperGame(Activity1 activity)
         {
@@ -34,8 +56,8 @@ namespace SnowConeTycoon.Android
         {
             spriteBatch = new SpriteBatch(graphics.GraphicsDevice);
             SnowConeGame.LoadContent(Content);
-            AdController.InitRegularAd();
             AdController.InitRewardAd();
+            AdController.InitRegularAd();
         }
 
         protected override void OnDeactivated(object sender, EventArgs args)

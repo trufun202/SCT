@@ -103,6 +103,8 @@ namespace SnowConeTycoon.Shared
         SoundEffectInstance songOpenForBusiness;
         SoundEffectInstance songCredits;
         public bool ShowRateGame = false;
+        public bool InterstitialAdLoaded = false;
+        public bool RewardAdLoaded = false;
 
         public SnowConeTycoonGame()
         {
@@ -359,10 +361,16 @@ namespace SnowConeTycoon.Shared
             /////////////////////////
             FormTitle.Controls.Add(new Button(new Rectangle(1325, 30, 172, 172), () =>
             {
-                PreviousScreen = CurrentScreen;
-                CurrentScreen = Screen.RewardAd;
-                songMainTheme.Pause();
-                return true;
+                if (RewardAdLoaded)
+                {
+                    PreviousScreen = CurrentScreen;
+                    CurrentScreen = Screen.RewardAd;
+                    songMainTheme.Pause();
+                    return true;
+                }
+                else
+                    return false;
+
             }, "pop", scaleX, scaleY));
 
             FormCharacterSelect = new Form(0, 0);
@@ -517,18 +525,30 @@ namespace SnowConeTycoon.Shared
             }, "Ice_Cube", scaleX, scaleY));
             FormDaySetup.Controls.Add(new Button(new Rectangle(1125, 1650, 190, 165), () =>
             {
-                PreviousScreen = CurrentScreen;
-                CurrentScreen = Screen.RewardAd;
-                songMainTheme.Pause();
-                return true;
+                if (RewardAdLoaded)
+                {
+                    PreviousScreen = CurrentScreen;
+                    CurrentScreen = Screen.RewardAd;
+                    songMainTheme.Pause();
+                    return true;
+                }
+
+                return false;
             }, string.Empty, scaleX, scaleY));
 
             FormOutOfIce = new Form(0, 0);
             FormOutOfIce.Controls.Add(new Button(new Rectangle(950, 1350, 500, 300), () =>
             {
-                PreviousScreen = CurrentScreen;
-                CurrentScreen = Screen.RewardAd;
-                songMainTheme.Pause();
+                if (RewardAdLoaded)
+                {
+                    PreviousScreen = CurrentScreen;
+                    CurrentScreen = Screen.RewardAd;
+                    songMainTheme.Pause();
+                }
+                else
+                {
+                    AddReward(Defaults.REWARD_ICE_COUNT, Defaults.REWARD_COIN_COUNT);
+                }
                 return true;
             }, string.Empty, scaleX, scaleY));
 
@@ -558,7 +578,7 @@ namespace SnowConeTycoon.Shared
 
                         DaysSinceAd++;
 
-                        if (DaysSinceAd >= Defaults.DAY_COUNT_BETWEEN_ADS)
+                        if (DaysSinceAd >= Defaults.DAY_COUNT_BETWEEN_ADS && InterstitialAdLoaded)
                         {
                             DaysSinceAd = 0;
                             CurrentScreen = Screen.FullScreenAd;

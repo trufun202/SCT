@@ -35,6 +35,8 @@ namespace SnowConeTycoon.iOS
             SnowConeGame.LoadContent(Content);
             AdMobRewardService = new AdMobRewardService(SnowConeGame);
             AdMobInterstitialService = new AdMobInterstitialService(SnowConeGame);
+            AdMobRewardService.Reset();
+            AdMobInterstitialService.LoadAd();
         }
 
         protected override void OnDeactivated(object sender, EventArgs args)
