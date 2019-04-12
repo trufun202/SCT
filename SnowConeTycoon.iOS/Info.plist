@@ -9,6 +9,7 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 	</array>
 	<key>CFBundleName</key>
 	<string>Snow Cone</string>
@@ -26,5 +27,7 @@
 	<string></string>
 	<key>CFBundleShortVersionString</key>
 	<string>1.1</string>
+	<key>UIStatusBarHidden</key>
+	<true/>
 </dict>
 </plist>
