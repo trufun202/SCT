@@ -81,6 +81,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Screens\CreditsScreen.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Screens\Modals\TutorialModal.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Animations\FadeOutImage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Screens\Modals\WatchAdModal.cs" />
   </ItemGroup>
   <ItemGroup>
     <MonoGameContentReference Include="$(MSBuildThisFileDirectory)Content\Content.mgcb" />

@@ -1,4 +1,4 @@
-﻿#region Using Statements
+#region Using Statements
 using System;
 using System.Collections.Generic;
 using Microsoft.Xna.Framework;
@@ -50,6 +50,7 @@ namespace SnowConeTycoon.Shared
         Form FormSupplyShop;
         Form FormDailyBonus;
         Form FormOutOfIce;
+        Form FormWatchAd;
         Form FormNotEnoughCoins;
         Form FormNoSyrup;
 
@@ -61,6 +62,7 @@ namespace SnowConeTycoon.Shared
         ResultsScreen ResultsScreen;
         SupplyShopScreen SupplyShopScreen;
         OutOfIceModal OutOfIceModal;
+        WatchAdModal WatchAdModal;
         NotEnoughCoinsModal NotEnoughCoinsModal;
         NoSyrupModal NoSyrupModal;
         CreditsScreen CreditsScreen;
@@ -123,9 +125,9 @@ namespace SnowConeTycoon.Shared
                 //CurrentScreen = Screen.SupplyShop;
 
                 var dayCount = 3;
-#if ANDROID
-                dayCount = 4;
-#endif
+                //#if ANDROID
+                //                dayCount = 4;
+                //#endif
                 //if more than 1 day and not showing an ad, ask them to rate the game
                 if (Player.CurrentDay > 1 && Player.CurrentDay % dayCount == 0 && !Player.RatedApp)
                 {
@@ -141,12 +143,14 @@ namespace SnowConeTycoon.Shared
 
         public void CancelReward()
         {
+            WatchAdModal.Active = false;
             CurrentScreen = PreviousScreen;
             songMainTheme.Resume();
         }
 
         public void AddReward(int iceCount, int coinCount)
         {
+            WatchAdModal.Active = false;
             CurrentScreen = PreviousScreen;
 
             songMainTheme.Resume();
@@ -177,7 +181,7 @@ namespace SnowConeTycoon.Shared
                             CoinParticleEmitter.FlowOn = false;
                         },
                         1);
-                    },6);
+                    }, 6);
             }
         }
 
@@ -321,6 +325,8 @@ namespace SnowConeTycoon.Shared
                 {
                     var dayForecast = weatherService.GetForecast(Player.CurrentDay);
                     SetWeather(dayForecast);
+                    OutOfIceModal.Active = false;
+                    WatchAdModal.Active = false;
                     DaySetupScreen.Reset(dayForecast.Temperature);
                     CurrentScreen = Screen.DaySetup;
                 });
@@ -485,16 +491,19 @@ namespace SnowConeTycoon.Shared
 
             FormDaySetup.Controls.Add(new Button(new Rectangle(50, 2335, 592, 250), () =>
             {
-                Fade.Reset(() =>
+                if (!OutOfIceModal.Active && !WatchAdModal.Active)
                 {
-                    CurrentScreen = Screen.Title;
-                });
+                    Fade.Reset(() =>
+                    {
+                        CurrentScreen = Screen.Title;
+                    });
+                }
 
                 return true;
             }, "pop", scaleX, scaleY));
             FormDaySetup.Controls.Add(new Button(new Rectangle(925, 2375, 592, 250), () =>
             {
-                if (Player.IceCount > 0 && DaySetupScreen.SyrupCount > 0)
+                if (Player.IceCount > 0 && DaySetupScreen.SyrupCount > 0 && !OutOfIceModal.Active && !WatchAdModal.Active)
                 {
                     Fade.Reset(() =>
                     {
@@ -505,17 +514,16 @@ namespace SnowConeTycoon.Shared
                         CurrentScreen = Screen.OpenForBusiness;
                     });
                 }
-                else if (Player.IceCount <= 0)
+                else if (Player.IceCount <= 0 && !OutOfIceModal.Active && !WatchAdModal.Active)
                 {
                     //show "Out of Ice!" popup, with a button to watch an ad
                     OutOfIceModal.Active = true;
                     ContentHandler.Sounds["Oops"].Play();
                     return false;
                 }
-                else
+                else if (!OutOfIceModal.Active && !WatchAdModal.Active)
                 {
                     //tell the player to add some syrup!
-                    //TODO this means the player can get stuck...if they're out of money and syrup, they can't play the game...hmmmmmmmm
                     NoSyrupModal.Active = true;
                     ContentHandler.Sounds["Oops"].Play();
                     return false;
@@ -527,9 +535,7 @@ namespace SnowConeTycoon.Shared
             {
                 if (RewardAdLoaded)
                 {
-                    PreviousScreen = CurrentScreen;
-                    CurrentScreen = Screen.RewardAd;
-                    songMainTheme.Pause();
+                    WatchAdModal.Active = true;
                     return true;
                 }
 
@@ -562,6 +568,27 @@ namespace SnowConeTycoon.Shared
 
                 return true;
             }, "pop", scaleX, scaleY));
+
+            FormWatchAd = new Form(0, 0);
+            FormWatchAd.Controls.Add(new Button(new Rectangle(1250, 1150, 150, 150), () =>
+            {
+                WatchAdModal.Active = false;
+                return true;
+            }, string.Empty, scaleX, scaleY));
+            FormWatchAd.Controls.Add(new Button(new Rectangle(950, 1400, 400, 250), () =>
+            {
+                if (RewardAdLoaded)
+                {
+                    PreviousScreen = CurrentScreen;
+                    CurrentScreen = Screen.RewardAd;
+                    songMainTheme.Pause();
+                }
+                else
+                {
+                    AddReward(Defaults.REWARD_ICE_COUNT, Defaults.REWARD_COIN_COUNT);
+                }
+                return true;
+            }, string.Empty, scaleX, scaleY));
 
             FormResults = new Form(0, 0);
             FormResults.Controls.Add(new Button(new Rectangle(925, 2375, 592, 250), () =>
@@ -716,6 +743,7 @@ namespace SnowConeTycoon.Shared
             SupplyShopScreen = new SupplyShopScreen(scaleX, scaleY);
             DailyBonusScreen = new DailyBonusScreen();
             OutOfIceModal = new OutOfIceModal(scaleX, scaleY);
+            WatchAdModal = new WatchAdModal(scaleX, scaleY);
             NotEnoughCoinsModal = new NotEnoughCoinsModal(scaleX, scaleY);
             NoSyrupModal = new NoSyrupModal(scaleX, scaleY);
             CreditsScreen = new CreditsScreen();
@@ -744,7 +772,7 @@ namespace SnowConeTycoon.Shared
             if (Fade.ShowingFade)
             {
                 Fade.Update(gameTime);
-            }
+            }m
             else
             {
                 currentTouchCollection = TouchPanel.GetState();
@@ -786,6 +814,10 @@ namespace SnowConeTycoon.Shared
                     if (OutOfIceModal.Active)
                     {
                         FormOutOfIce.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
+                    }
+                    else if (WatchAdModal.Active)
+                    {
+                        FormWatchAd.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
                     }
                     else if (NoSyrupModal.Active)
                     {
@@ -887,6 +919,11 @@ namespace SnowConeTycoon.Shared
                         {
                             OutOfIceModal.Active = false;
                         }
+                    }
+                    else if (WatchAdModal.Active)
+                    {
+                        FormWatchAd.Ready = true;
+                        FormWatchAd.Update(gameTime);
                     }
                     else if (NoSyrupModal.Active)
                     {
@@ -1052,6 +1089,11 @@ namespace SnowConeTycoon.Shared
                 {
                     OutOfIceModal.Draw(spriteBatch);
                     FormOutOfIce.Draw(spriteBatch);
+                }
+                else if (WatchAdModal.Active)
+                {
+                    WatchAdModal.Draw(spriteBatch);
+                    FormWatchAd.Draw(spriteBatch);
                 }
                 else if (NoSyrupModal.Active)
                 {

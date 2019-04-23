@@ -159,18 +159,6 @@ namespace SnowConeTycoon.Shared.Services
                 results.SnowConesSold = (int)(Player.SyrupCount / (double)syrup);
             }
 
-            switch (forecast.Forecast)
-            {
-                case Forecast.Rain:
-                    results.OverallDayOpinion = OverallDayOpinion.WeatherRain;
-                    break;
-                case Forecast.Snow:
-                    results.OverallDayOpinion = OverallDayOpinion.WeatherCold;
-                    break;
-                default:
-                    break;
-            }
-
             var syrupDiff = syrup - idealSyrup;
 
             var promoterMin = 0f;
@@ -213,6 +201,22 @@ namespace SnowConeTycoon.Shared.Services
                 passiveMin = 0.2f;
                 passiveMax = 0.3f; 
                 results.OverallDayOpinion = OverallDayOpinion.TooSweet;
+            }
+
+            if (Math.Abs(syrupDiff) >= 2)
+            {
+                //way off on the target syrup, so let's blame it on the weather.
+                switch (forecast.Forecast)
+                {
+                    case Forecast.Rain:
+                        results.OverallDayOpinion = OverallDayOpinion.WeatherRain;
+                        break;
+                    case Forecast.Snow:
+                        results.OverallDayOpinion = OverallDayOpinion.WeatherCold;
+                        break;
+                    default:
+                        break;
+                }
             }
 
             results.DayQuote = quoteService.GetQuote(results.OverallDayOpinion, results.SnowConesSold);

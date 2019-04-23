@@ -20,6 +20,7 @@
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
+		<integer>2</integer>
 	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.chrosgames.snowconetycoon</string>
@@ -29,5 +30,9 @@
 	<string>1.1</string>
 	<key>UIStatusBarHidden</key>
 	<true/>
+	<key>UIRequiresFullScreen</key>
+	<true/>
+	<key>CFBundleVersion</key>
+	<string>5</string>
 </dict>
 </plist>
