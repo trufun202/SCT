@@ -21,6 +21,11 @@ namespace SnowConeTycoon.Shared
         {
             return Color.FromNonPremultiplied(GetRandomInt(256), GetRandomInt(256), GetRandomInt(256), 255);
         }
+
+        public static int ConvertToCelsius(int fahrenheit)
+        {
+            return (int)((fahrenheit - 32) * (5 / (double)9));
+        }
     }
 }
 

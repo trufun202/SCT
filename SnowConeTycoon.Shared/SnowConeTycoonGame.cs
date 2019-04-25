@@ -65,6 +65,7 @@ namespace SnowConeTycoon.Shared
         WatchAdModal WatchAdModal;
         NotEnoughCoinsModal NotEnoughCoinsModal;
         NoSyrupModal NoSyrupModal;
+        SettingsModal SettingsModal;
         CreditsScreen CreditsScreen;
 
         Dictionary<string, IBackground> Backgrounds;
@@ -101,9 +102,9 @@ namespace SnowConeTycoon.Shared
         PulseImage IceIcon;
         PulseImage CoinIcon;
         int DaysSinceAd = 0;
-        SoundEffectInstance songMainTheme;
-        SoundEffectInstance songOpenForBusiness;
-        SoundEffectInstance songCredits;
+        public ControlledSoundEffect songMainTheme;
+        public ControlledSoundEffect songOpenForBusiness;
+        public ControlledSoundEffect songCredits;
         public bool ShowRateGame = false;
         public bool InterstitialAdLoaded = false;
         public bool RewardAdLoaded = false;
@@ -121,7 +122,7 @@ namespace SnowConeTycoon.Shared
                 ResultsScreen.ResetAndSetResults(results);
                 CurrentScreen = Screen.Results;
                 songOpenForBusiness.Stop();
-                songMainTheme.Play();
+                songMainTheme.PlayMusic();
                 //CurrentScreen = Screen.SupplyShop;
 
                 var dayCount = 3;
@@ -275,9 +276,9 @@ namespace SnowConeTycoon.Shared
                     {
                         CurrentScreen = Screen.Logo;
 
-                        songMainTheme = ContentHandler.Sounds["SCTMainTheme"].CreateInstance();
-                        songOpenForBusiness = ContentHandler.Sounds["SCTOpenForBusiness"].CreateInstance();
-                        songCredits = ContentHandler.Sounds["CreditsSong"].CreateInstance();
+                        songMainTheme = ContentHandler.Sounds["SCTMainTheme"];
+                        songOpenForBusiness = ContentHandler.Sounds["SCTOpenForBusiness"];
+                        songCredits = ContentHandler.Sounds["CreditsSong"];
                         songMainTheme.IsLooped = true;
                         songOpenForBusiness.IsLooped = true;
                     }
@@ -294,7 +295,7 @@ namespace SnowConeTycoon.Shared
                     //XnaMediaPlayer.Play(ContentHandler.Songs["MainTheme2"]);
                     //XnaMediaPlayer.IsRepeating = true;
                     songOpenForBusiness.Stop();
-                    songMainTheme.Play();
+                    songMainTheme.PlayMusic();
                 });
             },
             1);
@@ -359,7 +360,7 @@ namespace SnowConeTycoon.Shared
                 CurrentScreen = Screen.Credits;
                 CreditsScreen.Reset();
                 songMainTheme.Pause();
-                songCredits.Play();
+                songCredits.PlayMusic();
                 return true;
             }, "pop", scaleX, scaleY));
             /////////////////////////
@@ -377,6 +378,15 @@ namespace SnowConeTycoon.Shared
                 else
                     return false;
 
+            }, "pop", scaleX, scaleY));
+            //////////////////////////
+            ///SETTINGS
+            //////////////////////////
+            FormTitle.Controls.Add(new Button(new Rectangle(1280, 800, 191, 171), () =>
+            {
+                SettingsModal.Reset();
+
+                return true;
             }, "pop", scaleX, scaleY));
 
             FormCharacterSelect = new Form(0, 0);
@@ -508,7 +518,7 @@ namespace SnowConeTycoon.Shared
                     Fade.Reset(() =>
                     {
                         songMainTheme.Stop();
-                        songOpenForBusiness.Play();
+                        songOpenForBusiness.PlayMusic();
                         Player.AddIce(-1);
                         OpenForBusinessScreen.Reset(businessDayService.CalculateDay(weatherService.GetForecast(Player.CurrentDay), Player.ConeCount, DaySetupScreen.SyrupCount, DaySetupScreen.FlyerCount, DaySetupScreen.Price));
                         CurrentScreen = Screen.OpenForBusiness;
@@ -559,7 +569,7 @@ namespace SnowConeTycoon.Shared
             }, string.Empty, scaleX, scaleY));
 
             FormOpenForBusiness = new Form(0, 0);
-            FormOpenForBusiness.Controls.Add(new Button(new Rectangle(1370, 30, 151, 152), () =>
+            /*FormOpenForBusiness.Controls.Add(new Button(new Rectangle(1370, 30, 151, 152), () =>
             {
                 Fade.Reset(() =>
                 {
@@ -567,7 +577,7 @@ namespace SnowConeTycoon.Shared
                 });
 
                 return true;
-            }, "pop", scaleX, scaleY));
+            }, "pop", scaleX, scaleY));*/
 
             FormWatchAd = new Form(0, 0);
             FormWatchAd.Controls.Add(new Button(new Rectangle(1250, 1150, 150, 150), () =>
@@ -746,6 +756,7 @@ namespace SnowConeTycoon.Shared
             WatchAdModal = new WatchAdModal(scaleX, scaleY);
             NotEnoughCoinsModal = new NotEnoughCoinsModal(scaleX, scaleY);
             NoSyrupModal = new NoSyrupModal(scaleX, scaleY);
+            SettingsModal = new SettingsModal(this, scaleX, scaleY);
             CreditsScreen = new CreditsScreen();
 
             IceParticleEmitter = new ParticleEmitter(100, 1375, 110, 40, 2000, "particle_ice", 3.25f);
@@ -772,7 +783,7 @@ namespace SnowConeTycoon.Shared
             if (Fade.ShowingFade)
             {
                 Fade.Update(gameTime);
-            }m
+            }
             else
             {
                 currentTouchCollection = TouchPanel.GetState();
@@ -792,6 +803,10 @@ namespace SnowConeTycoon.Shared
                     if (ShowingDailyBonus)
                     {
                         FormDailyBonus.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
+                    }
+                    else if (SettingsModal.Active)
+                    {
+                        SettingsModal.HandleInput(previousTouchCollection, currentTouchCollection, gameTime);
                     }
                     else
                     {
@@ -894,6 +909,13 @@ namespace SnowConeTycoon.Shared
                     {
                         DailyBonusScreen.Update(gameTime);
                         FormDailyBonus.Ready = true;
+                        FormTitle.Ready = false;
+                        SettingsModal.Active = false;
+                    }
+                    else if (SettingsModal.Active)
+                    {
+                        SettingsModal.Update(gameTime);
+                        FormDailyBonus.Ready = false;
                         FormTitle.Ready = false;
                     }
                     else
@@ -1061,6 +1083,9 @@ namespace SnowConeTycoon.Shared
                 spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1272, 43), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1272, 47), Defaults.Brown, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
                 spriteBatch.DrawString(Defaults.Font, Player.IceCount.ToString(), new Vector2(1270, 45), Defaults.Cream, 0f, new Vector2(Defaults.Font.MeasureString(Player.IceCount.ToString()).X, 0), 1f, SpriteEffects.None, 1f);
+
+                spriteBatch.Draw(ContentHandler.Images["IconGear"], new Rectangle(1280, 800, 191, 171), Color.White);
+
                 IceIcon?.Draw(spriteBatch);
                 CoinIcon?.Draw(spriteBatch);
 
@@ -1072,6 +1097,11 @@ namespace SnowConeTycoon.Shared
                 {
                     DailyBonusScreen.Draw(spriteBatch);
                     FormDailyBonus.Draw(spriteBatch);
+                }
+
+                if (SettingsModal.Active)
+                {
+                    SettingsModal.Draw(spriteBatch);
                 }
             }
             else if (CurrentScreen == Screen.Credits)
@@ -1183,7 +1213,7 @@ namespace SnowConeTycoon.Shared
                 KidHandler.Draw(spriteBatch, (int)Kid1Position.X, (int)Kid1Position.Y);
                 OpenForBusinessScreen.Draw(spriteBatch);
                 FormOpenForBusiness.Draw(spriteBatch);
-                spriteBatch.Draw(ContentHandler.Images["IconHome"], new Vector2(1380, 40), Color.White);
+                //spriteBatch.Draw(ContentHandler.Images["IconHome"], new Vector2(1380, 40), Color.White);
                 CurrentBackgroundEffect?.Draw(spriteBatch);
             }
 

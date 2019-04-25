@@ -22,6 +22,9 @@ namespace SnowConeTycoon.Shared.Models
         public static GameSpeed GameSpeed = GameSpeed.x1;
         public static bool IsFirstTimePlaying { get; set; }
         public static bool RatedApp { get; set; }
+        public static Degrees Degrees { get; set; }
+        public static bool MusicEnabled { get; set; }
+        public static bool SoundEnabled { get; set; }
 
         public static void Reset()
         {
@@ -36,6 +39,9 @@ namespace SnowConeTycoon.Shared.Models
             DailyBonusLastReceived = DateTime.Now.Date;
             IsFirstTimePlaying = true;
             RatedApp = false;
+            Degrees = Degrees.Fahrenheit;
+            MusicEnabled = true;
+            SoundEnabled = true;
         }
 
         public static GameData ToGameData()
@@ -56,7 +62,10 @@ namespace SnowConeTycoon.Shared.Models
                 SoldCount = SoldCount,
                 BoyLocks = KidHandler.GetBoyLocks(),
                 GirlLocks = KidHandler.GetGirlLocks(),
-                RatedApp = RatedApp
+                RatedApp = RatedApp,
+                Degrees = Degrees,
+                MusicEnabled = MusicEnabled,
+                SoundEnabled = SoundEnabled
             };
         }
 
@@ -74,6 +83,9 @@ namespace SnowConeTycoon.Shared.Models
             CurrentDay = gameData.CurrentDay;
             SoldCount = gameData.SoldCount;
             RatedApp = gameData.RatedApp;
+            Degrees = gameData.Degrees;
+            MusicEnabled = gameData.MusicEnabled;
+            SoundEnabled = gameData.SoundEnabled;
 
             var boyLocks = gameData.BoyLocks;
             var girlLocks = gameData.GirlLocks;
