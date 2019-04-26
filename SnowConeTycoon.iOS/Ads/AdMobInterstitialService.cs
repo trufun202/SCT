@@ -26,6 +26,7 @@ public class AdMobInterstitialService : IInterstitialDelegate
         request.TestDevices = new[] { "2693502e8e082cb9db4c3b1124d2622026621f23" };
         interstitial.LoadRequest(request);
         AdLoaded = true;
+        Game.InterstitialAdLoaded = true;
     }
 
     void Interstitial_ScreenDismissed(object sender, EventArgs e)

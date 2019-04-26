@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using SnowConeTycoon.Shared.Enums;
 using static SnowConeTycoon.Shared.Handlers.KidHandler;
 
 namespace SnowConeTycoon.Shared.Models
@@ -21,5 +22,9 @@ namespace SnowConeTycoon.Shared.Models
         public int SoldCount { get; set; }
         public List<int> BoyLocks { get; set; }
         public List<int> GirlLocks { get; set; }
+        public bool RatedApp { get; set; }
+        public Degrees Degrees { get; set; }
+        public bool MusicEnabled { get; set; }
+        public bool SoundEnabled { get; set; }
     }
 }

@@ -159,19 +159,7 @@ namespace SnowConeTycoon.Shared.Services
                 results.SnowConesSold = (int)(Player.SyrupCount / (double)syrup);
             }
 
-            switch (forecast.Forecast)
-            {
-                case Forecast.Rain:
-                    results.OverallDayOpinion = OverallDayOpinion.WeatherRain;
-                    break;
-                case Forecast.Snow:
-                    results.OverallDayOpinion = OverallDayOpinion.WeatherCold;
-                    break;
-                default:
-                    break;
-            }
-
-            var syrupDiff = Math.Abs(syrup - idealSyrup);
+            var syrupDiff = syrup - idealSyrup;
 
             var promoterMin = 0f;
             var promoterMax = 0f;
@@ -187,7 +175,7 @@ namespace SnowConeTycoon.Shared.Services
                 passiveMax = 0.1f;
                 results.OverallDayOpinion = OverallDayOpinion.Perfect;
             }
-            else if (syrupDiff == 1)
+            else if (syrupDiff == 1 || syrupDiff == -1)
             {
                 //a little off, you'll have some passives
                 promoterMin = 0.6f;
@@ -196,23 +184,39 @@ namespace SnowConeTycoon.Shared.Services
                 passiveMax = 0.5f;
                 results.OverallDayOpinion = OverallDayOpinion.JustOkay;
             }
-            else if (syrupDiff == 2)
+            else if (syrupDiff <= -2)
             {
-                //pretty off, you'll have some detractors
+                //too plain, you'll have some detractors
                 promoterMin = 0.1f;
                 promoterMax = 0.3f;
                 passiveMin = 0.2f;
                 passiveMax = 0.4f;
                 results.OverallDayOpinion = OverallDayOpinion.TooPlain;
             }
-            else if (syrupDiff >= 3)
+            else if (syrupDiff >= 2)
             {
-                //yuck!  You're way off
+                //yuck!  You're way off, way too sweet
                 promoterMin = 0.0f;
                 promoterMax = 0.1f;
                 passiveMin = 0.2f;
                 passiveMax = 0.3f; 
                 results.OverallDayOpinion = OverallDayOpinion.TooSweet;
+            }
+
+            if (Math.Abs(syrupDiff) >= 2)
+            {
+                //way off on the target syrup, so let's blame it on the weather.
+                switch (forecast.Forecast)
+                {
+                    case Forecast.Rain:
+                        results.OverallDayOpinion = OverallDayOpinion.WeatherRain;
+                        break;
+                    case Forecast.Snow:
+                        results.OverallDayOpinion = OverallDayOpinion.WeatherCold;
+                        break;
+                    default:
+                        break;
+                }
             }
 
             results.DayQuote = quoteService.GetQuote(results.OverallDayOpinion, results.SnowConesSold);

@@ -33,6 +33,7 @@ public class AdMobRewardService : RewardBasedVideoAdDelegate
 
     public override void DidReceiveAd(RewardBasedVideoAd rewardBasedVideoAd)
     {
+        Game.RewardAdLoaded = true;
         AdReady = true;
         Console.WriteLine("Reward based video ad is received.");
     }

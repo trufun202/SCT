@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using SnowConeTycoon.Shared.Animations;
 using SnowConeTycoon.Shared.Enums;
 using SnowConeTycoon.Shared.Forms;
 using SnowConeTycoon.Shared.Handlers;
@@ -20,6 +21,7 @@ namespace SnowConeTycoon.Shared.Screens
         BusinessDayResult Results = new BusinessDayResult();
         SnowConeTycoonGame Game;
         int CoinDisplay = 0;
+        FadeOutImage FastForwardImage;
 
         public OpenForBusinessScreen(SnowConeTycoonGame game, double scaleX, double scaleY)
         {
@@ -28,6 +30,7 @@ namespace SnowConeTycoon.Shared.Screens
             ScaleX = scaleX;
             ScaleY = scaleY;
             Form = new Form(0, 0);
+            FastForwardImage = new FadeOutImage("FastForwardIcon", new Vector2(Defaults.GraphicsWidth / 2, Defaults.GraphicsHeight / 2), 2000);
         }
 
         public void AddCoinDisplay(int count)
@@ -44,6 +47,7 @@ namespace SnowConeTycoon.Shared.Screens
             Player.GameSpeed = GameSpeed.x1;
             Results = results;
             CoinDisplay = Player.CoinCount;
+            FastForwardImage.Reset();
         }
 
         public void HandleInput(TouchCollection previousTouchCollection, TouchCollection currentTouchCollection, GameTime gameTime)
@@ -54,6 +58,11 @@ namespace SnowConeTycoon.Shared.Screens
         public void Update(GameTime gameTime)
         {
             Customer.Update(gameTime);
+
+            if (Player.GameSpeed == GameSpeed.x2)
+            {
+                FastForwardImage.Update(gameTime);
+            }
         }
 
         public void Draw(SpriteBatch spriteBatch)
@@ -78,6 +87,11 @@ namespace SnowConeTycoon.Shared.Screens
             spriteBatch.DrawString(Defaults.Font, CoinDisplay.ToString(), new Vector2(222, 37), Defaults.Brown);
             spriteBatch.DrawString(Defaults.Font, CoinDisplay.ToString(), new Vector2(220, 35), Defaults.Cream);
             Customer.Draw(spriteBatch);
+
+            if (Player.GameSpeed == GameSpeed.x2)
+            {
+                FastForwardImage.Draw(spriteBatch);
+            }
         }
     }
 }

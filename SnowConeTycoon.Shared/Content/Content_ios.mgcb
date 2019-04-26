@@ -1129,6 +1129,18 @@
 /processorParam:Quality=Best
 /build:Fast Forward.wav
 
+#begin FastForwardIcon.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:FastForwardIcon.png
+
 #begin Game Coin.wav
 /importer:WavImporter
 /processor:SoundEffectProcessor
@@ -2239,6 +2251,30 @@
 /processorParam:Quality=Best
 /build:pop.wav
 
+#begin RadioButtonOff.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:RadioButtonOff.png
+
+#begin RadioButtonOn.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:RadioButtonOn.png
+
 #begin Results_Next.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -2298,6 +2334,18 @@
 /processor:SoundEffectProcessor
 /processorParam:Quality=Best
 /build:SCTOpenForBusiness.wav
+
+#begin SettingsModal.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:SettingsModal.png
 
 #begin SupplyShop_Background.png
 /importer:TextureImporter
@@ -2523,6 +2571,18 @@
 
 #begin Visitor.xnb
 /copy:Visitor.xnb
+
+#begin WatchAdModal.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:WatchAdModal.png
 
 #begin WhiteDot.png
 /importer:TextureImporter

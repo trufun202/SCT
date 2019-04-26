@@ -115,7 +115,7 @@ namespace SnowConeTycoon.Shared.Screens
             Results = results;
 
             Player.AddCoins(results.CoinsEarned);
-            Player.AddSold(results.NPSPromoters); //clb switching to NPS promoters only instead of pure sold count...making it harder to progress
+            Player.AddSold(results.NPSPromoters + results.NPSPassives); //clb switching to NPS promoters and passives only instead of pure sold count...making it harder to progress
 
             unlockModal.Active = false;
 
@@ -347,10 +347,20 @@ namespace SnowConeTycoon.Shared.Screens
 
                     spriteBatch.DrawString(Defaults.Font, forecast, ForecastImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString(forecast) / 2, 0.6f, SpriteEffects.None, 1f);
                     TemperatureImage.Draw(spriteBatch);
-                    spriteBatch.DrawString(Defaults.Font, $"{CurrentTemperature}", TemperatureImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"{CurrentTemperature}") / 2, 0.6f, SpriteEffects.None, 1f);
 
-                    var degrees = "          o";
-                    spriteBatch.DrawString(Defaults.Font, degrees, TemperatureImage.Position, Defaults.Brown, -0.1f, new Vector2(Defaults.Font.MeasureString(degrees).X / 2, (Defaults.Font.MeasureString(degrees).Y / 2) + 50), 0.6f, SpriteEffects.None, 1f);
+                    var temp = CurrentTemperature;
+                    var symbol = "F";
+
+                    if (Player.Degrees == Degrees.Celsius)
+                    {
+                        temp = Utilities.ConvertToCelsius(CurrentTemperature);
+                        symbol = "C";
+                    }
+
+                    spriteBatch.DrawString(Defaults.Font, $"{temp}     {symbol}", TemperatureImage.Position, Defaults.Brown, -0.1f, Defaults.Font.MeasureString($"{temp}     {symbol}") / 2, 0.6f, SpriteEffects.None, 1f);
+
+                    var degrees = "    o";
+                    spriteBatch.DrawString(Defaults.Font, degrees, TemperatureImage.Position, Defaults.Brown, -0.1f, new Vector2(Defaults.Font.MeasureString(degrees).X / 2, (Defaults.Font.MeasureString(degrees).Y / 2) + 50), 0.5f, SpriteEffects.None, 1f);
                     if (ShowingDetractors)
                     {
                         DetractorImage.Draw(spriteBatch);

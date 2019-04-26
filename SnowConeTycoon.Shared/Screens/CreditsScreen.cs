@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -85,7 +86,7 @@ namespace SnowConeTycoon.Shared.Screens
         {
             var credits = new List<string>();
 
-            credits.Add("snow cone tycoon");
+            credits.Add("snow cone tycoon " + Defaults.VersionNumber);
             credits.Add("(c) 2019 chros games");
             credits.Add("chrosgames.com");
             credits.Add("");

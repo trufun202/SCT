@@ -5,14 +5,14 @@ using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Media;
+using SnowConeTycoon.Shared.Models;
 
 namespace SnowConeTycoon.Shared.Handlers
 {
     public static class ContentHandler
     {
         public static Dictionary<string, Texture2D> Images;
-        public static Dictionary<string, SoundEffect> Sounds;
-        public static Dictionary<string, Song> Songs;
+        public static Dictionary<string, ControlledSoundEffect> Sounds;
 
         public static void PreInit(ContentManager content)
         {
@@ -85,8 +85,7 @@ namespace SnowConeTycoon.Shared.Handlers
 
         public static void Init(ContentManager content)
         {
-            Sounds = new Dictionary<string, SoundEffect>();
-            Songs = new Dictionary<string, Song>();
+            Sounds = new Dictionary<string, ControlledSoundEffect>();
 
             //////////////////////////
             // BACKGROUNDS
@@ -136,6 +135,9 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("AdReward_Modal", content.Load<Texture2D>("AdReward_Modal"));
             Images.Add("Tutorial_Paper", content.Load<Texture2D>("Tutorial_Paper"));
             Images.Add("Tutorial_Arrow", content.Load<Texture2D>("Tutorial_Arrow"));
+            Images.Add("SettingsModal", content.Load<Texture2D>("SettingsModal"));
+            Images.Add("RadioButtonOn", content.Load<Texture2D>("RadioButtonOn"));
+            Images.Add("RadioButtonOff", content.Load<Texture2D>("RadioButtonOff"));
 
             ///////////////////////////////////////////
             //DAY SETUP
@@ -166,6 +168,8 @@ namespace SnowConeTycoon.Shared.Handlers
             Images.Add("DaySetup_OutOfIce", content.Load<Texture2D>("DaySetup_OutOfIce"));
             Images.Add("DaySetup_NoSyrup", content.Load<Texture2D>("DaySetup_NoSyrup"));
             Images.Add("UnlockModal", content.Load<Texture2D>("UnlockModal"));
+            Images.Add("FastForwardIcon", content.Load<Texture2D>("FastForwardIcon"));
+            Images.Add("WatchAdModal", content.Load<Texture2D>("WatchAdModal"));
 
             ///////////////////////////////////////////
             //SUPPLY SHOP
@@ -180,29 +184,29 @@ namespace SnowConeTycoon.Shared.Handlers
             ///////////////////////////////////////////
             //SOUNDS
             ///////////////////////////////////////////
-            Sounds.Add("pop", content.Load<SoundEffect>("pop"));
-            Sounds.Add("Swoosh", content.Load<SoundEffect>("Swoosh"));
-            Sounds.Add("Game Coin", content.Load<SoundEffect>("Game Coin"));
-            Sounds.Add("Cash Register Fast", content.Load<SoundEffect>("Cash Register Fast"));
-            Sounds.Add("Magic Wand 1", content.Load<SoundEffect>("Magic Wand 1"));
-            Sounds.Add("Ice_Cube", content.Load<SoundEffect>("Ice_Cube"));
-            Sounds.Add("ChrosGame_Logo", content.Load<SoundEffect>("ChrosGame_Logo"));
-            Sounds.Add("Ding", content.Load<SoundEffect>("Ding"));
-            Sounds.Add("Fast Forward", content.Load<SoundEffect>("Fast Forward"));
-            Sounds.Add("kids_cheer", content.Load<SoundEffect>("kids_cheer"));
-            Sounds.Add("kids_aww", content.Load<SoundEffect>("kids_aww"));
-            Sounds.Add("kids_boo", content.Load<SoundEffect>("kids_boo"));
-            Sounds.Add("Picker_Down", content.Load<SoundEffect>("Picker_Down"));
-            Sounds.Add("Picker_Up", content.Load<SoundEffect>("Picker_Up"));
-            Sounds.Add("Oops", content.Load<SoundEffect>("Oops"));
-            Sounds.Add("Unlock", content.Load<SoundEffect>("Unlock"));
+            Sounds.Add("pop", new ControlledSoundEffect(content.Load<SoundEffect>("pop").CreateInstance()));
+            Sounds.Add("Swoosh", new ControlledSoundEffect(content.Load<SoundEffect>("Swoosh").CreateInstance()));
+            Sounds.Add("Game Coin", new ControlledSoundEffect(content.Load<SoundEffect>("Game Coin").CreateInstance()));
+            Sounds.Add("Cash Register Fast", new ControlledSoundEffect(content.Load<SoundEffect>("Cash Register Fast").CreateInstance()));
+            Sounds.Add("Magic Wand 1", new ControlledSoundEffect(content.Load<SoundEffect>("Magic Wand 1").CreateInstance()));
+            Sounds.Add("Ice_Cube", new ControlledSoundEffect(content.Load<SoundEffect>("Ice_Cube").CreateInstance()));
+            Sounds.Add("ChrosGame_Logo", new ControlledSoundEffect(content.Load<SoundEffect>("ChrosGame_Logo").CreateInstance()));
+            Sounds.Add("Ding", new ControlledSoundEffect(content.Load<SoundEffect>("Ding").CreateInstance()));
+            Sounds.Add("Fast Forward", new ControlledSoundEffect(content.Load<SoundEffect>("Fast Forward").CreateInstance()));
+            Sounds.Add("kids_cheer", new ControlledSoundEffect(content.Load<SoundEffect>("kids_cheer").CreateInstance()));
+            Sounds.Add("kids_aww", new ControlledSoundEffect(content.Load<SoundEffect>("kids_aww").CreateInstance()));
+            Sounds.Add("kids_boo", new ControlledSoundEffect(content.Load<SoundEffect>("kids_boo").CreateInstance()));
+            Sounds.Add("Picker_Down", new ControlledSoundEffect(content.Load<SoundEffect>("Picker_Down").CreateInstance()));
+            Sounds.Add("Picker_Up", new ControlledSoundEffect(content.Load<SoundEffect>("Picker_Up").CreateInstance()));
+            Sounds.Add("Oops", new ControlledSoundEffect(content.Load<SoundEffect>("Oops").CreateInstance()));
+            Sounds.Add("Unlock", new ControlledSoundEffect(content.Load<SoundEffect>("Unlock").CreateInstance()));
 
             ///////////////////////////////////////////
             //SONGS
             ///////////////////////////////////////////
-            Sounds.Add("SCTMainTheme", content.Load<SoundEffect>("SCTMainTheme"));
-            Sounds.Add("SCTOpenForBusiness", content.Load<SoundEffect>("SCTOpenForBusiness"));
-            Sounds.Add("CreditsSong", content.Load<SoundEffect>("CreditsSong"));
+            Sounds.Add("SCTMainTheme", new ControlledSoundEffect(content.Load<SoundEffect>("SCTMainTheme").CreateInstance()));
+            Sounds.Add("SCTOpenForBusiness", new ControlledSoundEffect(content.Load<SoundEffect>("SCTOpenForBusiness").CreateInstance()));
+            Sounds.Add("CreditsSong", new ControlledSoundEffect(content.Load<SoundEffect>("CreditsSong").CreateInstance()));
         }
     }
 }

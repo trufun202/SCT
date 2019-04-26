@@ -19,6 +19,12 @@ namespace SnowConeTycoon.Shared.Enums
         Credits
     }
 
+    public enum Degrees
+    {
+        Fahrenheit,
+        Celsius
+    }
+
     public enum TutorialType
     {
         DaySetup,

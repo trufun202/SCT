@@ -11,7 +11,6 @@ namespace SnowConeTycoon.Shared
 
         public int Time = 0;
         public int TimeTotal = 0;
-        private bool IsLooping = false;
         private bool IsComplete = false;
         private EventMethod Method;
         private int InvokeCount = 0;

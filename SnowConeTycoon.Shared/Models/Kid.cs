@@ -38,8 +38,8 @@ namespace SnowConeTycoon.Shared.Kids
             Name = name;
             Image = ContentHandler.Images[avatar];
             Eyes = ContentHandler.Images[eyes];
-            //MakeHappy();
-            MakeMad();
+            MakeHappy();
+            //MakeMad();
 
             EyeClosingEvent = new TimedEvent(3000, () => { IsBlinking = true; EyeOpeningEvent.Reset(); }, -1);
             EyeOpeningEvent = new TimedEvent(150, () => { IsBlinking = false; EyeClosingEvent.Reset(); }, -1);
@@ -79,9 +79,9 @@ namespace SnowConeTycoon.Shared.Kids
         public void SetGameSpeedx2()
         {
             gameSpeed = GameSpeed.x2;
-            EyeClosingEvent.TimeTotal = 3000;
-            EyeOpeningEvent.TimeTotal = 150;
-            EmotionEvent.TimeTotal = 6000;
+            EyeClosingEvent.TimeTotal = 1000;
+            EyeOpeningEvent.TimeTotal = 50;
+            EmotionEvent.TimeTotal = 2000;
         }
 
         public void Unlock()
@@ -146,8 +146,8 @@ namespace SnowConeTycoon.Shared.Kids
 
         public string GetName()
         {
-            if (IsLocked)
-                return "???";
+            //if (IsLocked)
+            //   return "???";
 
             return Name;
         }
